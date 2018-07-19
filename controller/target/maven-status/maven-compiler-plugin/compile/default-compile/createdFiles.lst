@@ -1,0 +1,7 @@
+by\epam\controller\CommandProvider.class
+by\epam\controller\command\impl\MainPage.class
+by\epam\controller\command\impl\JSPPagePath.class
+by\epam\controller\CommandResourceManager.class
+by\epam\controller\command\Command.class
+by\epam\controller\command\impl\Localization.class
+by\epam\controller\Controller.class
