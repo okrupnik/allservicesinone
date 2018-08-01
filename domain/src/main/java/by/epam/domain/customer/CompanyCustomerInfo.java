@@ -4,8 +4,7 @@ public class CompanyCustomerInfo {
 	
 	private String nameCompany;
 	private String nameAgent;
-	private String surname;
-	private String address;
+	private String surnameAgent;
 	private String requisites;
 	private String description;
 	
@@ -13,12 +12,11 @@ public class CompanyCustomerInfo {
 		
 	}
 
-	public CompanyCustomerInfo(String nameCompany, String nameAgent, String surname, String address, String requisites,
+	public CompanyCustomerInfo(String nameCompany, String nameAgent, String surnameAgent, String requisites,
 			String description) {
 		this.nameCompany = nameCompany;
 		this.nameAgent = nameAgent;
-		this.surname = surname;
-		this.address = address;
+		this.surnameAgent = surnameAgent;
 		this.requisites = requisites;
 		this.description = description;
 	}
@@ -39,20 +37,12 @@ public class CompanyCustomerInfo {
 		this.nameAgent = nameAgent;
 	}
 
-	public String getSurname() {
-		return surname;
+	public String getSurnameAgent() {
+		return surnameAgent;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
+	public void setSurnameAgent(String surnameAgent) {
+		this.surnameAgent = surnameAgent;
 	}
 
 	public String getRequisites() {
@@ -75,12 +65,11 @@ public class CompanyCustomerInfo {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((nameAgent == null) ? 0 : nameAgent.hashCode());
 		result = prime * result + ((nameCompany == null) ? 0 : nameCompany.hashCode());
 		result = prime * result + ((requisites == null) ? 0 : requisites.hashCode());
-		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
+		result = prime * result + ((surnameAgent == null) ? 0 : surnameAgent.hashCode());
 		return result;
 	}
 
@@ -93,11 +82,6 @@ public class CompanyCustomerInfo {
 		if (getClass() != obj.getClass())
 			return false;
 		CompanyCustomerInfo other = (CompanyCustomerInfo) obj;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
 		if (description == null) {
 			if (other.description != null)
 				return false;
@@ -118,10 +102,10 @@ public class CompanyCustomerInfo {
 				return false;
 		} else if (!requisites.equals(other.requisites))
 			return false;
-		if (surname == null) {
-			if (other.surname != null)
+		if (surnameAgent == null) {
+			if (other.surnameAgent != null)
 				return false;
-		} else if (!surname.equals(other.surname))
+		} else if (!surnameAgent.equals(other.surnameAgent))
 			return false;
 		return true;
 	}

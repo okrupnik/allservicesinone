@@ -13,7 +13,7 @@ public class NaturalCustomerInfo {
 		this.name = name;
 		this.surname = surname;
 	}
-
+	
 	public String getName() {
 		return name;
 	}

@@ -12,21 +12,23 @@ import by.epam.domain.user.User;
 
 public interface UserDAO {
 
+	User create(User user) throws DAOException;
+	
 	User create(User user, Customer customer) throws DAOException;
 
 	User create(User user, Performer performer) throws DAOException;
 
-	User checkUser(String login, String password) throws DAOException;
+	User checkUser(String username, String password) throws DAOException;
 
-	User checkLoginUser(String login) throws DAOException;
+	String checkUsername(String username) throws DAOException;
 
-	Customer getCustomer(String login) throws DAOException;	
+	Customer getCustomer(String username) throws DAOException;	
 
-	Performer getPerformer(String login) throws DAOException;
+	Performer getPerformer(String username) throws DAOException;
 
 	boolean editCustomer(Customer customer) throws DAOException;
 
 	boolean editPerformer(Performer performer) throws DAOException;
 	
-	User delete(String login) throws DAOException;
+	User delete(String username) throws DAOException;
 }

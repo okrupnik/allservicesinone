@@ -1,7 +1,6 @@
 package by.epam.controller.command.impl;
 
 import java.io.IOException;
-import java.util.Locale;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,12 +14,12 @@ public class MainPage implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String local = null;
-		local = (String) request.getSession().getAttribute("local");
+		local = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 		if (local == null) {
-			local = request.getParameter("local");
+			local = request.getParameter(ParamAndAttribute.LOCALE_PARAM_NAME);
 		}
 //		String getParam = request.getLocale().getLanguage();
-		request.getSession(true).setAttribute("local", local);
+		request.getSession(true).setAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE, local);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.MAIN_PAGE);
 		try {

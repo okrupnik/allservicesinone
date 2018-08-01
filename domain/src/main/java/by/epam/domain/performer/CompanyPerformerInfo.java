@@ -4,17 +4,17 @@ public class CompanyPerformerInfo {
 	
 	private String nameCompany;
 	private String nameAgent;
-	private String surname;	
+	private String surnameAgent;	
 	private String description;
 	
 	public CompanyPerformerInfo() {
 		
 	}
 
-	public CompanyPerformerInfo(String nameCompany, String nameAgent, String surname, String description) {
+	public CompanyPerformerInfo(String nameCompany, String nameAgent, String surnameAgent, String description) {
 		this.nameCompany = nameCompany;
 		this.nameAgent = nameAgent;
-		this.surname = surname;
+		this.surnameAgent = surnameAgent;
 		this.description = description;
 	}
 
@@ -34,12 +34,12 @@ public class CompanyPerformerInfo {
 		this.nameAgent = nameAgent;
 	}
 
-	public String getSurname() {
-		return surname;
+	public String getSurnameAgent() {
+		return surnameAgent;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
+	public void setSurnameAgent(String surnameAgent) {
+		this.surnameAgent = surnameAgent;
 	}
 
 	public String getDescription() {
@@ -57,7 +57,7 @@ public class CompanyPerformerInfo {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((nameAgent == null) ? 0 : nameAgent.hashCode());
 		result = prime * result + ((nameCompany == null) ? 0 : nameCompany.hashCode());
-		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
+		result = prime * result + ((surnameAgent == null) ? 0 : surnameAgent.hashCode());
 		return result;
 	}
 
@@ -85,10 +85,10 @@ public class CompanyPerformerInfo {
 				return false;
 		} else if (!nameCompany.equals(other.nameCompany))
 			return false;
-		if (surname == null) {
-			if (other.surname != null)
+		if (surnameAgent == null) {
+			if (other.surnameAgent != null)
 				return false;
-		} else if (!surname.equals(other.surname))
+		} else if (!surnameAgent.equals(other.surnameAgent))
 			return false;
 		return true;
 	}

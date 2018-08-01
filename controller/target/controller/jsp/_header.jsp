@@ -12,15 +12,15 @@
 <fmt:message bundle="${loc}" key="locale.header.button.performers.text"	var="buttonPerformer" />
 <fmt:message bundle="${loc}" key="locale.header.button.createtask.text"	var="buttonCreateTask" />
 <fmt:message bundle="${loc}" key="locale.header.button.alltasks.text"	var="buttonAllTask" />
-<fmt:message bundle="${loc}" key="locale.loginform.button.signin.text"	var="buttonSignIn" />
-<fmt:message bundle="${loc}" key="locale.loginform.button.create.text"	var="buttonCreateAccount" />
+<fmt:message bundle="${loc}" key="locale.header.loginform.button.signin.text"	var="buttonSignIn" />
+<fmt:message bundle="${loc}" key="locale.header.loginform.button.create.text"	var="buttonCreateAccount" />
 
 <div class="mainmenu-wrapper">
 	<div class="container">
 		<div class="menuextras">
 			<div class="extras">
 				<ul>
-				<li><a href="page-login.html">${buttonSignIn}</a></li>
+				<li><a href="${pageContext.request.contextPath}/jsp/login.jsp">${buttonSignIn}</a></li>
 				<li><a href="page-login.html">${buttonCreateAccount}</a></li>
 					<li>
 						<div class="dropdown choose-country">

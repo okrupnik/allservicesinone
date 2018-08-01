@@ -5,28 +5,25 @@
 
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>All services in one</title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width">
-	
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
-	<link rel="stylesheet"
-		href="${pageContext.request.contextPath}/css/icomoon-social.css">	
-	<link
-		href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800'
-		rel='stylesheet' type='text/css'>
-	<link rel="stylesheet"
-		href="${pageContext.request.contextPath}/css/leaflet.css" />
-	<link rel="stylesheet"
-		href="${pageContext.request.contextPath}/css/main.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>All services in one</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
 
-	<script
-	src="${pageContext.request.contextPath}/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon-social.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/leaflet.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
+
+    <script src="${pageContext.request.contextPath}/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 </head>
 <body>
 	<jsp:include page="_header.jsp"></jsp:include>
+	<jsp:include page="_press.jsp"></jsp:include>	
+	<jsp:include page="_services.jsp"></jsp:include>
+	<jsp:include page="_footer.jsp"></jsp:include>  
 	
 	
 	<!-- Javascripts -->

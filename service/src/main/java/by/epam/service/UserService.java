@@ -12,22 +12,24 @@ import by.epam.domain.user.User;
 import by.epam.service.exception.ServiceException;
 
 public interface UserService {
-
-	User create(User user, Customer customer, String locale) throws DAOException;
-
-	User create(User user, Performer performer, String locale) throws DAOException;
-
-	User logination(String login, String password, String locale) throws ServiceException;
-
-	User checkLoginUser(String login, String locale) throws ServiceException;
-
-	Customer getCustomer(String login, String locale) throws DAOException;
 	
-	Performer getPerformer(String login, String locale) throws DAOException;
+	User create(User user, String locale) throws ServiceException;
+
+	User create(User user, Customer customer, String locale) throws ServiceException;
+
+	User create(User user, Performer performer, String locale) throws ServiceException;
+
+	User logination(String username, String password, String locale) throws ServiceException;
+
+	User checkUsername(String username, String locale) throws ServiceException;
+
+	Customer getCustomer(String username, String locale) throws ServiceException;
 	
-	boolean editCustomer(Customer customer, String locale) throws DAOException;
+	Performer getPerformer(String username, String locale) throws ServiceException;
 	
-	boolean editPerformer(Performer performer, String locale) throws DAOException;
+	boolean editCustomer(Customer customer, String locale) throws ServiceException;
 	
-	User delete(String login, String locale) throws ServiceException;
+	boolean editPerformer(Performer performer, String locale) throws ServiceException;
+	
+	User delete(String username, String locale) throws ServiceException;
 }

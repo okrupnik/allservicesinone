@@ -4,7 +4,6 @@ public class LegalCustomerInfo {
 	
 	private String name;
 	private String surname;
-	private String address;
 	private String requisites;
 	private String copyRegistration;
 	
@@ -12,10 +11,9 @@ public class LegalCustomerInfo {
 		
 	}
 
-	public LegalCustomerInfo(String name, String surname, String address, String requisites, String copyRegistration) {
+	public LegalCustomerInfo(String name, String surname, String requisites, String copyRegistration) {
 		this.name = name;
 		this.surname = surname;
-		this.address = address;
 		this.requisites = requisites;
 		this.copyRegistration = copyRegistration;
 	}
@@ -34,14 +32,6 @@ public class LegalCustomerInfo {
 
 	public void setSurname(String surname) {
 		this.surname = surname;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
 	}
 
 	public String getRequisites() {
@@ -64,7 +54,6 @@ public class LegalCustomerInfo {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((copyRegistration == null) ? 0 : copyRegistration.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((requisites == null) ? 0 : requisites.hashCode());
@@ -81,11 +70,6 @@ public class LegalCustomerInfo {
 		if (getClass() != obj.getClass())
 			return false;
 		LegalCustomerInfo other = (LegalCustomerInfo) obj;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
 		if (copyRegistration == null) {
 			if (other.copyRegistration != null)
 				return false;

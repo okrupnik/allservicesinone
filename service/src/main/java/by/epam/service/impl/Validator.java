@@ -7,7 +7,7 @@ public class Validator {
 
 	private static final String PASSWORD_PATTERN = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,40}$";
 	private static final String EMAIL_PATTERN = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
-	private static final String PHONE_NUMBER_PATTERN = "^(\\+375|80)-\\d{2}-\\d{3}\\d{2}\\d{2}$";
+	private static final String PHONE_NUMBER_PATTERN = "^(\\+375|80)\\d{2}\\d{3}\\d{2}\\d{2}$";
 
 	private static Pattern pattern;
 	private static Matcher matcher;

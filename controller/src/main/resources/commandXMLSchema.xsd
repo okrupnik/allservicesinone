@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.allservicesinone.org/commandXMLSchema">
+
+	<element name="commands">
+		<complexType>
+			<sequence>
+				<element name="command" maxOccurs="unbounded" minOccurs="0">
+					<complexType>
+						<attribute name="commandName" type="string"	use="required"/>
+						<attribute name="className" type="string" use="required"/>
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+
+</schema>

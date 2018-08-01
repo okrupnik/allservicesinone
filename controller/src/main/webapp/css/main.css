@@ -2546,6 +2546,22 @@ span.color-red {
 .menuextras .extras .shopping-cart-items i {
   color: #333;
 }
+.menuextras .choose-user-option .dropdown-menu {
+  background-color: #222;
+  background-color: rgba(34, 34, 34, 0.8);
+  margin-top: 5px;
+}
+.menuextras .choose-user-option .dropdown-menu li {
+  float: none;
+}
+.menuextras .choose-user-option .dropdown-menu li a {
+  color: #fff;
+  padding-left: 3px;
+}
+.menuextras .choose-user-option .dropdown-menu li a:hover {
+  color: #fff;
+  background-color: #333 !important;
+}
 .menuextras .choose-country .dropdown-menu {
   background-color: #222;
   background-color: rgba(34, 34, 34, 0.8);

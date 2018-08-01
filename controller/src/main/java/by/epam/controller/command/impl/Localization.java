@@ -12,8 +12,8 @@ public class Localization implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String local = request.getParameter("local");
-		request.getSession(true).setAttribute("local", local);
+		String local = request.getParameter(ParamAndAttribute.LOCALE_PARAM_NAME);
+		request.getSession(true).setAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE, local);
 
 		String referer = request.getHeader("Referer");
 		response.sendRedirect(referer);
