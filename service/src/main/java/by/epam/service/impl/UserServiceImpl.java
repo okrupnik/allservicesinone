@@ -36,16 +36,16 @@ public class UserServiceImpl implements UserService {
 		UserDAO userDAO = daoFactory.getUserDAO();
 
 		if (user.getUsername().isEmpty()) {
-			if (locale.equals("ru")) {
-				errorOfCreating.put("username", "Поле имя пользователя пусто");
+			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+				errorOfCreating.put(ServiceConstant.USERNAME_PARAM_NAME, "Поле имя пользователя пусто");
 			} else {
-				errorOfCreating.put("username", "Username is empty");
+				errorOfCreating.put(ServiceConstant.USERNAME_PARAM_NAME, "Username is empty");
 			}
 		} else {
 			try {
 				userName = userDAO.checkUsername(user.getUsername());
 			} catch (DAOException e) {
-				if (locale.equals("ru")) {
+				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
 					user = null;
 					throw new ServiceException("Ошибка проверки пользователя");
 				} else {
@@ -54,69 +54,69 @@ public class UserServiceImpl implements UserService {
 				}
 			}
 			if (userName != null) {
-				if (locale.equals("ru")) {
-					errorOfCreating.put("username", "Пользователь с таким именем уже существует");
+				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+					errorOfCreating.put(ServiceConstant.USERNAME_PARAM_NAME, "Пользователь с таким именем уже существует");
 				} else {
-					errorOfCreating.put("username", "The user with such name has already existed");
+					errorOfCreating.put(ServiceConstant.USERNAME_PARAM_NAME, "The user with such name has already existed");
 				}
 			} else {
-				tempDataForError.put("username", user.getUsername());
+				tempDataForError.put(ServiceConstant.USERNAME_PARAM_NAME, user.getUsername());
 			}
 		}
 
 		if (user.getPassword().isEmpty()) {
-			if (locale.equals("ru")) {
-				errorOfCreating.put("password", "Поле пароль пусто");
+			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+				errorOfCreating.put(ServiceConstant.PASSWORD_PARAM_NAME, "Поле пароль пусто");
 			} else {
-				errorOfCreating.put("password", "Password is empty");
+				errorOfCreating.put(ServiceConstant.PASSWORD_PARAM_NAME, "Password is empty");
 			}
 		} else {
 			if (!Validator.validatePassword(user.getPassword())) {
-				if (locale.equals("ru")) {
-					errorOfCreating.put("password",
+				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+					errorOfCreating.put(ServiceConstant.PASSWORD_PARAM_NAME,
 							"Ваш пароль должен состоять минимум из восьми символов, по крайней мере, одной заглавной буквы, одной строчной буквы и одной цифры");
 				} else {
-					errorOfCreating.put("password",
+					errorOfCreating.put(ServiceConstant.PASSWORD_PARAM_NAME,
 							"Your password must consist of minimum eight characters, at least one uppercase letter, one lowercase letter and one number");
 				}
 			} else {
-				tempDataForError.put("password", user.getPassword());
+				tempDataForError.put(ServiceConstant.PASSWORD_PARAM_NAME, user.getPassword());
 			}
 		}
 
 		if (user.getEmail().isEmpty()) {
-			if (locale.equals("ru")) {
-				errorOfCreating.put("email", "Поле email пусто");
+			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+				errorOfCreating.put(ServiceConstant.EMAIL_PARAM_NAME, "Поле email пусто");
 			} else {
-				errorOfCreating.put("email", "Email is empty");
+				errorOfCreating.put(ServiceConstant.EMAIL_PARAM_NAME, "Email is empty");
 			}
 		} else {
 			if (!Validator.validateEmail(user.getEmail())) {
-				if (locale.equals("ru")) {
-					errorOfCreating.put("email", "Вы ввели некорректный email");
+				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+					errorOfCreating.put(ServiceConstant.EMAIL_PARAM_NAME, "Вы ввели некорректный email");
 				} else {
-					errorOfCreating.put("email", "You entered incorrect email");
+					errorOfCreating.put(ServiceConstant.EMAIL_PARAM_NAME, "You entered incorrect email");
 				}
 			} else {
-				tempDataForError.put("email", user.getEmail());
+				tempDataForError.put(ServiceConstant.EMAIL_PARAM_NAME, user.getEmail());
 			}
 		}
 
 		if (user.getPhoneNumber().isEmpty()) {
-			if (locale.equals("ru")) {
-				errorOfCreating.put("phoneNumber", "Поле телефон пусто");
+			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+				errorOfCreating.put(ServiceConstant.PHONE_NUMBER_PARAM_NAME, "Поле телефон пусто");
 			} else {
-				errorOfCreating.put("phoneNumber", "PhoneNumber is empty");
+				errorOfCreating.put(ServiceConstant.PHONE_NUMBER_PARAM_NAME, "PhoneNumber is empty");
 			}
 		} else {
 			if (!Validator.validatePhoneNumber(user.getPhoneNumber())) {
-				if (locale.equals("ru")) {
-					errorOfCreating.put("phoneNumber", "Вы ввели некорректный мобильный номер");
+				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+					errorOfCreating.put(ServiceConstant.PHONE_NUMBER_PARAM_NAME, "Вы ввели некорректный мобильный номер");
 				} else {
-					errorOfCreating.put("phoneNumber", "You entered incorrect mobile number");
+					errorOfCreating.put(ServiceConstant.PHONE_NUMBER_PARAM_NAME, "You entered incorrect mobile number");
 				}
 			} else {
-				tempDataForError.put("phoneNumber", user.getPhoneNumber());
+				tempDataForError.put(ServiceConstant.PHONE_NUMBER_PARAM_NAME, user.getPhoneNumber());
 			}
 		}
 
@@ -124,44 +124,44 @@ public class UserServiceImpl implements UserService {
 			try {
 				user = userDAO.create(user);
 			} catch (DAOException e) {
-				if (locale.equals("ru")) {
+				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
 					throw new ServiceException("Ошибка создания пользователя");
 				} else {
 					throw new ServiceException("Error of creating user");
 				}
 			}
 		} else {
-			tempDataForError.put("address", user.getAddress());
-			tempDataForError.put("phoneNumber", user.getPhoneNumber());			
-			if (user.getPerson().getTypePerson().equals("customer") && user.getCustomer().getOwnership().getFormOwnership().equals("natural")) {
-				tempDataForError.put("name", user.getCustomer().getNaturalCustomerInfo().getName());
-				tempDataForError.put("surname", user.getCustomer().getNaturalCustomerInfo().getSurname());
+			tempDataForError.put(ServiceConstant.ADDRESS_PARAM_NAME, user.getAddress());
+			tempDataForError.put(ServiceConstant.PHONE_NUMBER_PARAM_NAME, user.getPhoneNumber());			
+			if (user.getPerson().getTypePerson().equals(ServiceConstant.CUSTOMER_PARAM_NAME) && user.getCustomer().getOwnership().getFormOwnership().equals(ServiceConstant.CUSTOMER_NATURAL_PARAM_NAME)) {
+				tempDataForError.put(ServiceConstant.NAME_PARAM_NAME, user.getCustomer().getNaturalCustomerInfo().getName());
+				tempDataForError.put(ServiceConstant.SURNAME_PARAM_NAME, user.getCustomer().getNaturalCustomerInfo().getSurname());
 			}
-			if (user.getPerson().getTypePerson().equals("customer") && user.getCustomer().getOwnership().getFormOwnership().equals("legal")) {
-				tempDataForError.put("name", user.getCustomer().getLegalCustomerInfo().getName());
-				tempDataForError.put("surname", user.getCustomer().getLegalCustomerInfo().getSurname());
-				tempDataForError.put("requisites", user.getCustomer().getLegalCustomerInfo().getRequisites());
+			if (user.getPerson().getTypePerson().equals(ServiceConstant.CUSTOMER_PARAM_NAME) && user.getCustomer().getOwnership().getFormOwnership().equals(ServiceConstant.CUSTOMER_LEGAL_PARAM_NAME)) {
+				tempDataForError.put(ServiceConstant.NAME_PARAM_NAME, user.getCustomer().getLegalCustomerInfo().getName());
+				tempDataForError.put(ServiceConstant.SURNAME_PARAM_NAME, user.getCustomer().getLegalCustomerInfo().getSurname());
+				tempDataForError.put(ServiceConstant.REQUISITES_PARAM_NAME, user.getCustomer().getLegalCustomerInfo().getRequisites());
 			}
-			if (user.getPerson().getTypePerson().equals("customer") && user.getCustomer().getOwnership().getFormOwnership().equals("company")) {
-				tempDataForError.put("requisites", user.getCustomer().getCompanyCustomerInfo().getRequisites());
-				tempDataForError.put("namecompany", user.getCustomer().getCompanyCustomerInfo().getNameCompany());
-				tempDataForError.put("nameagent", user.getCustomer().getCompanyCustomerInfo().getNameAgent());
-				tempDataForError.put("surnameagent", user.getCustomer().getCompanyCustomerInfo().getSurnameAgent());
-				tempDataForError.put("description", user.getCustomer().getCompanyCustomerInfo().getDescription());
+			if (user.getPerson().getTypePerson().equals(ServiceConstant.CUSTOMER_PARAM_NAME) && user.getCustomer().getOwnership().getFormOwnership().equals(ServiceConstant.CUSTOMER_COMPANY_PARAM_NAME)) {
+				tempDataForError.put(ServiceConstant.REQUISITES_PARAM_NAME, user.getCustomer().getCompanyCustomerInfo().getRequisites());
+				tempDataForError.put(ServiceConstant.COMPANY_PARAM_NAME, user.getCustomer().getCompanyCustomerInfo().getNameCompany());
+				tempDataForError.put(ServiceConstant.NAME_AGENT_PARAM_NAME, user.getCustomer().getCompanyCustomerInfo().getNameAgent());
+				tempDataForError.put(ServiceConstant.SURNAME_AGENT_PARAM_NAME, user.getCustomer().getCompanyCustomerInfo().getSurnameAgent());
+				tempDataForError.put(ServiceConstant.DESCRIPTION_PARAM_NAME, user.getCustomer().getCompanyCustomerInfo().getDescription());
 			}
-			if (user.getPerson().getTypePerson().equals("performer") && user.getPerformer().getOwnership().getFormOwnership().equals("legal")) {
-				tempDataForError.put("requisites", user.getPerformer().getRequisites());
+			if (user.getPerson().getTypePerson().equals(ServiceConstant.PERFORMER_PARAM_NAME) && user.getPerformer().getOwnership().getFormOwnership().equals(ServiceConstant.PERFORMER_LEGAL_PARAM_NAME)) {
+				tempDataForError.put(ServiceConstant.REQUISITES_PARAM_NAME, user.getPerformer().getRequisites());
 			}
-			if (user.getPerson().getTypePerson().equals("performer") && user.getPerformer().getOwnership().getFormOwnership().equals("company")) {
-				tempDataForError.put("namecompany", user.getPerformer().getCompanyPerformerInfo().getNameCompany());
-				tempDataForError.put("nameagent", user.getPerformer().getCompanyPerformerInfo().getNameAgent());
-				tempDataForError.put("surnameagent", user.getPerformer().getCompanyPerformerInfo().getSurnameAgent());
-				tempDataForError.put("description", user.getPerformer().getCompanyPerformerInfo().getDescription());
+			if (user.getPerson().getTypePerson().equals(ServiceConstant.PERFORMER_PARAM_NAME) && user.getPerformer().getOwnership().getFormOwnership().equals(ServiceConstant.PERFORMER_COMPANY_PARAM_NAME)) {
+				tempDataForError.put(ServiceConstant.COMPANY_PARAM_NAME, user.getPerformer().getCompanyPerformerInfo().getNameCompany());
+				tempDataForError.put(ServiceConstant.NAME_AGENT_PARAM_NAME, user.getPerformer().getCompanyPerformerInfo().getNameAgent());
+				tempDataForError.put(ServiceConstant.SURNAME_AGENT_PARAM_NAME, user.getPerformer().getCompanyPerformerInfo().getSurnameAgent());
+				tempDataForError.put(ServiceConstant.DESCRIPTION_PARAM_NAME, user.getPerformer().getCompanyPerformerInfo().getDescription());
 			}
 
 			ErrorMap.setTempDataForErrors(tempDataForError);
 			ErrorMap.setErrorsOfCreating(errorOfCreating);
-			if (locale.equals("ru")) {
+			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
 				throw new ServiceException("Вы ввели неверные данные");
 			} else {
 				throw new ServiceException("You entered wrong data");
@@ -195,7 +195,7 @@ public class UserServiceImpl implements UserService {
 				try {
 					user = userDAO.checkUser(username, password);
 					if (user.getIsDelete().equals("true")) {
-						if (locale.equals("ru")) {
+						if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
 							user = null;
 							throw new ServiceException("Ваша учетная запись удалена");
 						} else {
@@ -204,21 +204,21 @@ public class UserServiceImpl implements UserService {
 						}
 					}
 				} catch (DAOException e) {
-					if (locale.equals("ru")) {
+					if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
 						throw new ServiceException("Неправильное имя пользователя или пароль");
 					} else {
 						throw new ServiceException("Incorrect username or password");
 					}
 				}
 			} else {
-				if (locale.equals("ru")) {
+				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
 					throw new ServiceException("Поле пароль пусто");
 				} else {
 					throw new ServiceException("Password is empty");
 				}
 			}
 		} else {
-			if (locale.equals("ru")) {
+			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
 				throw new ServiceException("Поле логин пусто");
 			} else {
 				throw new ServiceException("Login is empty");

@@ -31,13 +31,78 @@ public class SQLUserDAO implements UserDAO {
 
 	@Override
 	public User create(User user) throws DAOException {
-		// TODO Auto-generated method stub
+		String roleId = null;
+		String personId = null;
+				
+		
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		ConnectionPool conPool = ConnectionPool.getInstance();
+		Connection connection;
+		try {
+			connection = conPool.takeConnection();
+		} catch (InterruptedException e) {
+			throw new DAOException("The thread was interrupted", e);
+		}
+		
+		try {
+			connection.setAutoCommit(false);
+			
+			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_ROLE_USER);
+			preparedStatement.setString(1, user.getRole().getTypeRole());
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				roleId = resultSet.getString(DAOConstant.ID_PARAM_NAME);				
+			}
+			
+			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_PERSON_USER);
+			preparedStatement.setString(1, user.getPerson().getTypePerson());
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				personId = resultSet.getString(DAOConstant.ID_PARAM_NAME);				
+			}
+			
+			preparedStatement = connection.prepareStatement(SQLRequest.CREATE_USER);
+			preparedStatement.setString(1, user.getUsername());
+			preparedStatement.setString(2, EncryptPassword.byteArrayToHexString(EncryptPassword.computeHash(user.getPassword())));
+			preparedStatement.setString(3, user.getIsDelete());
+			preparedStatement.setString(4, user.getEmail());
+			preparedStatement.setString(5, user.getPhoneNumber());
+			preparedStatement.setString(6, user.getAddress());
+			preparedStatement.setString(7, user.getPhoto());
+			preparedStatement.setString(8, roleId);
+			preparedStatement.setString(9, personId);
+			preparedStatement.executeUpdate();
+			
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+				throw new DAOException("Transaction failed", e);
+			} catch (SQLException sqle) {
+				throw new DAOException("Rollback failed", e);
+			}
+		} finally {
+			try {
+				connection.setAutoCommit(true);
+				if (resultSet != null)
+					resultSet.close();
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (SQLException e) {
+				for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+					log.error(stackTraceElement);
+				}
+			}
+
+		}
+		
 		return null;
 	}
 
 	@Override
 	public User create(User user, Customer customer) throws DAOException {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -82,70 +147,70 @@ public class SQLUserDAO implements UserDAO {
 			preparedStatement.setString(2, EncryptPassword.byteArrayToHexString(EncryptPassword.computeHash(password)));
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				isDelete = resultSet.getString("isDelete");
-				email = resultSet.getString("email");
-				phoneNumber = resultSet.getString("phoneNumber");
-				address = resultSet.getString("address");
-				photo = resultSet.getString("photo");
-				role = resultSet.getString("role");
-				typePerson = resultSet.getString("typePerson");
+				isDelete = resultSet.getString(DAOConstant.IS_DELETE_PARAM_NAME);
+				email = resultSet.getString(DAOConstant.EMAIL_PARAM_NAME);
+				phoneNumber = resultSet.getString(DAOConstant.PHONE_NUMBER_PARAM_NAME);
+				address = resultSet.getString(DAOConstant.ADDRESS_PARAM_NAME);
+				photo = resultSet.getString(DAOConstant.PHOTO_PARAM_NAME);
+				role = resultSet.getString(DAOConstant.ROLE_PARAM_NAME);
+				typePerson = resultSet.getString(DAOConstant.TYPE_PERSON_PARAM_NAME);
 				
 			}
-			if (typePerson.equals("servicePerson")) {
+			if (typePerson.equals(DAOConstant.SERVICE_PERSON_PARAM_NAME)) {
 				preparedStatement = connection.prepareStatement(SQLRequest.SELECT_SERVICE_STAFF);
 				preparedStatement.setString(1, username.toLowerCase());
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
-					name = resultSet.getString("name");
-					surname = resultSet.getString("surname");
+					name = resultSet.getString(DAOConstant.NAME_PARAM_NAME);
+					surname = resultSet.getString(DAOConstant.SURNAME_PARAM_NAME);
 				}
 				user = new User(username, isDelete, email, phoneNumber, address, photo, new Role(role),
 						new Person(typePerson), new ServiceStaffInfo(name, surname));
 			} else {
-				if (typePerson.equals("customer")) {
+				if (typePerson.equals(DAOConstant.CUSTOMER_PARAM_NAME)) {
 					preparedStatement = connection.prepareStatement(SQLRequest.SELECT_CUSTOMER);
 					preparedStatement.setString(1, username.toLowerCase());
 					resultSet = preparedStatement.executeQuery();
 					while (resultSet.next()) {
-						formOwnership = resultSet.getString("formOwnership");
+						formOwnership = resultSet.getString(DAOConstant.FORM_OWNERSHIP_PARAM_NAME);
 					}
 					switch (formOwnership) {
-					case "natural":
+					case DAOConstant.CUSTOMER_NATURAL_PARAM_NAME:
 						preparedStatement = connection.prepareStatement(SQLRequest.SELECT_CUSTOMER_NATURAL);
 						preparedStatement.setString(1, username.toLowerCase());
 						resultSet = preparedStatement.executeQuery();
 						while (resultSet.next()) {
-							name = resultSet.getString("name");
-							surname = resultSet.getString("surname");
+							name = resultSet.getString(DAOConstant.NAME_PARAM_NAME);
+							surname = resultSet.getString(DAOConstant.SURNAME_PARAM_NAME);
 						}
 						user = new User(username, isDelete, email, phoneNumber, address, photo, new Role(role),
 								new Person(typePerson),
 								new Customer(new Ownership(formOwnership), new NaturalCustomerInfo(name, surname)));
 						break;
-					case "legal":
+					case DAOConstant.CUSTOMER_LEGAL_PARAM_NAME:
 						preparedStatement = connection.prepareStatement(SQLRequest.SELECT_CUSTOMER_LEGAL);
 						preparedStatement.setString(1, username.toLowerCase());
 						resultSet = preparedStatement.executeQuery();
 						while (resultSet.next()) {
-							name = resultSet.getString("name");
-							surname = resultSet.getString("surname");
-							requisites = resultSet.getString("requisites");
-							copyRegistration = resultSet.getString("copyRegistration");
+							name = resultSet.getString(DAOConstant.NAME_PARAM_NAME);
+							surname = resultSet.getString(DAOConstant.SURNAME_PARAM_NAME);
+							requisites = resultSet.getString(DAOConstant.REQUISITES_PARAM_NAME);
+							copyRegistration = resultSet.getString(DAOConstant.COPY_REGISTTRATION_PARAM_NAME);
 						}
 						user = new User(username, isDelete, email, phoneNumber, address, photo, new Role(role),
 								new Person(typePerson), new Customer(new Ownership(formOwnership),
 										new LegalCustomerInfo(name, surname, requisites, copyRegistration)));
 						break;
-					case "company":
+					case DAOConstant.CUSTOMER_COMPANY_PARAM_NAME:
 						preparedStatement = connection.prepareStatement(SQLRequest.SELECT_CUSTOMER_COMPANY);
 						preparedStatement.setString(1, username.toLowerCase());
 						resultSet = preparedStatement.executeQuery();
 						while (resultSet.next()) {
-							companyName = resultSet.getString("nameCompany");
-							name = resultSet.getString("nameAgent");
-							surname = resultSet.getString("surnameAgent");
-							requisites = resultSet.getString("requisites");
-							description = resultSet.getString("description");
+							companyName = resultSet.getString(DAOConstant.COMPANY_PARAM_NAME);
+							name = resultSet.getString(DAOConstant.NAME_AGENT_PARAM_NAME);
+							surname = resultSet.getString(DAOConstant.SURNAME_AGENT_PARAM_NAME);
+							requisites = resultSet.getString(DAOConstant.REQUISITES_PARAM_NAME);
+							description = resultSet.getString(DAOConstant.DESCRIPTION_PARAM_NAME);
 						}
 						user = new User(username, isDelete, email, phoneNumber, address, photo, new Role(role),
 								new Person(typePerson), new Customer(new Ownership(formOwnership),
@@ -154,37 +219,37 @@ public class SQLUserDAO implements UserDAO {
 					}
 
 				} else {
-					if (typePerson.equals("performer")) {
+					if (typePerson.equals(DAOConstant.PERFORMER_PARAM_NAME)) {
 						preparedStatement = connection.prepareStatement(SQLRequest.SELECT_PERFORMER);
 						preparedStatement.setString(1, username.toLowerCase());
 						resultSet = preparedStatement.executeQuery();
 						while (resultSet.next()) {
-							requisites = resultSet.getString("requisites");
-							formOwnership = resultSet.getString("formOwnership");
+							requisites = resultSet.getString(DAOConstant.REQUISITES_PARAM_NAME);
+							formOwnership = resultSet.getString(DAOConstant.FORM_OWNERSHIP_PARAM_NAME);
 						}
 						switch (formOwnership) {
-						case "legal":
+						case DAOConstant.PERFORMER_LEGAL_PARAM_NAME:
 							preparedStatement = connection.prepareStatement(SQLRequest.SELECT_PERFORMER_LEGAL);
 							preparedStatement.setString(1, username.toLowerCase());
 							resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
-								name = resultSet.getString("name");
-								surname = resultSet.getString("surname");
-								copyRegistration = resultSet.getString("copyRegistration");
+								name = resultSet.getString(DAOConstant.NAME_PARAM_NAME);
+								surname = resultSet.getString(DAOConstant.SURNAME_PARAM_NAME);
+								copyRegistration = resultSet.getString(DAOConstant.COPY_REGISTTRATION_PARAM_NAME);
 							}
 							user = new User(username, isDelete, email, phoneNumber, address, photo, new Role(role),
 									new Person(typePerson), new Performer(requisites, new Ownership(formOwnership),
 											new LegalPerformerInfo(name, surname, copyRegistration)));
 							break;
-						case "company":
+						case DAOConstant.PERFORMER_COMPANY_PARAM_NAME:
 							preparedStatement = connection.prepareStatement(SQLRequest.SELECT_PERFORMER_COMPANY);
 							preparedStatement.setString(1, username.toLowerCase());
 							resultSet = preparedStatement.executeQuery();
 							while (resultSet.next()) {
-								companyName = resultSet.getString("nameCompany");
-								name = resultSet.getString("nameAgent");
-								surname = resultSet.getString("surnameAgent");
-								description = resultSet.getString("description");
+								companyName = resultSet.getString(DAOConstant.COMPANY_PARAM_NAME);
+								name = resultSet.getString(DAOConstant.NAME_AGENT_PARAM_NAME);
+								surname = resultSet.getString(DAOConstant.SURNAME_AGENT_PARAM_NAME);
+								description = resultSet.getString(DAOConstant.DESCRIPTION_PARAM_NAME);
 							}
 							user = new User(username, isDelete, email, phoneNumber, address, photo, new Role(role),
 									new Person(typePerson), new Performer(requisites, new Ownership(formOwnership),
@@ -208,6 +273,8 @@ public class SQLUserDAO implements UserDAO {
 		} finally {
 			try {
 				connection.setAutoCommit(true);
+				if (resultSet != null)
+					resultSet.close();
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} catch (SQLException e) {
@@ -243,6 +310,8 @@ public class SQLUserDAO implements UserDAO {
 			throw new DAOException("The thread was interrupted", e);
 		} finally {
 			try {
+				if (resultSet != null)
+					resultSet.close();
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} catch (SQLException e) {
