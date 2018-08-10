@@ -1,25 +1,33 @@
 package by.epam.domain.subtypespecialization;
 
+import by.epam.domain.user.Person;
+import by.epam.domain.user.Person.Builder;
+
 public class Design {
 
-	private String typeDesign;
-
-	public Design() {
-		
-	}
-
-	public Design(String typeDesign) {
-		this.typeDesign = typeDesign;
-	}
+	private final String typeDesign;
 
 	public String getTypeDesign() {
 		return typeDesign;
 	}
 
-	public void setTypeDesign(String typeDesign) {
-		this.typeDesign = typeDesign;
+	private Design(Builder builder) {
+		this.typeDesign = builder.typeDesign;
 	}
 
+	public static class Builder {
+		private String typeDesign;
+
+		public Builder setTypeDesign(String typeDesign) {
+			this.typeDesign = typeDesign;
+			return this;
+		}
+		
+		public Design build() {
+			return new Design(this);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

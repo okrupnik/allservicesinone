@@ -1,25 +1,33 @@
 package by.epam.domain.subtypespecialization;
 
+import by.epam.domain.user.Person;
+import by.epam.domain.user.Person.Builder;
+
 public class RepairTransport {
 	
-	private String typeRepairTransport;
-
-	public RepairTransport() {
-
-	}
-
-	public RepairTransport(String typeRepairTransport) {
-		this.typeRepairTransport = typeRepairTransport;
-	}
+	private final String typeRepairTransport;
 
 	public String getTypeRepairTransport() {
 		return typeRepairTransport;
 	}
-
-	public void setTypeRepairTransport(String typeRepairTransport) {
-		this.typeRepairTransport = typeRepairTransport;
+	
+	private RepairTransport(Builder builder) {
+		this.typeRepairTransport = builder.typeRepairTransport;
 	}
 
+	public static class Builder {
+		private String typeRepairTransport;
+
+		public Builder setTypeRepairTransport(String typeRepairTransport) {
+			this.typeRepairTransport = typeRepairTransport;
+			return this;
+		}
+		
+		public RepairTransport build() {
+			return new RepairTransport(this);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

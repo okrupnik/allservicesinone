@@ -1,25 +1,33 @@
 package by.epam.domain.subtypespecialization;
 
+import by.epam.domain.user.Person;
+import by.epam.domain.user.Person.Builder;
+
 public class Education {
 	
-	private String typeEducation;
-
-	public Education() {
-
-	}
-
-	public Education(String typeEducation) {
-		this.typeEducation = typeEducation;
-	}
+	private final String typeEducation;
 
 	public String getTypeEducation() {
 		return typeEducation;
 	}
 
-	public void setTypeEducation(String typeEducation) {
-		this.typeEducation = typeEducation;
+	private Education(Builder builder) {
+		this.typeEducation = builder.typeEducation;
 	}
 
+	public static class Builder {
+		private String typeEducation;
+
+		public Builder setTypeEducation(String typeEducation) {
+			this.typeEducation = typeEducation;
+			return this;
+		}
+		
+		public Education build() {
+			return new Education(this);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

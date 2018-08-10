@@ -19,7 +19,7 @@ public class DAOConstant {
 	public static final String PASSWORD_PARAM_NAME = "password";
 	public static final String PHOTO_PARAM_NAME = "photo";
 	public static final String EMAIL_PARAM_NAME = "email";
-	public static final String PHONE_NUMBER_PARAM_NAME = "phone";
+	public static final String PHONE_NUMBER_PARAM_NAME = "phoneNumber";
 	public static final String NAME_PARAM_NAME = "name";
 	public static final String SURNAME_PARAM_NAME = "surname";
 	public static final String ADDRESS_PARAM_NAME = "address";

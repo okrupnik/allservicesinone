@@ -33,7 +33,7 @@ public class SignIn implements Command {
 				session.setAttribute(ParamAndAttribute.USER_ATTRIBUTE, user);
 				response.sendRedirect("Controler?command=cn.main.page");
 			} else {
-				if (locale.equals("ru")) {
+				if (locale.equals(ControllerConstant.LOCALE_RU_PARAM_NAME)) {
 					session.setAttribute(ParamAndAttribute.ERROR_MESSAGE_ATTRIBUTE, "Неправильное имя пользователя или пароль");
 					response.sendRedirect(request.getHeader("Referer"));
 				} else {

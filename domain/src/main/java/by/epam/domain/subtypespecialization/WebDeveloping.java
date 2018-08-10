@@ -1,25 +1,33 @@
 package by.epam.domain.subtypespecialization;
 
+import by.epam.domain.user.Person;
+import by.epam.domain.user.Person.Builder;
+
 public class WebDeveloping {
 
-	private String typeWebDeveloping;
-
-	public WebDeveloping() {
-		
-	}
-
-	public WebDeveloping(String typeWebDeveloping) {
-		this.typeWebDeveloping = typeWebDeveloping;
-	}
+	private final String typeWebDeveloping;
 
 	public String getTypeWebDeveloping() {
 		return typeWebDeveloping;
 	}
 
-	public void setTypeWebDeveloping(String typeWebDeveloping) {
-		this.typeWebDeveloping = typeWebDeveloping;
+	private WebDeveloping(Builder builder) {
+		this.typeWebDeveloping = builder.typeWebDeveloping;
 	}
 
+	public static class Builder {
+		private String typeWebDeveloping;
+
+		public Builder setTypeWebDeveloping(String typeWebDeveloping) {
+			this.typeWebDeveloping = typeWebDeveloping;
+			return this;
+		}
+		
+		public WebDeveloping build() {
+			return new WebDeveloping(this);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

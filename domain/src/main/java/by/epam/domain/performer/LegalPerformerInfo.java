@@ -1,45 +1,56 @@
 package by.epam.domain.performer;
 
+import by.epam.domain.service.ServiceStaffInfo;
+import by.epam.domain.service.ServiceStaffInfo.Builder;
+
 public class LegalPerformerInfo {
 	
-	private String name;
-	private String surname;	
-	private String copyRegistration;
+	private final String name;
+	private final String surname;	
+	private final String copyRegistration;
 	
-	public LegalPerformerInfo() {
-		
-	}
-
-	public LegalPerformerInfo(String name, String surname, String copyRegistration) {
-		this.name = name;
-		this.surname = surname;
-		this.copyRegistration = copyRegistration;
-	}
-
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getSurname() {
 		return surname;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
 	public String getCopyRegistration() {
 		return copyRegistration;
 	}
 
-	public void setCopyRegistration(String copyRegistration) {
-		this.copyRegistration = copyRegistration;
+	private LegalPerformerInfo(Builder builder) {
+		this.name = builder.name;
+		this.surname = builder.surname;
+		this.copyRegistration = builder.copyRegistration;
 	}
 
+	public static class Builder {
+		private String name;
+		private String surname;	
+		private String copyRegistration;
+		
+		public Builder setName(String name) {
+			this.name = name;
+			return this;
+		}
+		public Builder setSurname(String surname) {
+			this.surname = surname;
+			return this;
+		}
+		public Builder setCopyRegistration(String copyRegistration) {
+			this.copyRegistration = copyRegistration;
+			return this;
+		}
+		
+		public LegalPerformerInfo build() {
+			return new LegalPerformerInfo(this);
+		}
+		
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

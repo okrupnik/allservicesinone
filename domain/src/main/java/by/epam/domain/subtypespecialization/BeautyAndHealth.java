@@ -1,25 +1,33 @@
 package by.epam.domain.subtypespecialization;
 
+import by.epam.domain.user.Person;
+import by.epam.domain.user.Person.Builder;
+
 public class BeautyAndHealth {
 	
-	private String typeBeautyAndHealth;
-
-	public BeautyAndHealth() {
-		
-	}
-
-	public BeautyAndHealth(String typeBeautyAndHealth) {
-		this.typeBeautyAndHealth = typeBeautyAndHealth;
-	}
+	private final String typeBeautyAndHealth;
 
 	public String getTypeBeautyAndHealth() {
 		return typeBeautyAndHealth;
 	}
-
-	public void setTypeBeautyAndHealth(String typeBeautyAndHealth) {
-		this.typeBeautyAndHealth = typeBeautyAndHealth;
+	
+	private BeautyAndHealth(Builder builder) {
+		this.typeBeautyAndHealth = builder.typeBeautyAndHealth;
 	}
+	
+	public static class Builder {
+		private String typeBeautyAndHealth;
+		
+		public Builder setTypeBeautyAndHealth(String typeBeautyAndHealth) {
+			this.typeBeautyAndHealth = typeBeautyAndHealth;
+			return this;
+		}
 
+		public BeautyAndHealth build() {
+			return new BeautyAndHealth(this);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

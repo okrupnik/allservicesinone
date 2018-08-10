@@ -1,25 +1,34 @@
 package by.epam.domain.subtypespecialization;
 
+import by.epam.domain.user.Person;
+import by.epam.domain.user.Person.Builder;
+
 public class InstallAndRepairEquipment {
 	
-	private String typeInstallAndRepairEquipment;
-
-	public InstallAndRepairEquipment() {
-		
-	}
-
-	public InstallAndRepairEquipment(String typeInstallAndRepairEquipment) {
-		this.typeInstallAndRepairEquipment = typeInstallAndRepairEquipment;
-	}
+	private final String typeInstallAndRepairEquipment;
 
 	public String getTypeInstallAndRepairEquipment() {
 		return typeInstallAndRepairEquipment;
 	}
 
-	public void setTypeInstallAndRepairEquipment(String typeInstallAndRepairEquipment) {
-		this.typeInstallAndRepairEquipment = typeInstallAndRepairEquipment;
+	private InstallAndRepairEquipment(Builder builder) {
+		this.typeInstallAndRepairEquipment = builder.typeInstallAndRepairEquipment;
 	}
 
+	public static class Builder {
+		private String typeInstallAndRepairEquipment;
+
+		public Builder setTypeInstallAndRepairEquipment(String typeInstallAndRepairEquipment) {
+			this.typeInstallAndRepairEquipment = typeInstallAndRepairEquipment;
+			return this;
+		}
+		
+		public InstallAndRepairEquipment build() {
+			return new InstallAndRepairEquipment(this);
+		}
+		
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -1,25 +1,33 @@
 package by.epam.domain.subtypespecialization;
 
+import by.epam.domain.user.Person;
+import by.epam.domain.user.Person.Builder;
+
 public class CourierService {
 
-	private String typeCourierService;
-
-	public CourierService() {
-		
-	}
-
-	public CourierService(String typeCourierService) {
-		this.typeCourierService = typeCourierService;
-	}
+	private final String typeCourierService;
 
 	public String getTypeCourierService() {
 		return typeCourierService;
 	}
 
-	public void setTypeCourierService(String typeCourierService) {
-		this.typeCourierService = typeCourierService;
+	private CourierService(Builder builder) {
+		this.typeCourierService = builder.typeCourierService;
 	}
 
+	public static class Builder {
+		private String typeCourierService;
+
+		public Builder setTypeCourierService(String typeCourierService) {
+			this.typeCourierService = typeCourierService;
+			return this;
+		}
+		
+		public CourierService build() {
+			return new CourierService(this);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

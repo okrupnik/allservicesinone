@@ -1,25 +1,33 @@
 package by.epam.domain.subtypespecialization;
 
+import by.epam.domain.user.Person;
+import by.epam.domain.user.Person.Builder;
+
 public class PhotoAndVideoService {
 
-	private String typePhotoAndVideoService;
-
-	public PhotoAndVideoService() {
-		
-	}
-
-	public PhotoAndVideoService(String typePhotoAndVideoService) {
-		this.typePhotoAndVideoService = typePhotoAndVideoService;
-	}
+	private final String typePhotoAndVideoService;
 
 	public String getTypePhotoAndVideoService() {
 		return typePhotoAndVideoService;
 	}
 
-	public void setTypePhotoAndVideoService(String typePhotoAndVideoService) {
-		this.typePhotoAndVideoService = typePhotoAndVideoService;
+	private PhotoAndVideoService(Builder builder) {
+		this.typePhotoAndVideoService = builder.typePhotoAndVideoService;
 	}
 
+	public static class Builder {
+		private String typePhotoAndVideoService;
+
+		public Builder setTypePhotoAndVideoService(String typePhotoAndVideoService) {
+			this.typePhotoAndVideoService = typePhotoAndVideoService;
+			return this;
+		}
+		
+		public PhotoAndVideoService build() {
+			return new PhotoAndVideoService(this);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

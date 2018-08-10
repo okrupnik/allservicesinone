@@ -12,6 +12,7 @@
 <fmt:message bundle="${loc}" key="locale.register.ref.performerlegal.text" var="performerLegalText" />
 <fmt:message bundle="${loc}" key="locale.register.ref.performercompany.text" var="performerComponyText" />
 <fmt:message bundle="${loc}" key="locale.register.ref.username.text" var="usernameText" />
+<fmt:message bundle="${loc}" key="locale.register.ref.photo.text" var="photoText" />
 <fmt:message bundle="${loc}" key="locale.register.ref.email.text" var="emailText" />
 <fmt:message bundle="${loc}" key="locale.register.ref.phone.text" var="phoneText" />
 <fmt:message bundle="${loc}" key="locale.register.ref.name.text" var="nameText" />
@@ -94,25 +95,72 @@
                                     <form method="post" action="/controller/Controler" role="form" role="form">
                                         <input type="hidden" name="command" value="cn.user.settings.page">
                                         <input type="hidden" name="typePerson" value="servicePerson">
+                                        <c:if test="${not empty sessionScope.errorMessage}">
+                                            <div class="form-group">
+                                                <h3 style="color: #ff0000">
+													<c:out value="${sessionScope.errorMessage}"></c:out>
+													<% session.setAttribute("errorMessage", ""); %>
+												</h3>
+                                            </div>
+                                        </c:if>
                                         <div class="form-group">
                                             <label for="setting-name"><i class="icon-user"></i> <b>${nameText}*</b></label>
-                                            <input class="form-control" id="setting-name" name="name" type="text" value="${sessionScope.user.serviceStaffInfo.name}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['name']}">
+                                                    <input class="form-control" id="setting-name" name="name" type="text" value="${sessionScope.errorTempData['name']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-name" name="name" type="text" value="${sessionScope.user.serviceStaffInfo.name}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-surname"><i class="icon-user"></i> <b>${surnameText}</b></label>
-                                            <input class="form-control" id="setting-surname" name="surname" type="text" value="${sessionScope.user.serviceStaffInfo.surname}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['surname']}">
+                                                    <input class="form-control" id="setting-surname" name="surname" type="text" value="${sessionScope.errorTempData['surname']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-surname" name="surname" type="text" value="${sessionScope.user.serviceStaffInfo.surname}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
-                                            <label for="setting-email"><i class="icon-user"></i> <b>${emailText}*</b></label>
-                                            <input class="form-control" id="setting-email" name="email" type="email" value="${sessionScope.user.email}" laceholder="">
+                                            <label for="setting-email"><i class="icon-user"></i> <b>${emailText}* <font color="red"><c:out value="${sessionScope.errorInput['email']}"/></font></b></label>
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['email']}">
+                                                    <input class="form-control" id="setting-email" name="email" type="text" value="${sessionScope.errorTempData['email']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-email" name="email" type="text" value="${sessionScope.user.email}" laceholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
-                                            <label for="setting-phone"><i class="icon-user"></i> <b>${phoneText}*</b></label>
-                                            <input class="form-control" id="setting-phone" name="phone" type="tel" value="${sessionScope.user.phoneNumber}" placeholder="">
+                                            <label for="setting-phone"><i class="icon-user"></i> <b>${phoneText}* <font color="red"><c:out value="${sessionScope.errorInput['phoneNumber']}"/></font></b></label>
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['phoneNumber']}">
+                                                    <input class="form-control" id="setting-phone" name="phone" type="tel" value="${sessionScope.errorTempData['phoneNumber']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-phone" name="phone" type="tel" value="${sessionScope.user.phoneNumber}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-address"><i class="icon-user"></i> <b>${addressText}*</b></label>
-                                            <input class="form-control" id="setting-address" name="address" type="text" value="${sessionScope.user.address}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['address']}">
+                                                    <input class="form-control" id="setting-address" name="address" type="text" value="${sessionScope.errorTempData['address']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-address" name="address" type="text" value="${sessionScope.user.address}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="setting-photo"><i class="icon-user"></i> <b>${photoText}</b></label>
+                                            <input id="setting-photo" name="photo" type="file" placeholder="${photoText}">
                                         </div>
                                         <button type="submit" class="btn pull-right">${buttonText}</button>
                                         <div class="clearfix"></div>
@@ -123,25 +171,72 @@
                                         <input type="hidden" name="command" value="cn.user.settings.page">
                                         <input type="hidden" name="typePerson" value="customer">
                                         <input type="hidden" name="formOwnership" value="natural">
+                                        <c:if test="${not empty sessionScope.errorMessage}">
+                                            <div class="form-group">
+                                                <h3 style="color: #ff0000">
+													<c:out value="${sessionScope.errorMessage}"></c:out>
+													<% session.setAttribute("errorMessage", ""); %>
+												</h3>
+                                            </div>
+                                        </c:if>
                                         <div class="form-group">
                                             <label for="setting-name"><i class="icon-user"></i> <b>${nameText}*</b></label>
-                                            <input class="form-control" id="setting-name" name="name" type="text" value="${sessionScope.user.customer.naturalCustomerInfo.name}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['name']}">
+                                                    <input class="form-control" id="setting-name" name="name" type="text" value="${sessionScope.errorTempData['name']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-name" name="name" type="text" value="${sessionScope.user.customer.naturalCustomerInfo.name}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-surname"><i class="icon-user"></i> <b>${surnameText}</b></label>
-                                            <input class="form-control" id="setting-surname" name="surname" type="text" value="${sessionScope.user.customer.naturalCustomerInfo.surname}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['surname']}">
+                                                    <input class="form-control" id="setting-surname" name="surname" type="text" value="${sessionScope.errorTempData['surname']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-surname" name="surname" type="text" value="${sessionScope.user.customer.naturalCustomerInfo.surname}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>                                            
                                         </div>
                                         <div class="form-group">
-                                            <label for="setting-email"><i class="icon-user"></i> <b>${emailText}*</b></label>
-                                            <input class="form-control" id="setting-email" name="email" type="email" value="${sessionScope.user.email}" laceholder="">
+                                            <label for="setting-email"><i class="icon-user"></i> <b>${emailText}* <font color="red"><c:out value="${sessionScope.errorInput['email']}"/></font></b></label>
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['email']}">
+                                                    <input class="form-control" id="setting-email" name="email" type="text" value="${sessionScope.errorTempData['email']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-email" name="email" type="text" value="${sessionScope.user.email}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
-                                            <label for="setting-phone"><i class="icon-user"></i> <b>${phoneText}*</b></label>
-                                            <input class="form-control" id="setting-phone" name="phone" type="tel" value="${sessionScope.user.phoneNumber}" placeholder="">
+                                            <label for="setting-phone"><i class="icon-user"></i> <b>${phoneText}* <font color="red"><c:out value="${sessionScope.errorInput['phoneNumber']}"/></font></b></label>
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['phoneNumber']}">
+                                                    <input class="form-control" id="setting-phone" name="phone" type="tel" value="${sessionScope.errorTempData['phoneNumber']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-phone" name="phone" type="tel" value="${sessionScope.user.phoneNumber}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-address"><i class="icon-user"></i> <b>${addressText}*</b></label>
-                                            <input class="form-control" id="setting-address" name="address" type="text" value="${sessionScope.user.address}" placeholder="">
+                                             <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['address']}">
+                                                    <input class="form-control" id="setting-address" name="address" type="text" value="${sessionScope.errorTempData['address']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-address" name="address" type="text" value="${sessionScope.user.address}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="setting-photo"><i class="icon-user"></i> <b>${photoText}</b></label>
+                                            <input id="setting-photo" name="photo" type="file" placeholder="${photoText}">
                                         </div>
                                         <button type="submit" class="btn pull-right">${buttonText}</button>
                                         <div class="clearfix"></div>
@@ -152,33 +247,88 @@
                                         <input type="hidden" name="command" value="cn.user.settings.page">
                                         <input type="hidden" name="typePerson" value="customer">
                                         <input type="hidden" name="formOwnership" value="legal">
+                                        <c:if test="${not empty sessionScope.errorMessage}">
+                                            <div class="form-group">
+                                                <h3 style="color: #ff0000">
+													<c:out value="${sessionScope.errorMessage}"></c:out>
+													<% session.setAttribute("errorMessage", ""); %>
+												</h3>
+                                            </div>
+                                        </c:if>
                                         <div class="form-group">
                                             <label for="setting-name"><i class="icon-user"></i> <b>${nameText}*</b></label>
-                                            <input class="form-control" id="setting-name" name="name" type="text" value="${sessionScope.user.customer.legalCustomerInfo.name}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['name']}">
+                                                    <input class="form-control" id="setting-name" name="name" type="text" value="${sessionScope.errorTempData['name']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-name" name="name" type="text" value="${sessionScope.user.customer.legalCustomerInfo.name}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-surname"><i class="icon-user"></i> <b>${surnameText}</b></label>
-                                            <input class="form-control" id="setting-surname" name="surname" type="text" value="${sessionScope.user.customer.legalCustomerInfo.surname}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['surname']}">
+                                                    <input class="form-control" id="setting-surname" name="surname" type="text" value="${sessionScope.errorTempData['surname']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-surname" name="surname" type="text" value="${sessionScope.user.customer.legalCustomerInfo.surname}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
-                                            <label for="setting-email"><i class="icon-user"></i> <b>${emailText}*</b></label>
-                                            <input class="form-control" id="setting-email" name="email" type="email" value="${sessionScope.user.email}" laceholder="">
+                                            <label for="setting-email"><i class="icon-user"></i> <b>${emailText}* <font color="red"><c:out value="${sessionScope.errorInput['email']}"/></font></b></label>
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['email']}">
+                                                    <input class="form-control" id="setting-email" name="email" type="text" value="${sessionScope.errorTempData['email']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-email" name="email" type="text" value="${sessionScope.user.email}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
-                                            <label for="setting-phone"><i class="icon-user"></i> <b>${phoneText}*</b></label>
+                                            <label for="setting-phone"><i class="icon-user"></i> <b>${phoneText}* <font color="red"><c:out value="${sessionScope.errorInput['phoneNumber']}"/></font></b></label>
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['phoneNumber']}">
+                                                    <input class="form-control" id="setting-phone" name="phone" type="tel" value="${sessionScope.errorTempData['phoneNumber']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-phone" name="phone" type="tel" value="${sessionScope.user.phoneNumber}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                             <input class="form-control" id="setting-phone" name="phone" type="tel" value="${sessionScope.user.phoneNumber}" placeholder="">
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-address"><i class="icon-user"></i> <b>${addressText}*</b></label>
-                                            <input class="form-control" id="setting-address" name="address" type="text" value="${sessionScope.user.address}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['address']}">
+                                                    <input class="form-control" id="setting-address" name="address" type="text" value="${sessionScope.errorTempData['address']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-address" name="address" type="text" value="${sessionScope.user.address}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-requisites"><i class="icon-user"></i> <b>${requisitesText}*</b></label>
-                                            <input class="form-control" id="setting-requisites" name="requisites" type="text" value="${sessionScope.user.customer.legalCustomerInfo.requisites}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['requisites']}">
+                                                    <input class="form-control" id="setting-requisites" name="requisites" type="text" value="${sessionScope.errorTempData['requisites']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-requisites" name="requisites" type="text" value="${sessionScope.user.customer.legalCustomerInfo.requisites}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-fileregistration"><i class="icon-user"></i> <b>${fileregistrationText}*</b></label>
                                             <input id="setting-fileregistration" name="fileregistration" type="file" placeholder="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="setting-photo"><i class="icon-user"></i> <b>${photoText}</b></label>
+                                            <input id="setting-photo" name="photo" type="file" placeholder="${photoText}">
                                         </div>
                                         <button type="submit" class="btn pull-right">${buttonText}</button>
                                         <div class="clearfix"></div>
@@ -189,37 +339,97 @@
                                         <input type="hidden" name="command" value="cn.user.settings.page">
                                         <input type="hidden" name="typePerson" value="customer">
                                         <input type="hidden" name="formOwnership" value="company">
+                                        <c:if test="${not empty sessionScope.errorMessage}">
+                                            <div class="form-group">
+                                                <h3 style="color: #ff0000">
+													<c:out value="${sessionScope.errorMessage}"></c:out>
+													<% session.setAttribute("errorMessage", ""); %>
+												</h3>
+                                            </div>
+                                        </c:if>
                                         <div class="form-group">
                                             <label for="setting-nameagent"><i class="icon-user"></i> <b>${nameagentText}*</b></label>
-                                            <input class="form-control" id="setting-nameagent" name="nameagent" type="text" value="${sessionScope.user.customer.companyCustomerInfo.nameAgent}" placeholder="">
-                                        </div>
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['nameagent']}">
+                                                    <input class="form-control" id="setting-nameagent" name="nameagent" type="text" value="${sessionScope.errorTempData['nameagent']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-nameagent" name="nameagent" type="text" value="${sessionScope.user.customer.companyCustomerInfo.nameAgent}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         <div class="form-group">
                                             <label for="setting-surnameagent"><i class="icon-user"></i> <b>${surnameagentText}*</b></label>
-                                            <input class="form-control" id="setting-surnameagent" name="surnameagent" type="text" value="${sessionScope.user.customer.companyCustomerInfo.surnameAgent}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['surnameagent']}">
+                                                    <input class="form-control" id="setting-surnameagent" name="surnameagent" type="text" value="${sessionScope.errorTempData['surnameagent']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-surnameagent" name="surnameagent" type="text" value="${sessionScope.user.customer.companyCustomerInfo.surnameAgent}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>                                        
                                         <div class="form-group">
-                                            <label for="setting-email"><i class="icon-user"></i> <b>${emailText}*</b></label>
-                                            <input class="form-control" id="setting-email" name="email" type="email" value="${sessionScope.user.email}" laceholder="">
+                                            <label for="setting-email"><i class="icon-user"></i> <b>${emailText}* <font color="red"><c:out value="${sessionScope.errorInput['email']}"/></font></b></label>
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['email']}">
+                                                    <input class="form-control" id="setting-email" name="email" type="text" value="${sessionScope.errorTempData['email']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-email" name="email" type="text" value="${sessionScope.user.email}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
-                                            <label for="setting-phone"><i class="icon-user"></i> <b>${phoneText}*</b></label>
-                                            <input class="form-control" id="setting-phone" name="phone" type="tel" value="${sessionScope.user.phoneNumber}" placeholder="">
+                                            <label for="setting-phone"><i class="icon-user"></i> <b>${phoneText}* <font color="red"><c:out value="${sessionScope.errorInput['phoneNumber']}"/></font></b></label>
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['phoneNumber']}">
+                                                    <input class="form-control" id="setting-phone" name="phone" type="tel" value="${sessionScope.errorTempData['phoneNumber']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-phone" name="phone" type="tel" value="${sessionScope.user.phoneNumber}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-namecompany"><i class="icon-user"></i> <b>${namecompanyText}*</b></label>
-                                            <input class="form-control" id="setting-namecompany" name="namecompany" type="text" value="${sessionScope.user.customer.companyCustomerInfo.nameCompany}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['namecompany']}">
+                                                    <input class="form-control" id="setting-namecompany" name="namecompany" type="text" value="${sessionScope.errorTempData['namecompany']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-namecompany" name="namecompany" type="text" value="${sessionScope.user.customer.companyCustomerInfo.nameCompany}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-address"><i class="icon-user"></i> <b>${addressText}*</b></label>
-                                            <input class="form-control" id="setting-address" name="address" type="text" value="${sessionScope.user.address}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['address']}">
+                                                    <input class="form-control" id="setting-address" name="address" type="text" value="${sessionScope.errorTempData['address']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-address" name="address" type="text" value="${sessionScope.user.address}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-requisites"><i class="icon-user"></i> <b>${requisitesText}*</b></label>
-                                            <input class="form-control" id="setting-requisites" name="requisites" type="text" value="${sessionScope.user.customer.companyCustomerInfo.requisites}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['requisites']}">
+                                                    <input class="form-control" id="setting-requisites" name="requisites" type="text" value="${sessionScope.errorTempData['requisites']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-requisites" name="requisites" type="text" value="${sessionScope.user.customer.companyCustomerInfo.requisites}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-description"><i class="icon-user"></i> <b>${descriptionText}</b></label>
                                             <textarea class="form-control" id="setting-description" name="description" rows="4">${sessionScope.user.customer.companyCustomerInfo.description}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="setting-photo"><i class="icon-user"></i> <b>${photoText}</b></label>
+                                            <input id="setting-photo" name="photo" type="file" placeholder="${photoText}">
                                         </div>
                                         <button type="submit" class="btn pull-right">${buttonText}</button>
                                         <div class="clearfix"></div>
@@ -230,33 +440,87 @@
                                         <input type="hidden" name="command" value="cn.user.settings.page">
                                         <input type="hidden" name="typePerson" value="performer">
                                         <input type="hidden" name="formOwnership" value="legal">
+                                        <c:if test="${not empty sessionScope.errorMessage}">
+                                            <div class="form-group">
+                                                <h3 style="color: #ff0000">
+													<c:out value="${sessionScope.errorMessage}"></c:out>
+													<% session.setAttribute("errorMessage", ""); %>
+												</h3>
+                                            </div>
+                                        </c:if>
                                         <div class="form-group">
                                             <label for="setting-name"><i class="icon-user"></i> <b>${nameText}*</b></label>
-                                            <input class="form-control" id="setting-name" name="name" type="text" value="${sessionScope.user.performer.legalPerformerInfo.name}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['name']}">
+                                                    <input class="form-control" id="setting-name" name="name" type="text" value="${sessionScope.errorTempData['name']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-name" name="name" type="text" value="${sessionScope.user.performer.legalPerformerInfo.name}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-surname"><i class="icon-user"></i> <b>${surnameText}</b></label>
-                                            <input class="form-control" id="setting-surname" name="surname" type="text" value="${sessionScope.user.performer.legalPerformerInfo.surname}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['surname']}">
+                                                    <input class="form-control" id="setting-surname" name="surname" type="text" value="${sessionScope.errorTempData['surname']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-surname" name="surname" type="text" value="${sessionScope.user.performer.legalPerformerInfo.surname}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
-                                            <label for="setting-email"><i class="icon-user"></i> <b>${emailText}*</b></label>
-                                            <input class="form-control" id="setting-email" name="email" type="email" value="${sessionScope.user.email}" laceholder="">
+                                            <label for="setting-email"><i class="icon-user"></i> <b>${emailText}* <font color="red"><c:out value="${sessionScope.errorInput['email']}"/></font></b></label>
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['email']}">
+                                                    <input class="form-control" id="setting-email" name="email" type="text" value="${sessionScope.errorTempData['email']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-email" name="email" type="text" value="${sessionScope.user.email}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
-                                            <label for="setting-phone"><i class="icon-user"></i> <b>${phoneText}*</b></label>
-                                            <input class="form-control" id="setting-phone" name="phone" type="tel" value="${sessionScope.user.phoneNumber}" placeholder="">
+                                            <label for="setting-phone"><i class="icon-user"></i> <b>${phoneText}* <font color="red"><c:out value="${sessionScope.errorInput['phoneNumber']}"/></font></b></label>
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['phoneNumber']}">
+                                                    <input class="form-control" id="register-phone" name="phone" type="tel" value="${sessionScope.errorTempData['phoneNumber']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="register-phone" name="phone" type="tel" value="${sessionScope.user.phoneNumber}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-address"><i class="icon-user"></i> <b>${addressText}*</b></label>
-                                            <input class="form-control" id="setting-address" name="address" type="text" value="${sessionScope.user.address}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['address']}">
+                                                    <input class="form-control" id="setting-address" name="address" type="text" value="${sessionScope.errorTempData['address']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-address" name="address" type="text" value="${sessionScope.user.address}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-requisites"><i class="icon-user"></i> <b>${requisitesText}*</b></label>
-                                            <input class="form-control" id="setting-requisites" name="requisites" type="text" value="${sessionScope.user.performer.requisites}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['requisites']}">
+                                                    <input class="form-control" id="setting-requisites" name="requisites" type="text" value="${sessionScope.errorTempData['requisites']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-requisites" name="requisites" type="text" value="${sessionScope.user.performer.requisites}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-fileregistration"><i class="icon-user"></i> <b>${fileregistrationText}*</b></label>
                                             <input id="setting-fileregistration" name="fileregistration" type="file" placeholder="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="setting-photo"><i class="icon-user"></i> <b>${photoText}</b></label>
+                                            <input id="setting-photo" name="photo" type="file" placeholder="${photoText}">
                                         </div>
                                         <button type="submit" class="btn pull-right">${buttonText}</button>
                                         <div class="clearfix"></div>
@@ -267,37 +531,98 @@
                                         <input type="hidden" name="command" value="cn.user.settings.page">
                                         <input type="hidden" name="typePerson" value="performer">
                                         <input type="hidden" name="formOwnership" value="company">
+                                        <c:if test="${not empty sessionScope.errorMessage}">
+                                            <div class="form-group">
+                                                <h3 style="color: #ff0000">
+													<c:out value="${sessionScope.errorMessage}"></c:out>
+													<% session.setAttribute("errorMessage", ""); %>
+												</h3>
+                                            </div>
+                                        </c:if>
                                         <div class="form-group">
                                             <label for="setting-nameagent"><i class="icon-user"></i> <b>${nameagentText}*</b></label>
-                                            <input class="form-control" id="setting-nameagent" name="nameagent" type="text" value="${sessionScope.user.performer.companyPerformerInfo.nameAgent}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['nameagent']}">
+                                                    <input class="form-control" id="setting-nameagent" name="nameagent" type="text" value="${sessionScope.errorTempData['nameagent']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-nameagent" name="nameagent" type="text" value="${sessionScope.user.performer.companyPerformerInfo.nameAgent}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-surnameagent"><i class="icon-user"></i> <b>${surnameagentText}*</b></label>
-                                            <input class="form-control" id="setting-surnameagent" name="surnameagent" type="text" value="${sessionScope.user.performer.companyPerformerInfo.surnameAgent}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['surnameagent']}">
+                                                    <input class="form-control" id="setting-surnameagent" name="surnameagent" type="text" value="${sessionScope.errorTempData['surnameagent']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-surnameagent" name="surnameagent" type="text" value="${sessionScope.user.performer.companyPerformerInfo.surnameAgent}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>                                        
                                         <div class="form-group">
-                                            <label for="setting-email"><i class="icon-user"></i> <b>${emailText}*</b></label>
-                                            <input class="form-control" id="setting-email" name="email" type="email" value="${sessionScope.user.email}" laceholder="">
+                                            <label for="setting-email"><i class="icon-user"></i> <b>${emailText}* <font color="red"><c:out value="${sessionScope.errorInput['email']}"/></font></b></label>
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['email']}">
+                                                    <input class="form-control" id="setting-email" name="email" type="text" value="${sessionScope.errorTempData['email']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-email" name="email" type="text" value="${sessionScope.user.email}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
-                                            <label for="setting-phone"><i class="icon-user"></i> <b>${phoneText}*</b></label>
-                                            <input class="form-control" id="setting-phone" name="phone" type="tel" value="${sessionScope.user.phoneNumber}" placeholder="">
+                                            <label for="setting-phone"><i class="icon-user"></i> <b>${phoneText}* <font color="red"><c:out value="${sessionScope.errorInput['phoneNumber']}"/></font></b></label>
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['phoneNumber']}">
+                                                    <input class="form-control" id="setting-phone" name="phone" type="tel" value="${sessionScope.errorTempData['phoneNumber']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-phone" name="phone" type="tel" value="${sessionScope.user.phoneNumber}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-namecompany"><i class="icon-user"></i> <b>${namecompanyText}*</b></label>
-                                            <input class="form-control" id="setting-namecompany" name="namecompany" type="text" value="${sessionScope.user.performer.companyPerformerInfo.nameCompany}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['namecompany']}">
+                                                    <input class="form-control" id="setting-namecompany" name="namecompany" type="text" value="${sessionScope.errorTempData['namecompany']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-namecompany" name="namecompany" type="text" value="${sessionScope.user.performer.companyPerformerInfo.nameCompany}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-address"><i class="icon-user"></i> <b>${addressText}*</b></label>
-                                            <input class="form-control" id="setting-address" name="address" type="text" value="${sessionScope.user.address}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['address']}">
+                                                    <input class="form-control" id="setting-address" name="address" type="text" value="${sessionScope.errorTempData['address']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-address" name="address" type="text" value="${sessionScope.user.address}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-requisites"><i class="icon-user"></i> <b>${requisitesText}*</b></label>
-                                            <input class="form-control" id="setting-requisites" name="requisites" type="text" value="${sessionScope.user.performer.requisites}" placeholder="">
+                                            <c:choose>
+                                                <c:when test="${not empty sessionScope.errorTempData['requisites']}">
+                                                    <input class="form-control" id="setting-requisites" name="requisites" type="text" value="${sessionScope.errorTempData['requisites']}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input class="form-control" id="setting-requisites" name="requisites" type="text" value="${sessionScope.user.performer.requisites}" placeholder="">
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="form-group">
                                             <label for="setting-description"><i class="icon-user"></i> <b>${descriptionText}</b></label>
                                             <textarea class="form-control" id="setting-description" name="description" rows="4">${sessionScope.user.performer.companyPerformerInfo.description}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="setting-photo"><i class="icon-user"></i> <b>${photoText}</b></label>
+                                            <input id="setting-photo" name="photo" type="file" placeholder="${photoText}">
                                         </div>
                                         <button type="submit" class="btn pull-right">${buttonText}</button>
                                         <div class="clearfix"></div>
@@ -305,39 +630,16 @@
                                 </c:if>  
                            		<form method="post" action="/controller/Controler" role="form" role="form">
                                     <input type="hidden" name="command" value="cn.user.password.settings.page">
-                                    <c:if test="${sessionScope.user.person.typePerson=='servicePerson'}">
-                                        <input type="hidden" name="typePerson" value="servicePerson">
-                                    </c:if>
-                                    <c:if test="${sessionScope.user.person.typePerson=='customer' && sessionScope.user.customer.ownership.formOwnership=='natural'}">
-                                        <input type="hidden" name="typePerson" value="customer">
-                                        <input type="hidden" name="formOwnership" value="natural">
-                                    </c:if>
-                                     <c:if test="${sessionScope.user.person.typePerson=='customer' && sessionScope.user.customer.ownership.formOwnership=='legal'}">
-                                        <input type="hidden" name="typePerson" value="customer">
-                                        <input type="hidden" name="formOwnership" value="legal">
-                                    </c:if>
-                                    <c:if test="${sessionScope.user.person.typePerson=='customer' && sessionScope.user.customer.ownership.formOwnership=='company'}">
-                                        <input type="hidden" name="typePerson" value="customer">
-                                        <input type="hidden" name="formOwnership" value="company">
-                                    </c:if>
-                                    <c:if test="${sessionScope.user.person.typePerson=='performer' && sessionScope.user.performer.ownership.formOwnership=='legal'}">
-                                        <input type="hidden" name="typePerson" value="performer">
-                                        <input type="hidden" name="formOwnership" value="legal">
-                                    </c:if>
-                                    <c:if test="${sessionScope.user.person.typePerson=='performer' && sessionScope.user.performer.ownership.formOwnership=='company'}">
-                                        <input type="hidden" name="typePerson" value="performer">
-                                        <input type="hidden" name="formOwnership" value="company">
-                                    </c:if>
                                     <div class="form-group">
-                                        <label for="setting-oldpassword"><i class="icon-user"></i> <b>${oldPasswordText}*</b></label>
+                                        <label for="setting-oldpassword"><i class="icon-user"></i> <b>${oldPasswordText}* <font color="red"><c:out value="${sessionScope.errorInput['oldpassword']}"/></font></b></label>
                                         <input class="form-control" id="setting-username" name="oldpassword" type="password" placeholder="">
-                                    </div>
+                                    </div>                                    
                                     <div class="form-group">
-                                        <label for="setting-newpassword"><i class="icon-user"></i> <b>${newPasswordText}*</b></label>
+                                        <label for="setting-newpassword"><i class="icon-user"></i> <b>${newPasswordText}* <font color="red"><c:out value="${sessionScope.errorInput['newpassword']}"/></font></b></label>
                                         <input class="form-control" id="setting-password" name="newpassword" type="password" placeholder="">
                                     </div>
                                     <div class="form-group">
-                                        <label for="setting-confirmpassword"><i class="icon-user"></i> <b>${confirmPasswordText}*</b></label>
+                                        <label for="setting-confirmpassword"><i class="icon-user"></i> <b>${confirmPasswordText}* <font color="red"><c:out value="${sessionScope.errorInput['confirmpassword']}"/></font></b></label>
                                         <input class="form-control" id="setting-password" name="confirmpassword" type="password" placeholder="">
                                     </div>
                                     <button type="submit" class="btn pull-right">${buttonText}</button>

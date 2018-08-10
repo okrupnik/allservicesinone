@@ -27,9 +27,13 @@ public interface UserService {
 	
 	Performer getPerformer(String username, String locale) throws ServiceException;
 	
+	boolean editUser(User user, String locale) throws ServiceException;
+	
 	boolean editCustomer(Customer customer, String locale) throws ServiceException;
 	
 	boolean editPerformer(Performer performer, String locale) throws ServiceException;
+	
+	boolean changePassword(User user, String oldPassword, String newPassword, String confirmPassword, String locale) throws ServiceException;
 	
 	User delete(String username, String locale) throws ServiceException;
 }

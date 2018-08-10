@@ -1,25 +1,33 @@
 package by.epam.domain.subtypespecialization;
 
+import by.epam.domain.user.Person;
+import by.epam.domain.user.Person.Builder;
+
 public class CleaningAndHelp {
 
-	private String typeCleaningAndHelp;
-
-	public CleaningAndHelp() {
-		
-	}
-
-	public CleaningAndHelp(String typeCleaningAndHelp) {
-		this.typeCleaningAndHelp = typeCleaningAndHelp;
-	}
+	private final String typeCleaningAndHelp;
 
 	public String getTypeCleaningAndHelp() {
 		return typeCleaningAndHelp;
 	}
 
-	public void setTypeCleaningAndHelp(String typeCleaningAndHelp) {
-		this.typeCleaningAndHelp = typeCleaningAndHelp;
+	private CleaningAndHelp(Builder builder) {
+		this.typeCleaningAndHelp = builder.typeCleaningAndHelp;
 	}
 
+	public static class Builder {
+		private String typeCleaningAndHelp;
+
+		public Builder setTypeCleaningAndHelp(String typeCleaningAndHelp) {
+			this.typeCleaningAndHelp = typeCleaningAndHelp;
+			return this;
+		}
+		
+		public CleaningAndHelp build() {
+			return new CleaningAndHelp(this);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

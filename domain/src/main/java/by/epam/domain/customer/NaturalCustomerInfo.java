@@ -1,35 +1,45 @@
 package by.epam.domain.customer;
 
+import by.epam.domain.service.ServiceStaffInfo;
+import by.epam.domain.service.ServiceStaffInfo.Builder;
+
 public class NaturalCustomerInfo {
 	
-	private String name;
-	private String surname;
-	
-	public NaturalCustomerInfo() {
-		
-	}
-
-	public NaturalCustomerInfo(String name, String surname) {
-		this.name = name;
-		this.surname = surname;
-	}
+	private final String name;
+	private final String surname;
 	
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getSurname() {
 		return surname;
 	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
+	
+	private NaturalCustomerInfo(Builder builder) {
+		this.name = builder.name;
+		this.surname = builder.surname;
 	}
 
+	public static class Builder {
+		private String name;
+		private String surname;
+		
+		public Builder setName(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public Builder setSurname(String surname) {
+			this.surname = surname;
+			return this;
+		}
+		
+		public NaturalCustomerInfo build() {
+			return new NaturalCustomerInfo(this);
+		}
+	}	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

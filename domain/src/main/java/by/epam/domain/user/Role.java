@@ -1,24 +1,31 @@
 package by.epam.domain.user;
 
+import by.epam.domain.user.Person.Builder;
+
 public class Role {
 	
-	private String typeRole;
-
-	public Role() {
-
-	}
-
-	public Role(String typeRole) {
-		this.typeRole = typeRole;
-	}
-
+	private final String typeRole;
+	
 	public String getTypeRole() {
 		return typeRole;
 	}
 
-	public void setTypeRole(String typeRole) {
-		this.typeRole = typeRole;
+	private Role(Builder builder) {
+		this.typeRole = builder.typeRole;
 	}
+
+	public static class Builder {
+		private String typeRole;
+
+		public Builder setTypeRole(String typeRole) {
+			this.typeRole = typeRole;
+			return this;
+		}
+		
+		public Role build() {
+			return new Role(this);
+		}
+	}	
 
 	@Override
 	public int hashCode() {

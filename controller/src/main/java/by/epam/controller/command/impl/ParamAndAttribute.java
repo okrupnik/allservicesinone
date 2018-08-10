@@ -7,6 +7,9 @@ public class ParamAndAttribute {
 	public static final String FORM_OWNERSHIP_PARAM_NAME = "formOwnership";
 	public static final String USERNAME_PARAM_NAME = "username";
 	public static final String PASSWORD_PARAM_NAME = "password";
+	public static final String OLD_PASSWORD_PARAM_NAME = "oldpassword";
+	public static final String NEW_PASSWORD_PARAM_NAME = "newpassword";
+	public static final String CONFIRM_PASSWORD_PARAM_NAME = "confirmpassword";
 	public static final String PHOTO_PARAM_NAME = "photo";
 	public static final String EMAIL_PARAM_NAME = "email";
 	public static final String PHONE_NUMBER_PARAM_NAME = "phone";
@@ -28,6 +31,7 @@ public class ParamAndAttribute {
 	public static final String ERROR_INPUT_ATTRIBUTE = "errorInput";
 	public static final String ERROR_TEMP_DATA_ATTRIBUTE = "errorTempData";
 	public static final String ACTIVE_TAB_ATTRIBUTE = "activeTab";
+	public static final String SUCCESS_EDIT_ATTRIBUTE = "successEdit";
 		
 	private ParamAndAttribute() {
 	}

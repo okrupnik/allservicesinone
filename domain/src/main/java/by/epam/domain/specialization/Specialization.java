@@ -14,172 +14,188 @@ import by.epam.domain.subtypespecialization.RepairAndConstruction;
 import by.epam.domain.subtypespecialization.RepairTransport;
 import by.epam.domain.subtypespecialization.TruckingIndustry;
 import by.epam.domain.subtypespecialization.WebDeveloping;
+import by.epam.domain.user.Person;
+import by.epam.domain.user.Person.Builder;
 
 public class Specialization {
 	
-	private String activities;
-	private BeautyAndHealth beautyAndHealth;
-	private CleaningAndHelp cleaningAndHelp;
-	private ComputerHelp computerHelp;
-	private CourierService courierService;
-	private Design design;
-	private Education education;
-	private EventAndPromotion eventAndPromotion;
-	private InstallAndRepairEquipment installAndRepairEquipment;
-	private LegalAssistance legalAssistance;
-	private PhotoAndVideoService photoAndVideoService;
-	private RepairAndConstruction repairAndConstruction;
-	private RepairTransport repairTransport;
-	private TruckingIndustry truckingIndustry;
-	private WebDeveloping webDeveloping;
+	private final String activities;
+	private final BeautyAndHealth beautyAndHealth;
+	private final CleaningAndHelp cleaningAndHelp;
+	private final ComputerHelp computerHelp;
+	private final CourierService courierService;
+	private final Design design;
+	private final Education education;
+	private final EventAndPromotion eventAndPromotion;
+	private final InstallAndRepairEquipment installAndRepairEquipment;
+	private final LegalAssistance legalAssistance;
+	private final PhotoAndVideoService photoAndVideoService;
+	private final RepairAndConstruction repairAndConstruction;
+	private final RepairTransport repairTransport;
+	private final TruckingIndustry truckingIndustry;
+	private final WebDeveloping webDeveloping;
 	
-	public Specialization() {
-		
-	}
-
-	public Specialization(String activities, BeautyAndHealth beautyAndHealth, CleaningAndHelp cleaningAndHelp,
-			ComputerHelp computerHelp, CourierService courierService, Design design, Education education,
-			EventAndPromotion eventAndPromotion, InstallAndRepairEquipment installAndRepairEquipment,
-			LegalAssistance legalAssistance, PhotoAndVideoService photoAndVideoService,
-			RepairAndConstruction repairAndConstruction, RepairTransport repairTransport,
-			TruckingIndustry truckingIndustry, WebDeveloping webDeveloping) {
-		this.activities = activities;
-		this.beautyAndHealth = beautyAndHealth;
-		this.cleaningAndHelp = cleaningAndHelp;
-		this.computerHelp = computerHelp;
-		this.courierService = courierService;
-		this.design = design;
-		this.education = education;
-		this.eventAndPromotion = eventAndPromotion;
-		this.installAndRepairEquipment = installAndRepairEquipment;
-		this.legalAssistance = legalAssistance;
-		this.photoAndVideoService = photoAndVideoService;
-		this.repairAndConstruction = repairAndConstruction;
-		this.repairTransport = repairTransport;
-		this.truckingIndustry = truckingIndustry;
-		this.webDeveloping = webDeveloping;
-	}
-
 	public String getActivities() {
 		return activities;
-	}
-
-	public void setActivities(String activities) {
-		this.activities = activities;
 	}
 
 	public BeautyAndHealth getBeautyAndHealth() {
 		return beautyAndHealth;
 	}
 
-	public void setBeautyAndHealth(BeautyAndHealth beautyAndHealth) {
-		this.beautyAndHealth = beautyAndHealth;
-	}
-
 	public CleaningAndHelp getCleaningAndHelp() {
 		return cleaningAndHelp;
-	}
-
-	public void setCleaningAndHelp(CleaningAndHelp cleaningAndHelp) {
-		this.cleaningAndHelp = cleaningAndHelp;
 	}
 
 	public ComputerHelp getComputerHelp() {
 		return computerHelp;
 	}
 
-	public void setComputerHelp(ComputerHelp computerHelp) {
-		this.computerHelp = computerHelp;
-	}
-
 	public CourierService getCourierService() {
 		return courierService;
-	}
-
-	public void setCourierService(CourierService courierService) {
-		this.courierService = courierService;
 	}
 
 	public Design getDesign() {
 		return design;
 	}
 
-	public void setDesign(Design design) {
-		this.design = design;
-	}
-
 	public Education getEducation() {
 		return education;
-	}
-
-	public void setEducation(Education education) {
-		this.education = education;
 	}
 
 	public EventAndPromotion getEventAndPromotion() {
 		return eventAndPromotion;
 	}
 
-	public void setEventAndPromotion(EventAndPromotion eventAndPromotion) {
-		this.eventAndPromotion = eventAndPromotion;
-	}
-
 	public InstallAndRepairEquipment getInstallAndRepairEquipment() {
 		return installAndRepairEquipment;
-	}
-
-	public void setInstallAndRepairEquipment(InstallAndRepairEquipment installAndRepairEquipment) {
-		this.installAndRepairEquipment = installAndRepairEquipment;
 	}
 
 	public LegalAssistance getLegalAssistance() {
 		return legalAssistance;
 	}
 
-	public void setLegalAssistance(LegalAssistance legalAssistance) {
-		this.legalAssistance = legalAssistance;
-	}
-
 	public PhotoAndVideoService getPhotoAndVideoService() {
 		return photoAndVideoService;
-	}
-
-	public void setPhotoAndVideoService(PhotoAndVideoService photoAndVideoService) {
-		this.photoAndVideoService = photoAndVideoService;
 	}
 
 	public RepairAndConstruction getRepairAndConstruction() {
 		return repairAndConstruction;
 	}
 
-	public void setRepairAndConstruction(RepairAndConstruction repairAndConstruction) {
-		this.repairAndConstruction = repairAndConstruction;
-	}
-
 	public RepairTransport getRepairTransport() {
 		return repairTransport;
-	}
-
-	public void setRepairTransport(RepairTransport repairTransport) {
-		this.repairTransport = repairTransport;
 	}
 
 	public TruckingIndustry getTruckingIndustry() {
 		return truckingIndustry;
 	}
 
-	public void setTruckingIndustry(TruckingIndustry truckingIndustry) {
-		this.truckingIndustry = truckingIndustry;
-	}
-
 	public WebDeveloping getWebDeveloping() {
 		return webDeveloping;
 	}
 
-	public void setWebDeveloping(WebDeveloping webDeveloping) {
-		this.webDeveloping = webDeveloping;
+	private Specialization(Builder builder) {
+		this.activities = builder.activities;
+		this.beautyAndHealth = builder.beautyAndHealth;
+		this.cleaningAndHelp = builder.cleaningAndHelp;
+		this.computerHelp = builder.computerHelp;
+		this.courierService = builder.courierService;
+		this.design = builder.design;
+		this.education = builder.education;
+		this.eventAndPromotion = builder.eventAndPromotion;
+		this.installAndRepairEquipment = builder.installAndRepairEquipment;
+		this.legalAssistance = builder.legalAssistance;
+		this.photoAndVideoService = builder.photoAndVideoService;
+		this.repairAndConstruction = builder.repairAndConstruction;
+		this.repairTransport = builder.repairTransport;
+		this.truckingIndustry = builder.truckingIndustry;
+		this.webDeveloping = builder.webDeveloping;
 	}
 
+	public static class Builder {
+		private String activities;
+		private BeautyAndHealth beautyAndHealth;
+		private CleaningAndHelp cleaningAndHelp;
+		private ComputerHelp computerHelp;
+		private CourierService courierService;
+		private Design design;
+		private Education education;
+		private EventAndPromotion eventAndPromotion;
+		private InstallAndRepairEquipment installAndRepairEquipment;
+		private LegalAssistance legalAssistance;
+		private PhotoAndVideoService photoAndVideoService;
+		private RepairAndConstruction repairAndConstruction;
+		private RepairTransport repairTransport;
+		private TruckingIndustry truckingIndustry;
+		private WebDeveloping webDeveloping;
+		
+		public Builder setActivities(String activities) {
+			this.activities = activities;
+			return this;
+		}
+		public Builder setBeautyAndHealth(BeautyAndHealth beautyAndHealth) {
+			this.beautyAndHealth = beautyAndHealth;
+			return this;
+		}
+		public Builder setCleaningAndHelp(CleaningAndHelp cleaningAndHelp) {
+			this.cleaningAndHelp = cleaningAndHelp;
+			return this;
+		}
+		public Builder setComputerHelp(ComputerHelp computerHelp) {
+			this.computerHelp = computerHelp;
+			return this;
+		}
+		public Builder setCourierService(CourierService courierService) {
+			this.courierService = courierService;
+			return this;
+		}
+		public Builder setDesign(Design design) {
+			this.design = design;
+			return this;
+		}
+		public Builder setEducation(Education education) {
+			this.education = education;
+			return this;
+		}
+		public Builder setEventAndPromotion(EventAndPromotion eventAndPromotion) {
+			this.eventAndPromotion = eventAndPromotion;
+			return this;
+		}
+		public Builder setInstallAndRepairEquipment(InstallAndRepairEquipment installAndRepairEquipment) {
+			this.installAndRepairEquipment = installAndRepairEquipment;
+			return this;
+		}
+		public Builder setLegalAssistance(LegalAssistance legalAssistance) {
+			this.legalAssistance = legalAssistance;
+			return this;
+		}
+		public Builder setPhotoAndVideoService(PhotoAndVideoService photoAndVideoService) {
+			this.photoAndVideoService = photoAndVideoService;
+			return this;
+		}
+		public Builder setRepairAndConstruction(RepairAndConstruction repairAndConstruction) {
+			this.repairAndConstruction = repairAndConstruction;
+			return this;
+		}
+		public Builder setRepairTransport(RepairTransport repairTransport) {
+			this.repairTransport = repairTransport;
+			return this;
+		}
+		public Builder setTruckingIndustry(TruckingIndustry truckingIndustry) {
+			this.truckingIndustry = truckingIndustry;
+			return this;
+		}
+		public Builder setWebDeveloping(WebDeveloping webDeveloping) {
+			this.webDeveloping = webDeveloping;
+			return this;
+		}
+		
+		public Specialization build() {
+			return new Specialization(this);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

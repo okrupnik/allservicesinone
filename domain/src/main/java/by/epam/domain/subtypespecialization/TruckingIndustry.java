@@ -1,25 +1,33 @@
 package by.epam.domain.subtypespecialization;
 
+import by.epam.domain.user.Person;
+import by.epam.domain.user.Person.Builder;
+
 public class TruckingIndustry {
 
-	private String typeTrucking;
-
-	public TruckingIndustry() {
-		
-	}
-
-	public TruckingIndustry(String typeTrucking) {
-		this.typeTrucking = typeTrucking;
-	}
+	private final String typeTrucking;
 
 	public String getTypeTrucking() {
 		return typeTrucking;
 	}
 
-	public void setTypeTrucking(String typeTrucking) {
-		this.typeTrucking = typeTrucking;
+	private TruckingIndustry(Builder builder) {
+		this.typeTrucking = builder.typeTrucking;
 	}
 
+	public static class Builder {
+		private String typeTrucking;
+
+		public Builder setTypeTrucking(String typeTrucking) {
+			this.typeTrucking = typeTrucking;
+			return this;
+		}
+		
+		public TruckingIndustry build() {
+			return new TruckingIndustry(this);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

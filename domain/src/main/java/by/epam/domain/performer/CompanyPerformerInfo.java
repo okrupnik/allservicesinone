@@ -1,55 +1,67 @@
 package by.epam.domain.performer;
 
+import by.epam.domain.service.ServiceStaffInfo;
+import by.epam.domain.service.ServiceStaffInfo.Builder;
+
 public class CompanyPerformerInfo {
 	
-	private String nameCompany;
-	private String nameAgent;
-	private String surnameAgent;	
-	private String description;
+	private final String nameCompany;
+	private final String nameAgent;
+	private final String surnameAgent;	
+	private final String description;
 	
-	public CompanyPerformerInfo() {
-		
-	}
-
-	public CompanyPerformerInfo(String nameCompany, String nameAgent, String surnameAgent, String description) {
-		this.nameCompany = nameCompany;
-		this.nameAgent = nameAgent;
-		this.surnameAgent = surnameAgent;
-		this.description = description;
-	}
-
 	public String getNameCompany() {
 		return nameCompany;
-	}
-
-	public void setNameCompany(String nameCompany) {
-		this.nameCompany = nameCompany;
 	}
 
 	public String getNameAgent() {
 		return nameAgent;
 	}
 
-	public void setNameAgent(String nameAgent) {
-		this.nameAgent = nameAgent;
-	}
-
 	public String getSurnameAgent() {
 		return surnameAgent;
-	}
-
-	public void setSurnameAgent(String surnameAgent) {
-		this.surnameAgent = surnameAgent;
 	}
 
 	public String getDescription() {
 		return description;
 	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	
+	private CompanyPerformerInfo(Builder builder) {
+		this.nameCompany = builder.nameCompany;
+		this.nameAgent = builder.nameAgent;
+		this.surnameAgent = builder.surnameAgent;
+		this.description = builder.description;
 	}
 
+	public static class Builder {
+		private String nameCompany;
+		private String nameAgent;
+		private String surnameAgent;	
+		private String description;
+		
+		public Builder setNameCompany(String nameCompany) {
+			this.nameCompany = nameCompany;
+			return this;
+		}
+		public Builder setNameAgent(String nameAgent) {
+			this.nameAgent = nameAgent;
+			return this;
+		}
+		public Builder setSurnameAgent(String surnameAgent) {
+			this.surnameAgent = surnameAgent;
+			return this;
+		}
+		public Builder setDescription(String description) {
+			this.description = description;
+			return this;
+		}
+		
+		public CompanyPerformerInfo build() {
+			return new CompanyPerformerInfo(this);
+		}
+		
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

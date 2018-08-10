@@ -1,25 +1,33 @@
 package by.epam.domain.subtypespecialization;
 
+import by.epam.domain.user.Person;
+import by.epam.domain.user.Person.Builder;
+
 public class LegalAssistance {
 	
-	private String typeLegalAssistance;
-
-	public LegalAssistance() {
-
-	}
-
-	public LegalAssistance(String typeLegalAssistance) {
-		this.typeLegalAssistance = typeLegalAssistance;
-	}
+	private final String typeLegalAssistance;
 
 	public String getTypeLegalAssistance() {
 		return typeLegalAssistance;
 	}
 
-	public void setTypeLegalAssistance(String typeLegalAssistance) {
-		this.typeLegalAssistance = typeLegalAssistance;
+	private LegalAssistance(Builder builder) {
+		this.typeLegalAssistance = builder.typeLegalAssistance;
 	}
 
+	public static class Builder {
+		private String typeLegalAssistance;
+
+		public Builder setTypeLegalAssistance(String typeLegalAssistance) {
+			this.typeLegalAssistance = typeLegalAssistance;
+			return this;
+		}
+		
+		public LegalAssistance build() {
+			return new LegalAssistance(this);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

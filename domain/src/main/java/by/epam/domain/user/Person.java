@@ -2,24 +2,29 @@ package by.epam.domain.user;
 
 public class Person {
 	
-	private String typePerson;
-
-	public Person() {
-
-	}
-
-	public Person(String typePerson) {
-		this.typePerson = typePerson;
-	}
-
+	private final String typePerson;
+	
 	public String getTypePerson() {
 		return typePerson;
 	}
 
-	public void setTypePerson(String typePerson) {
-		this.typePerson = typePerson;
+	private Person(Builder builder) {
+		this.typePerson = builder.typePerson;
 	}
+	
+	public static class Builder {
+		private String typePerson;
 
+		public Builder setTypePerson(String typePerson) {
+			this.typePerson = typePerson;
+			return this;
+		}
+		
+		public Person build() {
+			return new Person(this);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

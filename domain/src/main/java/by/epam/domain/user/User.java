@@ -3,213 +3,152 @@ package by.epam.domain.user;
 import by.epam.domain.customer.Customer;
 import by.epam.domain.performer.Performer;
 import by.epam.domain.service.ServiceStaffInfo;
+import by.epam.domain.service.ServiceStaffInfo.Builder;
 
 public class User {
 	
-	private String username;
-	private String password;
-	private String isDelete;	
-	private String email;
-	private String phoneNumber;
-	private String address; 
-	private String photo;
-	private Role role;
-	private Person person;
-	private ServiceStaffInfo serviceStaffInfo;
-	private Customer customer;
-	private Performer performer;
+	private final String username;
+	private final String password;
+	private final String isDelete;	
+	private final String email;
+	private final String phoneNumber;
+	private final String address; 
+	private final String photo;
+	private final Role role;
+	private final Person person;
+	private final ServiceStaffInfo serviceStaffInfo;
+	private final Customer customer;
+	private final Performer performer;
 	
-	public User() {
-
-	}	
-
-	public User(String username, String isDelete) {
-		this.username = username;
-		this.isDelete = isDelete;
-	}
-	
-	public User(String username, String isDelete, Role role, Person person) {
-		this.username = username;
-		this.isDelete = isDelete;
-		this.role = role;
-		this.person = person;
-	}	
-
-	public User(String username, String isDelete, String email, String phoneNumber,
-			String address, String photo, Role role, Person person, ServiceStaffInfo serviceStaffInfo) {
-		this.username = username;
-		this.isDelete = isDelete;		
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.address = address;
-		this.photo = photo;
-		this.role = role;
-		this.person = person;
-		this.serviceStaffInfo = serviceStaffInfo;
-	}
-
-	public User(String username, String password, String isDelete, String email, String phoneNumber, String address,
-			String photo, Role role, Person person, ServiceStaffInfo serviceStaffInfo) {
-		this.username = username;
-		this.password = password;
-		this.isDelete = isDelete;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.address = address;
-		this.photo = photo;
-		this.role = role;
-		this.person = person;
-		this.serviceStaffInfo = serviceStaffInfo;
-	}
-
-	public User(String username,String isDelete, String email, String phoneNumber,
-			String address, String photo, Role role, Person person, Customer customer) {
-		this.username = username;
-		this.isDelete = isDelete;		
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.address = address;
-		this.photo = photo;
-		this.role = role;
-		this.person = person;
-		this.customer = customer;
-	}
-
-	public User(String username, String password, String isDelete, String email, String phoneNumber, String address,
-			String photo, Role role, Person person, Customer customer) {
-		this.username = username;
-		this.password = password;
-		this.isDelete = isDelete;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.address = address;
-		this.photo = photo;
-		this.role = role;
-		this.person = person;
-		this.customer = customer;
-	}
-
-	public User(String username, String isDelete, String email, String phoneNumber,
-			String address, String photo, Role role, Person person, Performer performer) {
-		this.username = username;
-		this.isDelete = isDelete;		
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.address = address;
-		this.photo = photo;
-		this.role = role;
-		this.person = person;
-		this.performer = performer;
-	}
-
-	public User(String username, String password, String isDelete, String email, String phoneNumber, String address,
-			String photo, Role role, Person person, Performer performer) {
-		this.username = username;
-		this.password = password;
-		this.isDelete = isDelete;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.address = address;
-		this.photo = photo;
-		this.role = role;
-		this.person = person;
-		this.performer = performer;
-	}
-
 	public String getUsername() {
 		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getIsDelete() {
 		return isDelete;
-	}
-
-	public void setIsDelete(String isDelete) {
-		this.isDelete = isDelete;
 	}
 
 	public String getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
-
 	public String getEmail() {
 		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
 	public String getAddress() {
 		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
 	}
 
 	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
 	public Person getPerson() {
 		return person;
-	}
-
-	public void setPerson(Person person) {
-		this.person = person;
 	}
 
 	public ServiceStaffInfo getServiceStaffInfo() {
 		return serviceStaffInfo;
 	}
 
-	public void setServiceStaffInfo(ServiceStaffInfo serviceStaffInfo) {
-		this.serviceStaffInfo = serviceStaffInfo;
-	}
-
 	public Customer getCustomer() {
 		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
 	}
 
 	public Performer getPerformer() {
 		return performer;
 	}
-
-	public void setPerformer(Performer performer) {
-		this.performer = performer;
+	
+	private User(Builder builder) {
+		this.username = builder.username;
+		this.password = builder.password;
+		this.isDelete = builder.isDelete;
+		this.email = builder.email;
+		this.phoneNumber = builder.phoneNumber;
+		this.address = builder.address;
+		this.photo = builder.photo;
+		this.role = builder.role;
+		this.person = builder.person;
+		this.serviceStaffInfo = builder.serviceStaffInfo;
+		this.customer = builder.customer;
+		this.performer = builder.performer;
+	}
+	
+	public static class Builder {
+		private String username;
+		private String password;
+		private String isDelete;	
+		private String email;
+		private String phoneNumber;
+		private String address; 
+		private String photo;
+		private Role role;
+		private Person person;
+		private ServiceStaffInfo serviceStaffInfo;
+		private Customer customer;
+		private Performer performer;
+		
+		public Builder setUsername(String username) {
+			this.username = username;
+			return this;
+		}
+		public Builder setPassword(String password) {
+			this.password = password;
+			return this;
+		}
+		public Builder setIsDelete(String isDelete) {
+			this.isDelete = isDelete;
+			return this;
+		}
+		public Builder setEmail(String email) {
+			this.email = email;
+			return this;
+		}
+		public Builder setPhoneNumber(String phoneNumber) {
+			this.phoneNumber = phoneNumber;
+			return this;
+		}
+		public Builder setAddress(String address) {
+			this.address = address;
+			return this;
+		}
+		public Builder setPhoto(String photo) {
+			this.photo = photo;
+			return this;
+		}
+		public Builder setRole(Role role) {
+			this.role = role;
+			return this;
+		}
+		public Builder setPerson(Person person) {
+			this.person = person;
+			return this;
+		}
+		public Builder setServiceStaffInfo(ServiceStaffInfo serviceStaffInfo) {
+			this.serviceStaffInfo = serviceStaffInfo;
+			return this;
+		}
+		public Builder setCustomer(Customer customer) {
+			this.customer = customer;
+			return this;
+		}
+		public Builder setPerformer(Performer performer) {
+			this.performer = performer;
+			return this;
+		}
+		
+		public User build() {
+			return new User(this);
+		}
 	}
 
 	@Override

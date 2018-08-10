@@ -26,9 +26,15 @@ public interface UserDAO {
 
 	Performer getPerformer(String username) throws DAOException;
 
+	boolean editUser (User user) throws DAOException;
+	
 	boolean editCustomer(Customer customer) throws DAOException;
 
 	boolean editPerformer(Performer performer) throws DAOException;
+	
+	String checkPassword(String oldPassword) throws DAOException;
+	
+	boolean editPassword (User user, String newPassword) throws DAOException;
 	
 	User delete(String username) throws DAOException;
 }

@@ -1,69 +1,67 @@
 package by.epam.domain.performer;
 
 import by.epam.domain.ownership.Ownership;
+import by.epam.domain.service.ServiceStaffInfo;
+import by.epam.domain.service.ServiceStaffInfo.Builder;
 
 public class Performer {
 	
-	private String requisites;
-	private Ownership ownership;
-	private LegalPerformerInfo legalPerformerInfo;
-	private CompanyPerformerInfo companyPerformerInfo;
+	private final String requisites;
+	private final Ownership ownership;
+	private final LegalPerformerInfo legalPerformerInfo;
+	private final CompanyPerformerInfo companyPerformerInfo;
 	
-	public Performer() {
-		
-	}	
-
-	public Performer(String requisites, Ownership ownership) {
-		this.requisites = requisites;
-		this.ownership = ownership;
-	}
-
-	public Performer(String requisites, Ownership ownership,
-			LegalPerformerInfo legalPerformerInfo) {
-		this.requisites = requisites;
-		this.ownership = ownership;
-		this.legalPerformerInfo = legalPerformerInfo;
-	}
-
-	public Performer(String requisites, Ownership ownership,
-			CompanyPerformerInfo companyPerformerInfo) {
-		this.requisites = requisites;
-		this.ownership = ownership;
-		this.companyPerformerInfo = companyPerformerInfo;
-	}
-
 	public String getRequisites() {
 		return requisites;
-	}
-
-	public void setRequisites(String requisites) {
-		this.requisites = requisites;
 	}
 
 	public LegalPerformerInfo getLegalPerformerInfo() {
 		return legalPerformerInfo;
 	}
 
-	public void setLegalPerformerInfo(LegalPerformerInfo legalPerformerInfo) {
-		this.legalPerformerInfo = legalPerformerInfo;
-	}
-
 	public CompanyPerformerInfo getCompanyPerformerInfo() {
 		return companyPerformerInfo;
-	}
-
-	public void setCompanyPerformerInfo(CompanyPerformerInfo companyPerformerInfo) {
-		this.companyPerformerInfo = companyPerformerInfo;
 	}
 
 	public Ownership getOwnership() {
 		return ownership;
 	}
-
-	public void setOwnership(Ownership ownership) {
-		this.ownership = ownership;
+	
+	private Performer(Builder builder) {
+		this.requisites = builder.requisites;
+		this.ownership = builder.ownership;
+		this.legalPerformerInfo = builder.legalPerformerInfo;
+		this.companyPerformerInfo = builder.companyPerformerInfo;
 	}
-
+	
+	public static class Builder {
+		private String requisites;
+		private Ownership ownership;
+		private LegalPerformerInfo legalPerformerInfo;
+		private CompanyPerformerInfo companyPerformerInfo;
+		
+		public Builder setRequisites(String requisites) {
+			this.requisites = requisites;
+			return this;
+		}
+		public Builder setOwnership(Ownership ownership) {
+			this.ownership = ownership;
+			return this;
+		}
+		public Builder setLegalPerformerInfo(LegalPerformerInfo legalPerformerInfo) {
+			this.legalPerformerInfo = legalPerformerInfo;
+			return this;
+		}
+		public Builder setCompanyPerformerInfo(CompanyPerformerInfo companyPerformerInfo) {
+			this.companyPerformerInfo = companyPerformerInfo;
+			return this;
+		}
+		
+		public Performer build() {
+			return new Performer(this);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -1,25 +1,33 @@
 package by.epam.domain.subtypespecialization;
 
+import by.epam.domain.user.Person;
+import by.epam.domain.user.Person.Builder;
+
 public class EventAndPromotion {
 
-	private String typeEventAndPromotion;
-
-	public EventAndPromotion() {
-		
-	}
-
-	public EventAndPromotion(String typeEventAndPromotion) {
-		this.typeEventAndPromotion = typeEventAndPromotion;
-	}
+	private final String typeEventAndPromotion;
 
 	public String getTypeEventAndPromotion() {
 		return typeEventAndPromotion;
 	}
 
-	public void setTypeEventAndPromotion(String typeEventAndPromotion) {
-		this.typeEventAndPromotion = typeEventAndPromotion;
+	private EventAndPromotion(Builder builder) {
+		this.typeEventAndPromotion = builder.typeEventAndPromotion;
 	}
 
+	public static class Builder {
+		private String typeEventAndPromotion;
+
+		public Builder setTypeEventAndPromotion(String typeEventAndPromotion) {
+			this.typeEventAndPromotion = typeEventAndPromotion;
+			return this;
+		}
+		
+		public EventAndPromotion build() {
+			return new EventAndPromotion(this);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

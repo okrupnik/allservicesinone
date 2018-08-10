@@ -1,55 +1,67 @@
 package by.epam.domain.customer;
 
+import by.epam.domain.service.ServiceStaffInfo;
+import by.epam.domain.service.ServiceStaffInfo.Builder;
+
 public class LegalCustomerInfo {
 	
-	private String name;
-	private String surname;
-	private String requisites;
-	private String copyRegistration;
-	
-	public LegalCustomerInfo() {
+	private final String name;
+	private final String surname;
+	private final String requisites;
+	private final String copyRegistration;
 		
-	}
-
-	public LegalCustomerInfo(String name, String surname, String requisites, String copyRegistration) {
-		this.name = name;
-		this.surname = surname;
-		this.requisites = requisites;
-		this.copyRegistration = copyRegistration;
-	}
-
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getSurname() {
 		return surname;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
 	public String getRequisites() {
 		return requisites;
-	}
-
-	public void setRequisites(String requisites) {
-		this.requisites = requisites;
 	}
 
 	public String getCopyRegistration() {
 		return copyRegistration;
 	}
 
-	public void setCopyRegistration(String copyRegistration) {
-		this.copyRegistration = copyRegistration;
+	private LegalCustomerInfo(Builder builder) {
+		this.name = builder.name;
+		this.surname = builder.surname;
+		this.requisites = builder.requisites;
+		this.copyRegistration = builder.copyRegistration;
 	}
 
+	public static class Builder {
+		private String name;
+		private String surname;
+		private String requisites;
+		private String copyRegistration;
+		
+		public Builder setName(String name) {
+			this.name = name;
+			return this;
+		}
+		public Builder setSurname(String surname) {
+			this.surname = surname;
+			return this;
+		}
+		public Builder setRequisites(String requisites) {
+			this.requisites = requisites;
+			return this;
+		}
+		public Builder setCopyRegistration(String copyRegistration) {
+			this.copyRegistration = copyRegistration;
+			return this;
+		}
+		
+		public LegalCustomerInfo build() {
+			return new LegalCustomerInfo(this);
+		}
+		
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

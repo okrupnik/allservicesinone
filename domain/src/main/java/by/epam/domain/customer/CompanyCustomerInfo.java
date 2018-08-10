@@ -1,64 +1,75 @@
 package by.epam.domain.customer;
 
+import by.epam.domain.service.ServiceStaffInfo;
+import by.epam.domain.service.ServiceStaffInfo.Builder;
+
 public class CompanyCustomerInfo {
 	
-	private String nameCompany;
-	private String nameAgent;
-	private String surnameAgent;
-	private String requisites;
-	private String description;
+	private final String nameCompany;
+	private final String nameAgent;
+	private final String surnameAgent;
+	private final String requisites;
+	private final String description;
 	
-	public CompanyCustomerInfo() {
-		
-	}
-
-	public CompanyCustomerInfo(String nameCompany, String nameAgent, String surnameAgent, String requisites,
-			String description) {
-		this.nameCompany = nameCompany;
-		this.nameAgent = nameAgent;
-		this.surnameAgent = surnameAgent;
-		this.requisites = requisites;
-		this.description = description;
-	}
-
 	public String getNameCompany() {
 		return nameCompany;
-	}
-
-	public void setNameCompany(String nameCompany) {
-		this.nameCompany = nameCompany;
 	}
 
 	public String getNameAgent() {
 		return nameAgent;
 	}
 
-	public void setNameAgent(String nameAgent) {
-		this.nameAgent = nameAgent;
-	}
-
 	public String getSurnameAgent() {
 		return surnameAgent;
-	}
-
-	public void setSurnameAgent(String surnameAgent) {
-		this.surnameAgent = surnameAgent;
 	}
 
 	public String getRequisites() {
 		return requisites;
 	}
 
-	public void setRequisites(String requisites) {
-		this.requisites = requisites;
-	}
-
 	public String getDescription() {
 		return description;
 	}
+	
+	private CompanyCustomerInfo(Builder builder) {
+		this.nameCompany = builder.nameCompany;
+		this.nameAgent = builder.nameAgent;
+		this.surnameAgent = builder.surnameAgent;
+		this.requisites = builder.requisites;
+		this.description = builder.description;
+	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public static class Builder {
+		private String nameCompany;
+		private String nameAgent;
+		private String surnameAgent;
+		private String requisites;
+		private String description;
+		
+		public Builder setNameCompany(String nameCompany) {
+			this.nameCompany = nameCompany;
+			return this;
+		}
+		public Builder setNameAgent(String nameAgent) {
+			this.nameAgent = nameAgent;
+			return this;
+		}
+		public Builder setSurnameAgent(String surnameAgent) {
+			this.surnameAgent = surnameAgent;
+			return this;
+		}
+		public Builder setRequisites(String requisites) {
+			this.requisites = requisites;
+			return this;
+		}
+		public Builder setDescription(String description) {
+			this.description = description;
+			return this;
+		}
+		
+		public CompanyCustomerInfo build() {
+			return new CompanyCustomerInfo(this);
+		}
 	}
 
 	@Override

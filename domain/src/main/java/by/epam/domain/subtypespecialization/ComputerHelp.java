@@ -1,25 +1,32 @@
 package by.epam.domain.subtypespecialization;
 
+import by.epam.domain.user.Person;
+import by.epam.domain.user.Person.Builder;
+
 public class ComputerHelp {
 
-	private String typeComputerHelp;
-
-	public ComputerHelp() {
-		
-	}
-
-	public ComputerHelp(String typeComputerHelp) {
-		this.typeComputerHelp = typeComputerHelp;
-	}
+	private final String typeComputerHelp;
 
 	public String getTypeComputerHelp() {
 		return typeComputerHelp;
 	}
-
-	public void setTypeComputerHelp(String typeComputerHelp) {
-		this.typeComputerHelp = typeComputerHelp;
+	
+	private ComputerHelp(Builder builder) {
+		this.typeComputerHelp = builder.typeComputerHelp;
 	}
 
+	public static class Builder {
+		private String typeComputerHelp;
+
+		public Builder setTypeComputerHelp(String typeComputerHelp) {
+			this.typeComputerHelp = typeComputerHelp;
+			return this;
+		}
+		
+		public ComputerHelp build() {
+			return new ComputerHelp(this);
+		}
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

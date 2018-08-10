@@ -1,69 +1,67 @@
 package by.epam.domain.customer;
 
 import by.epam.domain.ownership.Ownership;
+import by.epam.domain.service.ServiceStaffInfo;
+import by.epam.domain.service.ServiceStaffInfo.Builder;
 
 public class Customer {	
 	
-	private Ownership ownership;
-	private NaturalCustomerInfo naturalCustomerInfo;
-	private LegalCustomerInfo legalCustomerInfo;
-	private CompanyCustomerInfo companyCustomerInfo;
+	private final Ownership ownership;
+	private final NaturalCustomerInfo naturalCustomerInfo;
+	private final LegalCustomerInfo legalCustomerInfo;
+	private final CompanyCustomerInfo companyCustomerInfo;
 	
-	public Customer() {
-		
-	}		
-
-	public Customer(Ownership ownership) {
-		this.ownership = ownership;
-	}
-
-	public Customer(Ownership ownership, NaturalCustomerInfo naturalCustomerInfo) {
-		this.ownership = ownership;
-		this.naturalCustomerInfo = naturalCustomerInfo;
-	}
-
-	public Customer(Ownership ownership, LegalCustomerInfo legalCustomerInfo) {
-		this.ownership = ownership;
-		this.legalCustomerInfo = legalCustomerInfo;
-	}
-
-	public Customer(Ownership ownership, CompanyCustomerInfo companyCustomerInfo) {
-		this.ownership = ownership;
-		this.companyCustomerInfo = companyCustomerInfo;
-	}
-
 	public NaturalCustomerInfo getNaturalCustomerInfo() {
 		return naturalCustomerInfo;
-	}
-
-	public void setNaturalCustomerInfo(NaturalCustomerInfo naturalCustomerInfo) {
-		this.naturalCustomerInfo = naturalCustomerInfo;
 	}
 
 	public LegalCustomerInfo getLegalCustomerInfo() {
 		return legalCustomerInfo;
 	}
 
-	public void setLegalCustomerInfo(LegalCustomerInfo legalCustomerInfo) {
-		this.legalCustomerInfo = legalCustomerInfo;
-	}
-
 	public CompanyCustomerInfo getCompanyCustomerInfo() {
 		return companyCustomerInfo;
-	}
-
-	public void setCompanyCustomerInfo(CompanyCustomerInfo companyCustomerInfo) {
-		this.companyCustomerInfo = companyCustomerInfo;
 	}
 
 	public Ownership getOwnership() {
 		return ownership;
 	}
 
-	public void setOwnership(Ownership ownership) {
-		this.ownership = ownership;
+	private Customer(Builder builder) {
+		this.ownership = builder.ownership;
+		this.naturalCustomerInfo = builder.naturalCustomerInfo;
+		this.legalCustomerInfo = builder.legalCustomerInfo;
+		this.companyCustomerInfo = builder.companyCustomerInfo;
 	}
 
+	public static class Builder {
+		private Ownership ownership;
+		private NaturalCustomerInfo naturalCustomerInfo;
+		private LegalCustomerInfo legalCustomerInfo;
+		private CompanyCustomerInfo companyCustomerInfo;
+		
+		public Builder setOwnership(Ownership ownership) {
+			this.ownership = ownership;
+			return this;
+		}
+		public Builder setNaturalCustomerInfo(NaturalCustomerInfo naturalCustomerInfo) {
+			this.naturalCustomerInfo = naturalCustomerInfo;
+			return this;
+		}
+		public Builder setLegalCustomerInfo(LegalCustomerInfo legalCustomerInfo) {
+			this.legalCustomerInfo = legalCustomerInfo;
+			return this;
+		}
+		public Builder setCompanyCustomerInfo(CompanyCustomerInfo companyCustomerInfo) {
+			this.companyCustomerInfo = companyCustomerInfo;
+			return this;
+		}
+		
+		public Customer build() {
+			return new Customer(this);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
