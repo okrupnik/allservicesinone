@@ -1,5 +1,7 @@
 package by.epam.domain.specialization;
 
+import java.util.List;
+
 import by.epam.domain.subtypespecialization.BeautyAndHealth;
 import by.epam.domain.subtypespecialization.CleaningAndHelp;
 import by.epam.domain.subtypespecialization.ComputerHelp;
@@ -20,6 +22,8 @@ import by.epam.domain.user.Person.Builder;
 public class Specialization {
 	
 	private final String activities;
+	private final String description;
+	private final List<String> subspecialization;
 	private final BeautyAndHealth beautyAndHealth;
 	private final CleaningAndHelp cleaningAndHelp;
 	private final ComputerHelp computerHelp;
@@ -37,6 +41,14 @@ public class Specialization {
 	
 	public String getActivities() {
 		return activities;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public List<String> getSubspecialization() {
+		return subspecialization;
 	}
 
 	public BeautyAndHealth getBeautyAndHealth() {
@@ -97,6 +109,8 @@ public class Specialization {
 
 	private Specialization(Builder builder) {
 		this.activities = builder.activities;
+		this.description = builder.description;
+		this.subspecialization = builder.subspecialization;
 		this.beautyAndHealth = builder.beautyAndHealth;
 		this.cleaningAndHelp = builder.cleaningAndHelp;
 		this.computerHelp = builder.computerHelp;
@@ -115,6 +129,8 @@ public class Specialization {
 
 	public static class Builder {
 		private String activities;
+		private String description;
+		private List<String> subspecialization;
 		private BeautyAndHealth beautyAndHealth;
 		private CleaningAndHelp cleaningAndHelp;
 		private ComputerHelp computerHelp;
@@ -134,6 +150,17 @@ public class Specialization {
 			this.activities = activities;
 			return this;
 		}
+		
+		public Builder setDescription(String description) {
+			this.description = description;
+			return this;
+		}
+
+		public Builder setSubspecialization(List<String> subspecialization) {
+			this.subspecialization = subspecialization;
+			return this;
+		}
+
 		public Builder setBeautyAndHealth(BeautyAndHealth beautyAndHealth) {
 			this.beautyAndHealth = beautyAndHealth;
 			return this;
@@ -195,7 +222,7 @@ public class Specialization {
 			return new Specialization(this);
 		}
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -205,6 +232,7 @@ public class Specialization {
 		result = prime * result + ((cleaningAndHelp == null) ? 0 : cleaningAndHelp.hashCode());
 		result = prime * result + ((computerHelp == null) ? 0 : computerHelp.hashCode());
 		result = prime * result + ((courierService == null) ? 0 : courierService.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((design == null) ? 0 : design.hashCode());
 		result = prime * result + ((education == null) ? 0 : education.hashCode());
 		result = prime * result + ((eventAndPromotion == null) ? 0 : eventAndPromotion.hashCode());
@@ -251,6 +279,11 @@ public class Specialization {
 			if (other.courierService != null)
 				return false;
 		} else if (!courierService.equals(other.courierService))
+			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
 			return false;
 		if (design == null) {
 			if (other.design != null)

@@ -3,6 +3,7 @@ package by.epam.service.impl;
 public class ServiceConstant {
 	
 	public static final String LOCALE_RU_PARAM_NAME = "ru";
+	public static final String LOCALE_EN_PARAM_NAME = "en";
 	public static final String CUSTOMER_PARAM_NAME = "customer";
 	public static final String CUSTOMER_NATURAL_PARAM_NAME = "natural";
 	public static final String CUSTOMER_LEGAL_PARAM_NAME = "legal";
@@ -30,5 +31,21 @@ public class ServiceConstant {
 	public static final String SURNAME_AGENT_PARAM_NAME = "surnameagent";
 	public static final String DESCRIPTION_PARAM_NAME = "description";
 	public static final String ACTIVE_TAB_PARAM_NAME = "active";
+	public static final String SPECIALIZATION_PARAM_NAME = "specialization";
+	
+	public static final String TRUCKING_PARAM_NAME = "trucking";
+	public static final String REPAIR_PARAM_NAME = "repair";
+	public static final String COURIER_PARAM_NAME = "courier";
+	public static final String CLEANING_PARAM_NAME = "cleaning";
+	public static final String COMPUTER_PARAM_NAME = "computer";
+	public static final String EVENTS_PARAM_NAME = "events";
+	public static final String DESIGN_PARAM_NAME = "design";
+	public static final String WEB_PARAM_NAME = "web";
+	public static final String INSTALL_PARAM_NAME = "install";
+	public static final String BEAUTY_PARAM_NAME = "beauty";
+	public static final String LEGAL_PARAM_NAME = "legal";
+	public static final String EDUCATION_PARAM_NAME = "education";
+	public static final String REPAIR_TRANCPORT_PARAM_NAME = "repairtransport";
+	
 
 }

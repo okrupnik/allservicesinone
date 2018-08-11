@@ -1,6 +1,7 @@
 package by.epam.service;
 
 import by.epam.service.impl.OrderServiceImpl;
+import by.epam.service.impl.SpecializationServiceImpl;
 import by.epam.service.impl.UserServiceImpl;
 
 public class ServiceFactory {
@@ -9,6 +10,7 @@ public class ServiceFactory {
 
 	private final UserService userService = new UserServiceImpl();
 	private final OrderService orderService = new OrderServiceImpl();
+	private final SpecializationService specializationService = new SpecializationServiceImpl();
 
 	private ServiceFactory() {
 	}
@@ -23,6 +25,10 @@ public class ServiceFactory {
 
 	public OrderService getOrderService() {
 		return orderService;
+	}
+	
+	public SpecializationService getSpecializationService() {
+		return specializationService;
 	}
 
 }

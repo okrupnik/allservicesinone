@@ -11,6 +11,7 @@
 	<command commandName="cn.user.settings.page"	className="by.epam.controller.command.impl.ChangingUserSetting" />
 	<command commandName="cn.user.password.settings.page"	className="by.epam.controller.command.impl.ChangeUserPassword" />
 	<command commandName="cn.signout.page"	className="by.epam.controller.command.impl.SignOut" />
+	<command commandName="cn.choose.specialization.page"	className="by.epam.controller.command.impl.ChooseSpecialization" />
 	
 
 </comm:commands>

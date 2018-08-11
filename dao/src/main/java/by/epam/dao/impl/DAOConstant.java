@@ -30,5 +30,36 @@ public class DAOConstant {
 	public static final String SURNAME_AGENT_PARAM_NAME = "surnameagent";
 	public static final String DESCRIPTION_PARAM_NAME = "description";
 	public static final String ACTIVE_TAB_PARAM_NAME = "active";
+	
+	public static final String SPECIALIZATION_EN_PARAM_NAME = "descriptionen";
+	public static final String SPECIALIZATION_RU_PARAM_NAME = "descriptionru";
+	public static final String REPAIR_EN_PARAM_NAME = "typesRepairAndConstructionEn";
+	public static final String REPAIR_RU_PARAM_NAME = "typesRepairAndConstructionRu";
+	public static final String TRUCKING_EN_PARAM_NAME = "typesTruckingEn";
+	public static final String TRUCKING_RU_PARAM_NAME = "typesTruckingRu";
+	public static final String COURIER_EN_PARAM_NAME = "typeCourierServicesEn";
+	public static final String COURIER_RU_PARAM_NAME = "typeCourierServicesRu";
+	public static final String CLEANING_EN_PARAM_NAME = "typeCleaningAndHelpsEn";
+	public static final String CLEANING_RU_PARAM_NAME = "typeCleaningAndHelpsRu";
+	public static final String COMPUTER_EN_PARAM_NAME = "typrComputerHelpsEn";
+	public static final String COMPUTER_RU_PARAM_NAME = "typrComputerHelpsRu";
+	public static final String EVENTS_EN_PARAM_NAME = "typeEventsAndPromotionsEn";
+	public static final String EVENTS_RU_PARAM_NAME = "typeEventsAndPromotionsRu";
+	public static final String DESIGN_EN_PARAM_NAME = "typeDesignEn";
+	public static final String DESIGN_RU_PARAM_NAME = "typeDesignRu";
+	public static final String PHOTO_EN_PARAM_NAME = "typePhotoAndVideoServicesEn";
+	public static final String PHOTO_RU_PARAM_NAME = "typePhotoAndVideoServicesRu";
+	public static final String WEB_EN_PARAM_NAME = "typeWebDevelopingEn";
+	public static final String WEB_RU_PARAM_NAME = "typeWebDevelopingRu";
+	public static final String INSTALL_EN_PARAM_NAME = "typeInstallAndRepairEquipmentEn";
+	public static final String INSTALL_RU_PARAM_NAME = "typeInstallAndRepairEquipmentRu";
+	public static final String BEAUTY_EN_PARAM_NAME = "typeBeautyAndHealthEn";
+	public static final String BEAUTY_RU_PARAM_NAME = "typeBeautyAndHealthRu";
+	public static final String LEGAL_EN_PARAM_NAME = "typeLegalAssistanceEn";
+	public static final String LEGAL_RU_PARAM_NAME = "typeLegalAssistanceRu";
+	public static final String EDUCATION_EN_PARAM_NAME = "typeEducationEn";
+	public static final String EDUCATION_RU_PARAM_NAME = "typeEducationRu";
+	public static final String REPAIR_TRANSPORT_EN_PARAM_NAME = "typeRepairTransportEn";
+	public static final String REPAIR_TRANSPORT_RU_PARAM_NAME = "typeRepairTransportRu";
 
 }

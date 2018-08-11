@@ -23,6 +23,7 @@ public class ParamAndAttribute {
 	public static final String SURNAME_AGENT_PARAM_NAME = "surnameagent";
 	public static final String DESCRIPTION_PARAM_NAME = "description";
 	public static final String ACTIVE_TAB_PARAM_NAME = "active";
+	public static final String SPECIALIZATION_PARAM_NAME = "specialization";
 	
 	
 	public static final String USER_ATTRIBUTE = "user";
@@ -32,6 +33,7 @@ public class ParamAndAttribute {
 	public static final String ERROR_TEMP_DATA_ATTRIBUTE = "errorTempData";
 	public static final String ACTIVE_TAB_ATTRIBUTE = "activeTab";
 	public static final String SUCCESS_EDIT_ATTRIBUTE = "successEdit";
+	public static final String SPECIALIZATION_ATTRIBUTE = "specialization";
 		
 	private ParamAndAttribute() {
 	}
