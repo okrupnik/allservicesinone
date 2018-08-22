@@ -2,7 +2,12 @@ package by.epam.controller.command.impl;
 
 public class ControllerConstant {
 
+	public static final String COMMAND = "command";
+	public static final String PREVIOUS_COMMAND_AND_ATTRIBUTE = "previousCommandAndAttribute";
+	public static final String COMMAND_LOCALIZATION = "cn.localization.page";
+	
 	public static final String LOCALE_RU_PARAM_NAME = "ru";
+	public static final String LOCALE_EN_PARAM_NAME = "en";
 	public static final String TYPE_PERSON_PARAM_NAME = "typePerson";
 	public static final String FORM_OWNERSHIP_PARAM_NAME = "formOwnership";
 	public static final String ROLE_PARAM_NAME = "role";
@@ -32,5 +37,7 @@ public class ControllerConstant {
 	public static final String SURNAME_AGENT_PARAM_NAME = "surnameagent";
 	public static final String DESCRIPTION_PARAM_NAME = "description";
 	public static final String ACTIVE_TAB_PARAM_NAME = "active";
-		
+	
+	private ControllerConstant() {
+	}		
 }

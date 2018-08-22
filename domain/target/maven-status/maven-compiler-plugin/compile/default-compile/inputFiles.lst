@@ -1,8 +1,11 @@
+D:\Programming\Java\Epam\Project\allservicesinone\domain\src\main\java\by\epam\domain\service\ServiceStaffInfo.java
 D:\Programming\Java\Epam\Project\allservicesinone\domain\src\main\java\by\epam\domain\subtypespecialization\RepairTransport.java
 D:\Programming\Java\Epam\Project\allservicesinone\domain\src\main\java\by\epam\domain\subtypespecialization\TruckingIndustry.java
+D:\Programming\Java\Epam\Project\allservicesinone\domain\src\main\java\by\epam\domain\command\CommandXML.java
 D:\Programming\Java\Epam\Project\allservicesinone\domain\src\main\java\by\epam\domain\subtypespecialization\EventAndPromotion.java
 D:\Programming\Java\Epam\Project\allservicesinone\domain\src\main\java\by\epam\domain\subtypespecialization\LegalAssistance.java
 D:\Programming\Java\Epam\Project\allservicesinone\domain\src\main\java\by\epam\domain\specialization\Specialization.java
+D:\Programming\Java\Epam\Project\allservicesinone\domain\src\main\java\by\epam\domain\page\PageDetail.java
 D:\Programming\Java\Epam\Project\allservicesinone\domain\src\main\java\by\epam\domain\customer\Customer.java
 D:\Programming\Java\Epam\Project\allservicesinone\domain\src\main\java\by\epam\domain\performer\CompanyPerformerInfo.java
 D:\Programming\Java\Epam\Project\allservicesinone\domain\src\main\java\by\epam\domain\performer\LegalPerformerInfo.java
@@ -24,6 +27,7 @@ D:\Programming\Java\Epam\Project\allservicesinone\domain\src\main\java\by\epam\d
 D:\Programming\Java\Epam\Project\allservicesinone\domain\src\main\java\by\epam\domain\subtypespecialization\Design.java
 D:\Programming\Java\Epam\Project\allservicesinone\domain\src\main\java\by\epam\domain\subtypespecialization\PhotoAndVideoService.java
 D:\Programming\Java\Epam\Project\allservicesinone\domain\src\main\java\by\epam\domain\user\Person.java
+D:\Programming\Java\Epam\Project\allservicesinone\domain\src\main\java\by\epam\domain\error\ErrorMap.java
 D:\Programming\Java\Epam\Project\allservicesinone\domain\src\main\java\by\epam\domain\user\User.java
 D:\Programming\Java\Epam\Project\allservicesinone\domain\src\main\java\by\epam\domain\subtypespecialization\InstallAndRepairEquipment.java
 D:\Programming\Java\Epam\Project\allservicesinone\domain\src\main\java\by\epam\domain\user\Role.java

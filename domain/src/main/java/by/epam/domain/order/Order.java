@@ -3,184 +3,180 @@ package by.epam.domain.order;
 import java.time.LocalDate;
 
 import by.epam.domain.customer.Customer;
+import by.epam.domain.ownership.Ownership;
+import by.epam.domain.performer.CompanyPerformerInfo;
+import by.epam.domain.performer.LegalPerformerInfo;
 import by.epam.domain.performer.Performer;
+import by.epam.domain.performer.Performer.Builder;
 import by.epam.domain.specialization.Specialization;
 
 public class Order {
 
-	private int idOrder;
-	private String title;
-	private String description;
-	private String attachment;
-	private LocalDate startDate;
-	private String status;
-	private String subtypeSpecialization;
-	private LocalDate dateOfCreating;
-	private Customer customer;
-	private Performer performer;
-	private AddressOrderObject addressOrderObject;
-	private Specialization specialization;
-
-	public Order() {
-
-	}
-
-	public Order(String title, String description, String attachment, LocalDate startDate, String status,
-			String subtypeSpecialization, LocalDate dateOfCreating, Customer customer,
-			AddressOrderObject addressOrderObject, Specialization specialization) {
-		this.title = title;
-		this.description = description;
-		this.attachment = attachment;
-		this.startDate = startDate;
-		this.status = status;
-		this.subtypeSpecialization = subtypeSpecialization;
-		this.dateOfCreating = dateOfCreating;
-		this.customer = customer;
-		this.addressOrderObject = addressOrderObject;
-		this.specialization = specialization;
-	}
-
-	public Order(int idOrder, String title, String description, String attachment, LocalDate startDate, String status,
-			String subtypeSpecialization, LocalDate dateOfCreating, Customer customer,
-			AddressOrderObject addressOrderObject, Specialization specialization) {
-		this.idOrder = idOrder;
-		this.title = title;
-		this.description = description;
-		this.attachment = attachment;
-		this.startDate = startDate;
-		this.status = status;
-		this.subtypeSpecialization = subtypeSpecialization;
-		this.dateOfCreating = dateOfCreating;
-		this.customer = customer;
-		this.addressOrderObject = addressOrderObject;
-		this.specialization = specialization;
-	}
-
-	public Order(int idOrder, String title, String description, String attachment, LocalDate startDate, String status,
-			String subtypeSpecialization, LocalDate dateOfCreating, Customer customer, Performer performer,
-			AddressOrderObject addressOrderObject, Specialization specialization) {
-		this.idOrder = idOrder;
-		this.title = title;
-		this.description = description;
-		this.attachment = attachment;
-		this.startDate = startDate;
-		this.status = status;
-		this.subtypeSpecialization = subtypeSpecialization;
-		this.dateOfCreating = dateOfCreating;
-		this.customer = customer;
-		this.performer = performer;
-		this.addressOrderObject = addressOrderObject;
-		this.specialization = specialization;
-	}
-
+	private final int idOrder;
+	private final String title;
+	private final int idSpecialization;
+	private final String description;	
+	private final String status;
+	private final String subtypeSpecialization;
+	private final LocalDate startDate;	
+	private final LocalDate dateOfCreating;
+	private final String address;
+	private final String attachment;
+	private final Performer performer;	
+		
 	public int getIdOrder() {
 		return idOrder;
-	}
-
-	public void setIdOrder(int idOrder) {
-		this.idOrder = idOrder;
 	}
 
 	public String getTitle() {
 		return title;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public int getIdSpecialization() {
+		return idSpecialization;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getAttachment() {
-		return attachment;
-	}
-
-	public void setAttachment(String attachment) {
-		this.attachment = attachment;
-	}
-
-	public LocalDate getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(LocalDate startDate) {
-		this.startDate = startDate;
-	}
-
 	public String getStatus() {
 		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public String getSubtypeSpecialization() {
 		return subtypeSpecialization;
 	}
 
-	public void setSubtypeSpecialization(String subtypeSpecialization) {
-		this.subtypeSpecialization = subtypeSpecialization;
+	public LocalDate getStartDate() {
+		return startDate;
 	}
 
 	public LocalDate getDateOfCreating() {
 		return dateOfCreating;
 	}
 
-	public void setDateOfCreating(LocalDate dateOfCreating) {
-		this.dateOfCreating = dateOfCreating;
+	public String getAddress() {
+		return address;
 	}
 
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public String getAttachment() {
+		return attachment;
 	}
 
 	public Performer getPerformer() {
 		return performer;
 	}
 
-	public void setPerformer(Performer performer) {
-		this.performer = performer;
+	private Order(Builder builder) {
+		this.idOrder = builder.idOrder;
+		this.title = builder.title;
+		this.idSpecialization = builder.idSpecialization;
+		this.description = builder.description;
+		this.status = builder.status;
+		this.subtypeSpecialization = builder.subtypeSpecialization;
+		this.startDate = builder.startDate;
+		this.dateOfCreating = builder.dateOfCreating;
+		this.address = builder.address;
+		this.attachment = builder.attachment;
+		this.performer = builder.performer;
 	}
 
-	public AddressOrderObject getAddressOrderObject() {
-		return addressOrderObject;
-	}
+	public static class Builder {
+		private int idOrder;
+		private String title;
+		private int idSpecialization;
+		private String description;	
+		private String status;
+		private String subtypeSpecialization;
+		private LocalDate startDate;	
+		private LocalDate dateOfCreating;
+		private String address;
+		private String attachment;
+		private Performer performer;	
+				
+		public Builder setIdOrder(int idOrder) {
+			this.idOrder = idOrder;
+			return this;
+		}
 
-	public void setAddressOrderObject(AddressOrderObject addressOrderObject) {
-		this.addressOrderObject = addressOrderObject;
-	}
 
-	public Specialization getSpecialization() {
-		return specialization;
-	}
+		public Builder setTitle(String title) {
+			this.title = title;
+			return this;
+		}
 
-	public void setSpecialization(Specialization specialization) {
-		this.specialization = specialization;
+
+		public Builder setIdSpecialization(int idSpecialization) {
+			this.idSpecialization = idSpecialization;
+			return this;
+		}
+
+
+		public Builder setDescription(String description) {
+			this.description = description;
+			return this;
+		}
+
+
+		public Builder setStatus(String status) {
+			this.status = status;
+			return this;
+		}
+
+
+		public Builder setSubtypeSpecialization(String subtypeSpecialization) {
+			this.subtypeSpecialization = subtypeSpecialization;
+			return this;
+		}
+
+
+		public Builder setStartDate(LocalDate startDate) {
+			this.startDate = startDate;
+			return this;
+		}
+
+
+		public Builder setDateOfCreating(LocalDate dateOfCreating) {
+			this.dateOfCreating = dateOfCreating;
+			return this;
+		}
+
+
+		public Builder setAddress(String address) {
+			this.address = address;
+			return this;
+		}
+
+
+		public Builder setAttachment(String attachment) {
+			this.attachment = attachment;
+			return this;
+		}
+
+
+		public Builder setPerformer(Performer performer) {
+			this.performer = performer;
+			return this;
+		}
+
+
+		public Order build() {
+			return new Order(this);
+		}
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((addressOrderObject == null) ? 0 : addressOrderObject.hashCode());
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((attachment == null) ? 0 : attachment.hashCode());
-		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
 		result = prime * result + ((dateOfCreating == null) ? 0 : dateOfCreating.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + idOrder;
+		result = prime * result + idSpecialization;
 		result = prime * result + ((performer == null) ? 0 : performer.hashCode());
-		result = prime * result + ((specialization == null) ? 0 : specialization.hashCode());
 		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((subtypeSpecialization == null) ? 0 : subtypeSpecialization.hashCode());
@@ -197,20 +193,15 @@ public class Order {
 		if (getClass() != obj.getClass())
 			return false;
 		Order other = (Order) obj;
-		if (addressOrderObject == null) {
-			if (other.addressOrderObject != null)
+		if (address == null) {
+			if (other.address != null)
 				return false;
-		} else if (!addressOrderObject.equals(other.addressOrderObject))
+		} else if (!address.equals(other.address))
 			return false;
 		if (attachment == null) {
 			if (other.attachment != null)
 				return false;
 		} else if (!attachment.equals(other.attachment))
-			return false;
-		if (customer == null) {
-			if (other.customer != null)
-				return false;
-		} else if (!customer.equals(other.customer))
 			return false;
 		if (dateOfCreating == null) {
 			if (other.dateOfCreating != null)
@@ -224,15 +215,12 @@ public class Order {
 			return false;
 		if (idOrder != other.idOrder)
 			return false;
+		if (idSpecialization != other.idSpecialization)
+			return false;
 		if (performer == null) {
 			if (other.performer != null)
 				return false;
 		} else if (!performer.equals(other.performer))
-			return false;
-		if (specialization == null) {
-			if (other.specialization != null)
-				return false;
-		} else if (!specialization.equals(other.specialization))
 			return false;
 		if (startDate == null) {
 			if (other.startDate != null)
@@ -255,5 +243,6 @@ public class Order {
 		} else if (!title.equals(other.title))
 			return false;
 		return true;
-	}
+	}	
+	
 }

@@ -51,15 +51,15 @@
             <div class="row">
                 <div class="col-sm-5">
                     <div class="basic-login">
-                        <form method="post" action="Controler" role="form" role="form">
-                        <input type="hidden" name="command" value="sign_in">
+                        <form method="post" action="/controller/Controler" role="form" role="form">
+                        <input type="hidden" name="command" value="cn.signin.page">
                             <div class="form-group">
                                 <label for="login-username"><i class="icon-user"></i> <b>${usernameText}</b></label>
-                                <input class="form-control" id="login-username" type="text" placeholder="">
+                                <input class="form-control" id="login-username" type="text" name="username" placeholder="${usernameText}">
                             </div>
                             <div class="form-group">
                                 <label for="login-password"><i class="icon-lock"></i> <b>${passwordText}</b></label>
-                                <input class="form-control" id="login-password" type="password" placeholder="">
+                                <input class="form-control" id="login-password" type="password" name="password" placeholder="${passwordText}">
                             </div>
                             <div class="form-group">
                                 <label class="checkbox">
@@ -73,6 +73,12 @@
                     </div>
                 </div>
                 <div class="col-sm-7 social-login">
+                	<c:if test="${not empty sessionScope.errorMessage}">
+						<h1 style="color: #ff0000">
+							<c:out value="${sessionScope.errorMessage}"></c:out>
+							<% session.setAttribute("errorMessage", ""); %>
+						</h1>
+					</c:if>
                     <p>${choiceLoginText}</p>
                     <div class="social-login-buttons">
                         <a href="#" class="btn-facebook-login">${facebookText}</a>

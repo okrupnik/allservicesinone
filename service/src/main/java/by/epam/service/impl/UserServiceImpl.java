@@ -1,19 +1,15 @@
 package by.epam.service.impl;
 
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import by.epam.dao.DAOFactory;
 import by.epam.dao.UserDAO;
 import by.epam.dao.exception.DAOException;
-import by.epam.domain.customer.CompanyCustomerInfo;
 import by.epam.domain.customer.Customer;
-import by.epam.domain.customer.LegalCustomerInfo;
-import by.epam.domain.customer.NaturalCustomerInfo;
 import by.epam.domain.error.ErrorMap;
-import by.epam.domain.performer.CompanyPerformerInfo;
-import by.epam.domain.performer.LegalPerformerInfo;
+import by.epam.domain.page.PageDetail;
 import by.epam.domain.performer.Performer;
 import by.epam.domain.user.User;
 import by.epam.service.UserService;
@@ -23,14 +19,19 @@ public class UserServiceImpl implements UserService {
 
 	public Map<String, String> errorOfCreating = new HashMap<>();
 	public Map<String, String> tempDataForError = new HashMap<>();
+	public Map<String, Integer> pagesDetails = new HashMap<>();	
+	
+	DAOFactory daoFactory = DAOFactory.getInstance();
+	UserDAO userDAO = daoFactory.getUserDAO();
 	
 	@Override
 	public User create(User user, String locale) throws ServiceException {
 		errorOfCreating.replaceAll((k, v) -> null);
+		errorOfCreating.clear();
+		tempDataForError.replaceAll((k, v) -> null);
+		tempDataForError.clear();
 		String userName = null;
-		DAOFactory daoFactory = DAOFactory.getInstance();
-		UserDAO userDAO = daoFactory.getUserDAO();
-
+		
 		if (user.getUsername().isEmpty()) {
 			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
 				errorOfCreating.put(ServiceConstant.USERNAME_PARAM_NAME, "Поле имя пользователя пусто");
@@ -41,11 +42,9 @@ public class UserServiceImpl implements UserService {
 			try {
 				userName = userDAO.checkUsername(user.getUsername());
 			} catch (DAOException e) {
-				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
-					user = null;
+				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {					
 					throw new ServiceException("Ошибка проверки пользователя");
 				} else {
-					user = null;
 					throw new ServiceException("The error of checking user");
 				}
 			}
@@ -116,9 +115,16 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 
-		if (errorOfCreating.isEmpty()) {
+		if (errorOfCreating.isEmpty() || errorOfCreating == null) {
 			try {
 				user = userDAO.create(user);
+				if (user == null) {
+					if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+						throw new ServiceException("Ошибка создания пользователя, попробуйте позже");
+					} else {
+						throw new ServiceException("Error of creating user, try it later");
+					}
+				}
 			} catch (DAOException e) {
 				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
 					throw new ServiceException("Ошибка создания пользователя");
@@ -167,19 +173,19 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User create(User user, Customer customer, String locale) throws ServiceException {
+	public User create(final User user, final Customer customer, final String locale) throws ServiceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public User create(User user, Performer performer, String locale) throws ServiceException {
+	public User create(final User user, final Performer performer, final String locale) throws ServiceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public User logination(String username, String password, String locale) throws ServiceException {
+	public User logination(final String username, final String password, final String locale) throws ServiceException {
 		User user = null;
 
 		if (!username.isEmpty()) {
@@ -189,15 +195,23 @@ public class UserServiceImpl implements UserService {
 
 				try {
 					user = userDAO.checkUser(username, password);
-					if (user.getIsDelete().equals("true")) {
+					if (user == null) {
 						if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
-							user = null;
-							throw new ServiceException("Ваша учетная запись удалена");
+							throw new ServiceException("Неправильное имя пользователя или пароль");
 						} else {
-							user = null;
-							throw new ServiceException("Your account is deleted");
+							throw new ServiceException("Incorrect username or password");
 						}
-					}
+					} else {
+						if (user.getIsDelete().equals("true")) {
+							if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+								user = null;
+								throw new ServiceException("Ваша учетная запись удалена");
+							} else {
+								user = null;
+								throw new ServiceException("Your account is deleted");
+							}
+						}
+					}					
 				} catch (DAOException e) {
 					if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
 						throw new ServiceException("Неправильное имя пользователя или пароль");
@@ -223,28 +237,74 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User checkUsername(String username, String locale) throws ServiceException {
+	public User checkUsername(final String username, final String locale) throws ServiceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Customer getCustomer(String username, String locale) throws ServiceException {
+	public List<User> getAllUser(final User user, final String page, final String locale) throws ServiceException {
+		List<User> users = null;
+		int currentPage = 1;
+		int noOfRecords = 0;
+		int noOfPages = 0;		
+		int recordsPerPage = 4;
+		
+		
+		if(ServiceConstant.ADMIN_PARAM_NAME.equals(user.getRole().getTypeRole()) || ServiceConstant.EDITOR_PARAM_NAME.equals(user.getRole().getTypeRole())) {
+			try {
+				if(page != null) {
+					currentPage = Integer.parseInt(page);
+				}
+				users = userDAO.getAllUser((currentPage-1)*recordsPerPage, recordsPerPage);
+				noOfRecords = userDAO.getNoOfRecords();
+				noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
+				pagesDetails.put(ServiceConstant.NO_OF_PAGES_PARAM_NAME, noOfPages);
+				pagesDetails.put(ServiceConstant.CURRENT_PAGE_PARAM_NAME, currentPage);
+				PageDetail.setPagesDetails(pagesDetails);
+				if (users.isEmpty() || users == null) {
+					if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+						throw new ServiceException("Список пуст");
+					} else {
+						throw new ServiceException("Users list is empty");
+					}
+				}
+			} catch (DAOException e) {
+				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+					throw new ServiceException("Невозможно получить список пользователей, попробуйте позже");
+				} else {
+					throw new ServiceException("Impossible to get users list, try it later");
+				}
+			}
+		} else {
+			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+				throw new ServiceException("Недостаточно прав для редактирования пользователей");
+			} else {
+				throw new ServiceException("Insufficient privileges for editing users");
+			}
+		}
+		
+		return users;
+	}
+	
+	@Override
+	public Customer getCustomer(final String username, final String locale) throws ServiceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Performer getPerformer(String username, String locale) throws ServiceException {
+	public Performer getPerformer(final String username, final String locale) throws ServiceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean editUser(User user, String locale) throws ServiceException {
+	public boolean editUser(final User user, final String locale) throws ServiceException {
 		errorOfCreating.replaceAll((k, v) -> null);
-		DAOFactory daoFactory = DAOFactory.getInstance();
-		UserDAO userDAO = daoFactory.getUserDAO();
+		errorOfCreating.clear();
+		tempDataForError.replaceAll((k, v) -> null);
+		tempDataForError.clear();
 		
 		if (user.getEmail().isEmpty()) {
 			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
@@ -284,7 +344,15 @@ public class UserServiceImpl implements UserService {
 
 		if (errorOfCreating.isEmpty()) {
 			try {
-				return userDAO.editUser(user);
+				if (userDAO.editUser(user)) {
+					return true;
+				} else {
+					if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+						throw new ServiceException("Ошибка изменения данных пользователя, попробуйте позже");
+					} else {
+						throw new ServiceException("Error of edit data of user, try it later");
+					}
+				}
 			} catch (DAOException e) {
 				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
 					throw new ServiceException("Ошибка изменения данных пользователя");
@@ -332,24 +400,23 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public boolean editCustomer(Customer customer, String locale) throws ServiceException {
+	public boolean editCustomer(final Customer customer, final String locale) throws ServiceException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean editPerformer(Performer performer, String locale) throws ServiceException {
+	public boolean editPerformer(final Performer performer, final String locale) throws ServiceException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean changePassword(User user, String oldPassword, String newPassword, String confirmPassword, String locale)
+	public boolean changePassword(final User user, String oldPassword, final String newPassword, final String confirmPassword, final String locale)
 			throws ServiceException {
 
 		errorOfCreating.replaceAll((k, v) -> null);
-		DAOFactory daoFactory = DAOFactory.getInstance();
-		UserDAO userDAO = daoFactory.getUserDAO();
+		errorOfCreating.clear();
 		
 		if (oldPassword.isEmpty()) {
 			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
@@ -401,9 +468,17 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		
-		if (errorOfCreating.isEmpty()) {
+		if (errorOfCreating.isEmpty() || errorOfCreating == null) {
 			try {
-				return userDAO.editPassword(user, newPassword);
+				if (userDAO.editPassword(user, newPassword)) {
+					return true;
+				} else {
+					if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+						throw new ServiceException("Ошибка изменения пароля пользователя, попробуйте позже");
+					} else {
+						throw new ServiceException("Error of changing password of user, try it later");
+					}
+				}				
 			} catch (DAOException e) {
 				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
 					throw new ServiceException("Ошибка изменения пароля пользователя");
@@ -423,9 +498,60 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User delete(String username, String locale) throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean delete(final String username, final String locale) throws ServiceException{
+
+		if (!username.isEmpty() && username != null) {
+			try {				
+				if (userDAO.delete(username)) {
+					return true;
+				} else {
+					if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+						throw new ServiceException("Ошибка удаления пользователя, попробуйте позже");
+					} else {
+						throw new ServiceException("Error of deleting user, try it later");
+					}
+				}	
+			} catch (DAOException e) {
+				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+					throw new ServiceException("Ошибка удаления пользователя");
+				} else {
+					throw new ServiceException("Error of deleting user");
+				}	
+			}
+		} else {
+			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+				throw new ServiceException("Пользователь не найден");
+			} else {
+				throw new ServiceException("The user is not found");
+			}	
+		}
+		
 	}
+
+	@Override
+	public User getUser(String username, String locale) throws ServiceException {
+		User user = null;
+		
+		if (!username.isEmpty() && username != null) {
+			try {
+				user = userDAO.getUser(username);
+			} catch (DAOException e) {
+				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+					throw new ServiceException("Ошибка редактирования пользователя");
+				} else {
+					throw new ServiceException("Error of editing user");
+				}	
+			}
+		} else {
+			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+				throw new ServiceException("Пользователь не найден");
+			} else {
+				throw new ServiceException("The user is not found");
+			}				
+		}
+		
+		return user;
+	}
+	
 	
 }

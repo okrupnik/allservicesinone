@@ -4,6 +4,8 @@ public class ServiceConstant {
 	
 	public static final String LOCALE_RU_PARAM_NAME = "ru";
 	public static final String LOCALE_EN_PARAM_NAME = "en";
+	public static final String ADMIN_PARAM_NAME = "admin";
+	public static final String EDITOR_PARAM_NAME = "editor";
 	public static final String CUSTOMER_PARAM_NAME = "customer";
 	public static final String CUSTOMER_NATURAL_PARAM_NAME = "natural";
 	public static final String CUSTOMER_LEGAL_PARAM_NAME = "legal";
@@ -20,7 +22,7 @@ public class ServiceConstant {
 	public static final String CONFIRM_PASSWORD_PARAM_NAME = "confirmpassword";
 	public static final String PHOTO_PARAM_NAME = "photo";
 	public static final String EMAIL_PARAM_NAME = "email";
-	public static final String PHONE_NUMBER_PARAM_NAME = "phone";
+	public static final String PHONE_NUMBER_PARAM_NAME = "phoneNumber";
 	public static final String NAME_PARAM_NAME = "name";
 	public static final String SURNAME_PARAM_NAME = "surname";
 	public static final String ADDRESS_PARAM_NAME = "address";
@@ -46,6 +48,14 @@ public class ServiceConstant {
 	public static final String LEGAL_PARAM_NAME = "legal";
 	public static final String EDUCATION_PARAM_NAME = "education";
 	public static final String REPAIR_TRANCPORT_PARAM_NAME = "repairtransport";
+	
+	public static final String NO_OF_PAGES_PARAM_NAME = "noofpages";
+	public static final String CURRENT_PAGE_PARAM_NAME = "currentpage";
+	
+	public static final String TITLE_ORDER_PARAM_NAME = "titleOrder";
+	public static final String DESCRIPTION_ORDER_PARAM_NAME = "descriptionOrder";
+	public static final String ADDRESS_ORDER_PARAM_NAME = "addressOrder";
+	public static final String STATUS_CHOOSE_ORDER_PARAM_NAME = "choose";
 	
 
 }

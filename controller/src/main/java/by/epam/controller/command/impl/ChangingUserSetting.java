@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import by.epam.controller.command.Command;
 import by.epam.domain.customer.CompanyCustomerInfo;
 import by.epam.domain.customer.Customer;
@@ -26,14 +29,13 @@ import by.epam.service.ServiceFactory;
 import by.epam.service.UserService;
 import by.epam.service.exception.ServiceException;
 
-public class ChangingUserSetting implements Command{
+public class ChangingUserSetting implements Command {
+	private static final Logger log = LoggerFactory.getLogger(ChangingUserSetting.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
 
-		String isDelete = null;
 		String photo = null;
-		String role = null;
 		String typePerson = null;
 		String email = null;
 		String phoneNumber = null;
@@ -44,16 +46,16 @@ public class ChangingUserSetting implements Command{
 		String requisites = null;
 		String copyRegistration = null;
 		String companyName = null;
-		String description = null;		
-		
-		User user = (User) request.getSession().getAttribute("user"); 
+		String description = null;
+
+		User user = (User) request.getSession(true).getAttribute(ParamAndAttribute.USER_ATTRIBUTE);
 		typePerson = request.getParameter(ParamAndAttribute.TYPE_PERSON_PARAM_NAME);
 		formOwnership = request.getParameter(ParamAndAttribute.FORM_OWNERSHIP_PARAM_NAME);
 		email = request.getParameter(ParamAndAttribute.EMAIL_PARAM_NAME);
 		phoneNumber = request.getParameter(ParamAndAttribute.PHONE_NUMBER_PARAM_NAME);
 		address = request.getParameter(ParamAndAttribute.ADDRESS_PARAM_NAME);
 		photo = request.getParameter(ParamAndAttribute.PHOTO_PARAM_NAME);
-		
+
 		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
 		UserService userService = serviceFactory.getUserService();
 		HttpSession session = request.getSession();
@@ -62,32 +64,48 @@ public class ChangingUserSetting implements Command{
 		if (typePerson.equals(ControllerConstant.SERVICE_PERSON_PARAM_NAME)) {
 			name = request.getParameter(ParamAndAttribute.NAME_PARAM_NAME);
 			surname = request.getParameter(ParamAndAttribute.SURNAME_PARAM_NAME);
-			user = new User.Builder().setUsername(user.getUsername()).setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email).
-					setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo).setRole(new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build()).
-					setPerson(new Person.Builder().setTypePerson(typePerson).build()).setServiceStaffInfo(new ServiceStaffInfo.Builder().setName(name).setSurname(surname).build()).build();				
+			user = new User.Builder().setUsername(user.getUsername())
+					.setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email).setPhoneNumber(phoneNumber)
+					.setAddress(address).setPhoto(photo)
+					.setRole(new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build())
+					.setPerson(new Person.Builder().setTypePerson(typePerson).build())
+					.setServiceStaffInfo(new ServiceStaffInfo.Builder().setName(name).setSurname(surname).build())
+					.build();
 		}
-		
+
 		if (typePerson.equals(ControllerConstant.CUSTOMER_PARAM_NAME)) {
 			switch (formOwnership) {
 			case ControllerConstant.CUSTOMER_NATURAL_PARAM_NAME:
 				name = request.getParameter(ParamAndAttribute.NAME_PARAM_NAME);
 				surname = request.getParameter(ParamAndAttribute.SURNAME_PARAM_NAME);
-				user = new User.Builder().setUsername(user.getUsername()).setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email).
-						setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo).setRole(new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build()).
-						setPerson(new Person.Builder().setTypePerson(typePerson).build()).
-						setCustomer(new Customer.Builder().setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build()).
-						setNaturalCustomerInfo(new NaturalCustomerInfo.Builder().setName(name).setSurname(surname).build()).build()).build();
+				user = new User.Builder().setUsername(user.getUsername())
+						.setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email)
+						.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
+						.setRole(new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build())
+						.setPerson(new Person.Builder().setTypePerson(typePerson).build())
+						.setCustomer(new Customer.Builder()
+								.setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build())
+								.setNaturalCustomerInfo(
+										new NaturalCustomerInfo.Builder().setName(name).setSurname(surname).build())
+								.build())
+						.build();
 				break;
 			case ControllerConstant.CUSTOMER_LEGAL_PARAM_NAME:
 				name = request.getParameter(ParamAndAttribute.NAME_PARAM_NAME);
 				surname = request.getParameter(ParamAndAttribute.SURNAME_PARAM_NAME);
 				requisites = request.getParameter(ParamAndAttribute.REQUISITES_PARAM_NAME);
 				copyRegistration = request.getParameter(ParamAndAttribute.COPY_REGISTTRATION_PARAM_NAME);
-				user = new User.Builder().setUsername(user.getUsername()).setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email).
-						setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo).setRole(new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build()).
-						setPerson(new Person.Builder().setTypePerson(typePerson).build()).
-						setCustomer(new Customer.Builder().setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build()).
-						setLegalCustomerInfo(new LegalCustomerInfo.Builder().setName(name).setSurname(surname).setRequisites(requisites).setCopyRegistration(copyRegistration).build()).build()).build();						
+				user = new User.Builder().setUsername(user.getUsername())
+						.setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email)
+						.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
+						.setRole(new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build())
+						.setPerson(new Person.Builder().setTypePerson(typePerson).build())
+						.setCustomer(new Customer.Builder()
+								.setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build())
+								.setLegalCustomerInfo(new LegalCustomerInfo.Builder().setName(name).setSurname(surname)
+										.setRequisites(requisites).setCopyRegistration(copyRegistration).build())
+								.build())
+						.build();
 				break;
 			case ControllerConstant.CUSTOMER_COMPANY_PARAM_NAME:
 				companyName = request.getParameter(ParamAndAttribute.COMPANY_PARAM_NAME);
@@ -95,11 +113,18 @@ public class ChangingUserSetting implements Command{
 				surname = request.getParameter(ParamAndAttribute.SURNAME_AGENT_PARAM_NAME);
 				requisites = request.getParameter(ParamAndAttribute.REQUISITES_PARAM_NAME);
 				description = request.getParameter(ParamAndAttribute.DESCRIPTION_PARAM_NAME);
-				user = new User.Builder().setUsername(user.getUsername()).setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email).
-						setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo).setRole(new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build()).
-						setPerson(new Person.Builder().setTypePerson(typePerson).build()).
-						setCustomer(new Customer.Builder().setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build()).
-						setCompanyCustomerInfo(new CompanyCustomerInfo.Builder().setNameCompany(companyName).setNameAgent(name).setSurnameAgent(surname).setRequisites(requisites).setDescription(description).build()).build()).build();						
+				user = new User.Builder().setUsername(user.getUsername())
+						.setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email)
+						.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
+						.setRole(new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build())
+						.setPerson(new Person.Builder().setTypePerson(typePerson).build())
+						.setCustomer(new Customer.Builder()
+								.setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build())
+								.setCompanyCustomerInfo(new CompanyCustomerInfo.Builder().setNameCompany(companyName)
+										.setNameAgent(name).setSurnameAgent(surname).setRequisites(requisites)
+										.setDescription(description).build())
+								.build())
+						.build();
 				break;
 			}
 		} else {
@@ -110,11 +135,17 @@ public class ChangingUserSetting implements Command{
 					surname = request.getParameter(ParamAndAttribute.SURNAME_PARAM_NAME);
 					requisites = request.getParameter(ParamAndAttribute.REQUISITES_PARAM_NAME);
 					copyRegistration = request.getParameter(ParamAndAttribute.COPY_REGISTTRATION_PARAM_NAME);
-					user = new User.Builder().setUsername(user.getUsername()).setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email).
-							setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo).setRole(new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build()).
-							setPerson(new Person.Builder().setTypePerson(typePerson).build()).
-							setPerformer(new Performer.Builder().setRequisites(requisites).setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build()).
-							setLegalPerformerInfo(new LegalPerformerInfo.Builder().setName(name).setSurname(surname).setCopyRegistration(copyRegistration).build()).build()).build();							
+					user = new User.Builder().setUsername(user.getUsername())
+							.setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email)
+							.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
+							.setRole(new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build())
+							.setPerson(new Person.Builder().setTypePerson(typePerson).build())
+							.setPerformer(new Performer.Builder().setRequisites(requisites)
+									.setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build())
+									.setLegalPerformerInfo(new LegalPerformerInfo.Builder().setName(name)
+											.setSurname(surname).setCopyRegistration(copyRegistration).build())
+									.build())
+							.build();
 					break;
 				case ControllerConstant.PERFORMER_COMPANY_PARAM_NAME:
 					companyName = request.getParameter(ParamAndAttribute.COMPANY_PARAM_NAME);
@@ -122,41 +153,50 @@ public class ChangingUserSetting implements Command{
 					surname = request.getParameter(ParamAndAttribute.SURNAME_AGENT_PARAM_NAME);
 					requisites = request.getParameter(ParamAndAttribute.REQUISITES_PARAM_NAME);
 					description = request.getParameter(ParamAndAttribute.DESCRIPTION_PARAM_NAME);
-					user = new User.Builder().setUsername(user.getUsername()).setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email).
-							setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo).setRole(new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build()).
-							setPerson(new Person.Builder().setTypePerson(typePerson).build()).
-							setPerformer(new Performer.Builder().setRequisites(requisites).setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build()).
-							setCompanyPerformerInfo(new CompanyPerformerInfo.Builder().setNameCompany(companyName).setNameAgent(name).setSurnameAgent(surname).setDescription(description).build()).build()).build();							
+					user = new User.Builder().setUsername(user.getUsername())
+							.setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email)
+							.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
+							.setRole(new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build())
+							.setPerson(new Person.Builder().setTypePerson(typePerson).build())
+							.setPerformer(new Performer.Builder().setRequisites(requisites)
+									.setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build())
+									.setCompanyPerformerInfo(new CompanyPerformerInfo.Builder()
+											.setNameCompany(companyName).setNameAgent(name).setSurnameAgent(surname)
+											.setDescription(description).build())
+									.build())
+							.build();
 					break;
 				}
 			}
 		}
-		
+
 		try {
-			if (userService.editUser(user, locale)) {
-				session.setAttribute(ParamAndAttribute.USER_ATTRIBUTE, user);
-				if (locale.equals(ControllerConstant.LOCALE_RU_PARAM_NAME)) {
-					session.setAttribute(ParamAndAttribute.SUCCESS_EDIT_ATTRIBUTE, "Данные пользователя успешно измененны");
-				} else {
-					session.setAttribute(ParamAndAttribute.SUCCESS_EDIT_ATTRIBUTE, "Data of user changed successfully");
-				}
-				RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.USER_EDIT_SUCCESS_PAGE);
-				dispatcher.forward(request, response);
+			userService.editUser(user, locale);
+			session.setAttribute(ParamAndAttribute.USER_ATTRIBUTE, user);
+			if (locale.equals(ControllerConstant.LOCALE_RU_PARAM_NAME)) {
+				session.setAttribute(ParamAndAttribute.SUCCESS_EDIT_ATTRIBUTE, "Данные пользователя успешно измененны");
 			} else {
-				if (locale.equals(ControllerConstant.LOCALE_RU_PARAM_NAME)) {
-					session.setAttribute(ParamAndAttribute.ERROR_MESSAGE_ATTRIBUTE, "Ошибка редактирования пользователя");
-					response.sendRedirect(request.getHeader("Referer"));
-				} else {
-					session.setAttribute(ParamAndAttribute.ERROR_MESSAGE_ATTRIBUTE, "Error of edit user");
-					response.sendRedirect(request.getHeader("Referer"));
-				}
+				session.setAttribute(ParamAndAttribute.SUCCESS_EDIT_ATTRIBUTE, "Data of user changed successfully");
 			}
+			RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.USER_EDIT_SUCCESS_PAGE);
+			dispatcher.forward(request, response);
 		} catch (ServiceException e) {
 			String errorMessage = e.getMessage();
 			session.setAttribute(ParamAndAttribute.ERROR_MESSAGE_ATTRIBUTE, errorMessage);
 			session.setAttribute(ParamAndAttribute.ERROR_INPUT_ATTRIBUTE, ErrorMap.getErrorsOfCreating());
 			session.setAttribute(ParamAndAttribute.ERROR_TEMP_DATA_ATTRIBUTE, ErrorMap.getTempDataForErrors());
-			response.sendRedirect(request.getHeader("Referer"));
+			RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.USER_SETTING_PAGE);
+			try {
+				dispatcher.forward(request, response);
+			} catch (ServletException | IOException e1) {
+				for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+					log.error(stackTraceElement.toString());
+				}
+			}
+		} catch (ServletException | IOException e) {
+			for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+				log.error(stackTraceElement.toString());
+			}
 		}
 
 	}

@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import by.epam.controller.command.Command;
 import by.epam.domain.command.CommandXML;
 
 public class CommandProvider {
-	private static final Logger log = LogManager.getLogger(CommandProvider.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(CommandProvider.class.getName());
 
 	private ArrayList<CommandXML> commandXML = CommandNameXMLParser.getInstance().getCommandClass();
 	private Map<String, Command> commands = new HashMap<>();
@@ -23,7 +23,7 @@ public class CommandProvider {
 						(Command) Class.forName(commandXMLtmp.getClassName()).newInstance());
 			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 				for (StackTraceElement stackTraceElement : e.getStackTrace()) {
-					log.error(stackTraceElement);
+					log.error(stackTraceElement.toString());
 				}
 			}
 		}

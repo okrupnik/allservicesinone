@@ -7,14 +7,14 @@ import by.epam.domain.performer.Performer;
 
 public interface PerformerDAO {
 	
-	Performer createLegalPerformer(Performer performer, LegalPerformerInfo legalPerformerInfo) throws DAOException;
-	Performer createCompanyPerformer(Performer performer, CompanyPerformerInfo companyPerformerInfo) throws DAOException;
-	Performer checkPerformer(String login, String password) throws DAOException;
-	Performer checkLoginPerformer(String login) throws DAOException;
-	LegalPerformerInfo getLegalPerformerInfo(String login) throws DAOException;
-	CompanyPerformerInfo getCompanyPerformerInfo(String login) throws DAOException;
-	boolean editLegalPerformer(Performer performer, LegalPerformerInfo legalPerformerInfo) throws DAOException;
-	boolean editCompanyPerformer(Performer performer, CompanyPerformerInfo companyPerformerInfo) throws DAOException;
-	Performer delete(String login) throws DAOException;
+	Performer createLegalPerformer(final Performer performer, final LegalPerformerInfo legalPerformerInfo) throws DAOException;
+	Performer createCompanyPerformer(final Performer performer, final CompanyPerformerInfo companyPerformerInfo) throws DAOException;
+	Performer checkPerformer(final String login, final String password) throws DAOException;
+	Performer checkLoginPerformer(final String login) throws DAOException;
+	LegalPerformerInfo getLegalPerformerInfo(final String login) throws DAOException;
+	CompanyPerformerInfo getCompanyPerformerInfo(final String login) throws DAOException;
+	boolean editLegalPerformer(final Performer performer, final LegalPerformerInfo legalPerformerInfo) throws DAOException;
+	boolean editCompanyPerformer(final Performer performer, final CompanyPerformerInfo companyPerformerInfo) throws DAOException;
+	Performer delete(final String login) throws DAOException;
 
 }

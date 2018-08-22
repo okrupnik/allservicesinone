@@ -3,6 +3,7 @@ package by.epam.dao.impl;
 public class SQLRequest {
 	
 	public static final String SELECT_CHECK_USER = "SELECT users.username, users.password, users.isDelete, users.email, users.phoneNumber, users.address, users.photo, roles.role, persons.typePerson FROM allservices.users, allservices.roles, allservices.persons WHERE roles.id=users.roles_id AND persons.id=users.persons_id AND users.username=? AND users.password=?";
+	public static final String SELECT_USER_BY_USERNAME = "SELECT users.username, users.isDelete, users.email, users.phoneNumber, users.address, users.photo, roles.role, persons.typePerson FROM allservices.users, allservices.roles, allservices.persons WHERE roles.id=users.roles_id AND persons.id=users.persons_id AND users.username=?";
 	public static final String SELECT_CHECK_PASSWORD = "SELECT users.username FROM allservices.users WHERE users.password=?";
 	public static final String SELECT_SERVICE_STAFF = "SELECT servicestaff.name, servicestaff.surname FROM allservices.users, allservices.servicestaff WHERE users.id=servicestaff.users_id AND users.username=?";
 	public static final String SELECT_CUSTOMER = "SELECT ownerships.formOwnership FROM allservices.users, allservices.customers, allservices.ownerships WHERE ownerships.id=customers.ownerships_id AND users.id=customers.users_id AND users.username=?";
@@ -16,6 +17,9 @@ public class SQLRequest {
 	public static final String SELECT_ROLE_USER = "SELECT roles.id FROM allservices.roles, allservices.users WHERE roles.id=users.roles_id AND roles.role=?";
 	public static final String SELECT_PERSON_USER = "SELECT persons.id FROM allservices.persons, allservices.users WHERE persons.id=users.persons_id AND persons.typePerson=?";
 	public static final String SELECT_OWNERSHIP_USER = "SELECT ownerships.id FROM allservices.ownerships WHERE ownerships.formOwnership=?";
+	public static final String SELECT_ALL_USER = "SELECT SQL_CALC_FOUND_ROWS * FROM allservices.users, allservices.roles, allservices.persons WHERE roles.id=users.roles_id AND persons.id=users.persons_id AND users.isDelete='false' LIMIT ?, ?";
+	public static final String SELECT_COUNT_USER = "SELECT FOUND_ROWS()";
+	public static final String SELECT_USER_ID = "SELECT users.id FROM allservices.users WHERE users.username=?";
 	
 	public static final String SELECT_SPECIALIZATION_TRUCKING_EN = "SELECT specialization.descriptionen, truckingindustry.typesTruckingEn FROM allservices.specialization, allservices.truckingindustry WHERE specialization.id=truckingindustry.specialization_id AND specialization.activities=?";
 	public static final String SELECT_SPECIALIZATION_TRUCKING_RU = "SELECT specialization.descriptionru, truckingindustry.typesTruckingRu FROM allservices.specialization, allservices.truckingindustry WHERE specialization.id=truckingindustry.specialization_id AND specialization.activities=?";
@@ -63,6 +67,10 @@ public class SQLRequest {
 	public static final String UPDATE_PERFORMER_LEGAL_PERSON = "UPDATE allservices.users, allservices.performers, allservices.infolegalperformers SET users.email=?, users.phoneNumber=?, users.address=?, users.photo=?, performers.requisites=?, infolegalperformers.name=?, infolegalperformers.surname=?, infolegalperformers.copyRegistration=? WHERE users.id=performers.users_id AND performers.id=infolegalperformers.performers_id AND users.username=?";
 	public static final String UPDATE_PERFORMER_COMPANY_PERSON = "UPDATE allservices.users, allservices.performers, allservices.infocompanyperformers SET users.email=?, users.phoneNumber=?, users.address=?, users.photo=?, performers.requisites=?, infocompanyperformers.nameCompany=?, infocompanyperformers.nameAgent=?, infocompanyperformers.surnameAgent=?, infocompanyperformers.description=? WHERE users.id=performers.users_id AND performers.id=infocompanyperformers.performers_id AND users.username=?";
 	public static final String UPDATE_PASSWORD = "UPDATE allservices.users SET users.password=? WHERE users.username=?";
+	
+	public static final String DELETE_USER = "UPDATE allservices.users SET users.isDelete='true' WHERE users.username=?";
+	
+	public static final String CREATE_ORDER = "INSERT INTO allservices.orders (orders.title, orders.description, orders.subtypeSpecialization, orders.status, orders.address, orders.startDate, orders.dateOfCreating, orders.attachments, orders.users_id, orders.specialization_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	
 	private SQLRequest() {

@@ -16,8 +16,6 @@ import by.epam.domain.subtypespecialization.RepairAndConstruction;
 import by.epam.domain.subtypespecialization.RepairTransport;
 import by.epam.domain.subtypespecialization.TruckingIndustry;
 import by.epam.domain.subtypespecialization.WebDeveloping;
-import by.epam.domain.user.Person;
-import by.epam.domain.user.Person.Builder;
 
 public class Specialization {
 	

@@ -8,17 +8,17 @@ import by.epam.domain.customer.NaturalCustomerInfo;
 
 public interface CustomerDAO {
 	
-	Customer createNaturalCustomer(Customer customer, NaturalCustomerInfo naturalCustomerInfo) throws DAOException;
-	Customer createLegalCustomer(Customer customer, LegalCustomerInfo legalCustomerInfo) throws DAOException;
-	Customer createCompanyCustomer(Customer customer, CompanyCustomerInfo companyCustomerInfo) throws DAOException;
-	Customer checkCustomer(String login, String password) throws DAOException;
-	Customer checkLoginCustomer(String login) throws DAOException;
-	NaturalCustomerInfo getNaturalCustomerInfo(String login) throws DAOException;
-	LegalCustomerInfo getLegalCustomerInfo(String login) throws DAOException;
-	CompanyCustomerInfo getCompanyCustomerInfo(String login) throws DAOException;
-	boolean editNaturalCustomer(Customer customer, NaturalCustomerInfo naturalCustomerInfo) throws DAOException;
-	boolean editLegalCustomer(Customer customer, LegalCustomerInfo legalCustomerInfo) throws DAOException;
-	boolean editCompanyCustomer(Customer customer, CompanyCustomerInfo companyCustomerInfo) throws DAOException;
-	Customer delete(String login) throws DAOException;
+	Customer createNaturalCustomer(final Customer customer, final NaturalCustomerInfo naturalCustomerInfo) throws DAOException;
+	Customer createLegalCustomer(final Customer customer, final LegalCustomerInfo legalCustomerInfo) throws DAOException;
+	Customer createCompanyCustomer(final Customer customer, final CompanyCustomerInfo companyCustomerInfo) throws DAOException;
+	Customer checkCustomer(final String username,final String password) throws DAOException;
+	Customer checkusernameCustomer(final String username) throws DAOException;
+	NaturalCustomerInfo getNaturalCustomerInfo(final String username) throws DAOException;
+	LegalCustomerInfo getLegalCustomerInfo(final String username) throws DAOException;
+	CompanyCustomerInfo getCompanyCustomerInfofinal (String username) throws DAOException;
+	boolean editNaturalCustomer(final Customer customer, final NaturalCustomerInfo naturalCustomerInfo) throws DAOException;
+	boolean editLegalCustomer(final Customer customer, final LegalCustomerInfo legalCustomerInfo) throws DAOException;
+	boolean editCompanyCustomer(final Customer customer, final CompanyCustomerInfo companyCustomerInfo) throws DAOException;
+	Customer delete(final String username) throws DAOException;
 
 }

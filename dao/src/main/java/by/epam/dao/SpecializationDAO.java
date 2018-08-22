@@ -7,34 +7,34 @@ public interface SpecializationDAO {
 	
 	Specialization showSpecialization(String activitie, String sqlRequestLang, String specializationLang, String subSpecializationLang) throws DAOException;
 	
-	Specialization showSpecializationRepairEn(String activitie) throws DAOException;
-	Specialization showSpecializationRepairRu(String activitie) throws DAOException;
-	Specialization showSpecializationTruckingEn(String activitie) throws DAOException;
-	Specialization showSpecializationTruckingRu(String activitie) throws DAOException;
-	Specialization showSpecializationCourierEn(String activitie) throws DAOException;
-	Specialization showSpecializationCourierRu(String activitie) throws DAOException;
-	Specialization showSpecializationCleaningEn(String activitie) throws DAOException;
-	Specialization showSpecializationCleaningRu(String activitie) throws DAOException;
-	Specialization showSpecializationComputerEn(String activitie) throws DAOException;
-	Specialization showSpecializationComputerRu(String activitie) throws DAOException;
-	Specialization showSpecializationEventsEn(String activitie) throws DAOException;
-	Specialization showSpecializationEventsRu(String activitie) throws DAOException;
-	Specialization showSpecializationDesignEn(String activitie) throws DAOException;
-	Specialization showSpecializationDesignRu(String activitie) throws DAOException;
-	Specialization showSpecializationPhotoEn(String activitie) throws DAOException;
-	Specialization showSpecializationPhotoRu(String activitie) throws DAOException;
-	Specialization showSpecializationWebEn(String activitie) throws DAOException;
-	Specialization showSpecializationWebRu(String activitie) throws DAOException;
-	Specialization showSpecializationInstallEn(String activitie) throws DAOException;
-	Specialization showSpecializationInstallRu(String activitie) throws DAOException;
-	Specialization showSpecializationBeautyEn(String activitie) throws DAOException;
-	Specialization showSpecializationBeautyRu(String activitie) throws DAOException;
-	Specialization showSpecializationLegalEn(String activitie) throws DAOException;
-	Specialization showSpecializationLegalRu(String activitie) throws DAOException;
-	Specialization showSpecializationEducationEn(String activitie) throws DAOException;
-	Specialization showSpecializationEducationRu(String activitie) throws DAOException;
-	Specialization showSpecializationRepairTransportEn(String activitie) throws DAOException;
-	Specialization showSpecializationRepairTransportRu(String activitie) throws DAOException;
+	Specialization showSpecializationRepairEn(final String activitie) throws DAOException;
+	Specialization showSpecializationRepairRu(final String activitie) throws DAOException;
+	Specialization showSpecializationTruckingEn(final String activitie) throws DAOException;
+	Specialization showSpecializationTruckingRu(final String activitie) throws DAOException;
+	Specialization showSpecializationCourierEn(final String activitie) throws DAOException;
+	Specialization showSpecializationCourierRu(final String activitie) throws DAOException;
+	Specialization showSpecializationCleaningEn(final String activitie) throws DAOException;
+	Specialization showSpecializationCleaningRu(final String activitie) throws DAOException;
+	Specialization showSpecializationComputerEn(final String activitie) throws DAOException;
+	Specialization showSpecializationComputerRu(final String activitie) throws DAOException;
+	Specialization showSpecializationEventsEn(final String activitie) throws DAOException;
+	Specialization showSpecializationEventsRu(final String activitie) throws DAOException;
+	Specialization showSpecializationDesignEn(final String activitie) throws DAOException;
+	Specialization showSpecializationDesignRu(final String activitie) throws DAOException;
+	Specialization showSpecializationPhotoEn(final String activitie) throws DAOException;
+	Specialization showSpecializationPhotoRu(final String activitie) throws DAOException;
+	Specialization showSpecializationWebEn(final String activitie) throws DAOException;
+	Specialization showSpecializationWebRu(final String activitie) throws DAOException;
+	Specialization showSpecializationInstallEn(final String activitie) throws DAOException;
+	Specialization showSpecializationInstallRu(final String activitie) throws DAOException;
+	Specialization showSpecializationBeautyEn(final String activitie) throws DAOException;
+	Specialization showSpecializationBeautyRu(final String activitie) throws DAOException;
+	Specialization showSpecializationLegalEn(final String activitie) throws DAOException;
+	Specialization showSpecializationLegalRu(final String activitie) throws DAOException;
+	Specialization showSpecializationEducationEn(final String activitie) throws DAOException;
+	Specialization showSpecializationEducationRu(final String activitie) throws DAOException;
+	Specialization showSpecializationRepairTransportEn(final String activitie) throws DAOException;
+	Specialization showSpecializationRepairTransportRu(final String activitie) throws DAOException;
 
 
 }

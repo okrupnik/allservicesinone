@@ -13,4 +13,12 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 	<display-name>AllServicesInOne</display-name>
+	<filter>
+		<filter-name>LocalizationFilter</filter-name>
+		<filter-class>by.epam.controller.command.impl.LocalizationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LocalizationFilter</filter-name>
+		<servlet-name>Controler</servlet-name>
+	</filter-mapping>
 </web-app>

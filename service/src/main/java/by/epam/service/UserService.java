@@ -1,39 +1,39 @@
 package by.epam.service;
 
-import by.epam.dao.exception.DAOException;
-import by.epam.domain.customer.CompanyCustomerInfo;
+import java.util.List;
+
 import by.epam.domain.customer.Customer;
-import by.epam.domain.customer.LegalCustomerInfo;
-import by.epam.domain.customer.NaturalCustomerInfo;
-import by.epam.domain.performer.CompanyPerformerInfo;
-import by.epam.domain.performer.LegalPerformerInfo;
 import by.epam.domain.performer.Performer;
 import by.epam.domain.user.User;
 import by.epam.service.exception.ServiceException;
 
 public interface UserService {
 	
-	User create(User user, String locale) throws ServiceException;
+	User create(final User user, final String locale) throws ServiceException;
 
-	User create(User user, Customer customer, String locale) throws ServiceException;
+	User create(final User user, final Customer customer, final String locale) throws ServiceException;
 
-	User create(User user, Performer performer, String locale) throws ServiceException;
+	User create(final User user, final Performer performer, final String locale) throws ServiceException;
 
-	User logination(String username, String password, String locale) throws ServiceException;
+	User logination(final String username, final String password, final String locale) throws ServiceException;
 
-	User checkUsername(String username, String locale) throws ServiceException;
+	User checkUsername(final String username, final String locale) throws ServiceException;
+	
+	User getUser(final String username, final String locale) throws ServiceException;
+	
+	List<User> getAllUser(final User user, final String page, final String locale) throws ServiceException;
 
-	Customer getCustomer(String username, String locale) throws ServiceException;
+	Customer getCustomer(final String username, final String locale) throws ServiceException;
 	
-	Performer getPerformer(String username, String locale) throws ServiceException;
+	Performer getPerformer(final String username, final String locale) throws ServiceException;
 	
-	boolean editUser(User user, String locale) throws ServiceException;
+	boolean editUser(final User user, final String locale) throws ServiceException;
 	
-	boolean editCustomer(Customer customer, String locale) throws ServiceException;
+	boolean editCustomer(final Customer customer, final String locale) throws ServiceException;
 	
-	boolean editPerformer(Performer performer, String locale) throws ServiceException;
+	boolean editPerformer(final Performer performer, final String locale) throws ServiceException;
 	
-	boolean changePassword(User user, String oldPassword, String newPassword, String confirmPassword, String locale) throws ServiceException;
+	boolean changePassword(final User user, final String oldPassword, final String newPassword, final String confirmPassword, final String locale) throws ServiceException;
 	
-	User delete(String username, String locale) throws ServiceException;
+	boolean delete(final String username, final String locale) throws ServiceException;
 }

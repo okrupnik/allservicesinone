@@ -24,7 +24,7 @@ public class DAOConstant {
 	public static final String SURNAME_PARAM_NAME = "surname";
 	public static final String ADDRESS_PARAM_NAME = "address";
 	public static final String REQUISITES_PARAM_NAME = "requisites";
-	public static final String COPY_REGISTTRATION_PARAM_NAME = "fileregistration";
+	public static final String COPY_REGISTTRATION_PARAM_NAME = "copyregistration";
 	public static final String COMPANY_PARAM_NAME = "namecompany";
 	public static final String NAME_AGENT_PARAM_NAME = "nameagent";
 	public static final String SURNAME_AGENT_PARAM_NAME = "surnameagent";

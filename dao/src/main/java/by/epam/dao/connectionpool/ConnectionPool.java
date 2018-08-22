@@ -24,12 +24,15 @@ import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import by.epam.dao.impl.SQLUserDAO;
 
 public class ConnectionPool {
 
-	private static final Logger log = LogManager.getLogger(ConnectionPool.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(ConnectionPool.class.getName());
 	public static final ConnectionPool instance = new ConnectionPool();
 	static {
 		try {

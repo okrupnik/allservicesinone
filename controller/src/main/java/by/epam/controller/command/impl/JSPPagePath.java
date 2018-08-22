@@ -6,8 +6,14 @@ import java.util.Map;
 public class JSPPagePath {
 
 	public static final String MAIN_PAGE = "/jsp/main.jsp";
+	public static final String ERROR_PAGE = "/jsp/error.jsp";
+	public static final String USER_SIGNIN_PAGE = "/jsp/login.jsp";
+	public static final String USER_REGISTRATION_PAGE = "/jsp/register.jsp";
 	public static final String USER_SETTING_PAGE = "/jsp/user_settings.jsp";
+	public static final String USER_SETTING_ADMIN_PAGE = "/jsp/user_settings_admin.jsp";
+	public static final String USER_EDITOR_PAGE = "/jsp/user_editor.jsp";
 	public static final String USER_EDIT_SUCCESS_PAGE = "/jsp/user_edit_success.jsp";
+	public static final String ADMIN_EDIT_USER_SUCCESS_PAGE = "/jsp/admin_edit_user_success.jsp";
 	
 	public static final String ORDER_TRUCKING_PAGE = "/jsp/order_trucking.jsp";
 	public static final String ORDER_REPAIR_PAGE = "/jsp/order_repair.jsp";

@@ -51,7 +51,7 @@
                         <input type="hidden" name="command" value="recovery_password">
                             <div class="form-group">
                                 <label for="restore-email"><i class="icon-envelope"></i> <b>${emailText}</b></label>
-                                <input class="form-control" id="restore-email" type="text" placeholder="">
+                                <input class="form-control" id="restore-email" type="email" name="email" placeholder="${emailText}">
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn pull-right">${buttonText}</button>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<comm:commands
+	xmlns:comm="http://www.allservicesinone.org/commandXMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.allservicesinone.org/commandXMLSchema commandXMLSchema.xsd">
+
+	<command commandName="cn.main.page" className="by.epam.controller.command.impl.MainPage" />
+	<command commandName="cn.localization.page"	className="by.epam.controller.command.impl.Localization" />
+	<command commandName="cn.signin.page"	className="by.epam.controller.command.impl.SignIn" />
+	<command commandName="cn.to.signin.page"	className="by.epam.controller.command.impl.ToSignIn" />
+	<command commandName="cn.registration.page"	className="by.epam.controller.command.impl.Registration" />
+	<command commandName="cn.to.registration.page"	className="by.epam.controller.command.impl.ToRegistration" />
+	<command commandName="cn.user.settings.page"	className="by.epam.controller.command.impl.ChangingUserSetting" />
+	<command commandName="cn.to.user.settings.page"	className="by.epam.controller.command.impl.ToChangingUserSetting" />
+	<command commandName="cn.admin.change.user.settings.page"	className="by.epam.controller.command.impl.ChangingUserSettingByAdmin" />
+	<command commandName="cn.user.password.settings.page"	className="by.epam.controller.command.impl.ChangeUserPassword" />
+	<command commandName="cn.user.edit.page"	className="by.epam.controller.command.impl.EditUserByAdmin" />
+	<command commandName="cn.admin.to.user.settings.page"	className="by.epam.controller.command.impl.ToChangingUserByAdmin" />
+	<command commandName="cn.user.delete.page"	className="by.epam.controller.command.impl.DeleteUser" />
+	<command commandName="cn.signout.page"	className="by.epam.controller.command.impl.SignOut" />
+	<command commandName="cn.choose.specialization.page"	className="by.epam.controller.command.impl.ChooseSpecialization" />
+	
+
+</comm:commands>

@@ -34,7 +34,7 @@
                                     <ul class="dropdown-menu" role="menu">
                                     	<c:if test="${sessionScope.user.role.typeRole=='admin' || sessionScope.user.role.typeRole=='editor'}">
                                     	<li role="menuitem">
-                                            <a href="${pageContext.request.contextPath}/jsp/user_editor.jsp">
+                                            <a href="${pageContext.request.contextPath}/Controler?command=cn.user.edit.page">
                                                 <img src="${pageContext.request.contextPath}/img/user/user-edit.png" alt="Editor"> ${buttonEditor}
                                             </a>
                                         </li>
@@ -45,7 +45,7 @@
                                             </a>
                                         </li>
                                         <li role="menuitem">
-                                            <a href="${pageContext.request.contextPath}/jsp/user_settings.jsp"> <img src="${pageContext.request.contextPath}/img/user/user-setting.png" alt="Settings"> ${buttonSetting}
+                                            <a href="${pageContext.request.contextPath}/Controler?command=cn.to.user.settings.page"> <img src="${pageContext.request.contextPath}/img/user/user-setting.png" alt="Settings"> ${buttonSetting}
                                             </a>
                                         </li>
                                         <li role="menuitem">
@@ -57,8 +57,8 @@
                             </li>
                         </c:when>
                         <c:otherwise>
-                        	<li><a href="${pageContext.request.contextPath}/jsp/login.jsp">${buttonSignIn}</a></li>
-                            <li><a href="${pageContext.request.contextPath}/jsp/register.jsp">${buttonCreateAccount}</a></li>
+                        	<li><a href="${pageContext.request.contextPath}/Controler?command=cn.to.signin.page">${buttonSignIn}</a></li>
+                            <li><a href="${pageContext.request.contextPath}/Controler?command=cn.to.registration.page">${buttonCreateAccount}</a></li>
                         </c:otherwise>
                     </c:choose>
                     <li>

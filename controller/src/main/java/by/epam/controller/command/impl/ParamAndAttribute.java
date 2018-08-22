@@ -24,9 +24,18 @@ public class ParamAndAttribute {
 	public static final String DESCRIPTION_PARAM_NAME = "description";
 	public static final String ACTIVE_TAB_PARAM_NAME = "active";
 	public static final String SPECIALIZATION_PARAM_NAME = "specialization";
+	public static final String ORDER_TITLE_PARAM_NAME = "title";
+	public static final String ID_SPECIALIZATION_TITLE_PARAM_NAME = "idspecialization";
+	public static final String STATUS_PARAM_NAME = "status";
+	public static final String SUB_SPECIALIZATION_PARAM_NAME = "subspecialization";
+	public static final String START_DATE_PARAM_NAME = "startdate";
+	public static final String ATTACHMENT_PARAM_NAME = "attachment";
 	
 	
 	public static final String USER_ATTRIBUTE = "user";
+	public static final String SELECTED_USER_ATTRIBUTE = "selecteduser";
+	public static final String USER_LIST_ATTRIBUTE = "userlist";
+	public static final String PAGE_ATTRIBUTE = "page";
 	public static final String ERROR_MESSAGE_ATTRIBUTE = "errorMessage";
 	public static final String LOCALE_ATTRIBUTE = "local";
 	public static final String ERROR_INPUT_ATTRIBUTE = "errorInput";
@@ -34,6 +43,9 @@ public class ParamAndAttribute {
 	public static final String ACTIVE_TAB_ATTRIBUTE = "activeTab";
 	public static final String SUCCESS_EDIT_ATTRIBUTE = "successEdit";
 	public static final String SPECIALIZATION_ATTRIBUTE = "specialization";
+	
+	public static final String NO_OF_PAGES_PARAM_NAME = "noofpages";
+	public static final String CURRENT_PAGE_PARAM_NAME = "currentpage";
 		
 	private ParamAndAttribute() {
 	}

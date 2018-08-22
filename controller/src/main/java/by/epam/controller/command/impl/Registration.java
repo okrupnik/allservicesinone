@@ -2,13 +2,16 @@ package by.epam.controller.command.impl;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import by.epam.controller.command.Command;
-import by.epam.dao.exception.DAOException;
 import by.epam.domain.customer.CompanyCustomerInfo;
 import by.epam.domain.customer.Customer;
 import by.epam.domain.customer.LegalCustomerInfo;
@@ -27,9 +30,10 @@ import by.epam.service.UserService;
 import by.epam.service.exception.ServiceException;
 
 public class Registration implements Command {
+	private static final Logger log = LoggerFactory.getLogger(Registration.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
 
 		String username = null;
 		String password = null;
@@ -137,26 +141,27 @@ public class Registration implements Command {
 		}
 
 		try {
-			user = userService.create(user, locale);
-			if (user != null) {
-				session.setAttribute(ParamAndAttribute.USER_ATTRIBUTE, user);
-				response.sendRedirect("Controler?command=cn.main.page");
-			} else {
-				if (locale.equals(ControllerConstant.LOCALE_RU_PARAM_NAME)) {
-					session.setAttribute(ParamAndAttribute.ERROR_MESSAGE_ATTRIBUTE, "Ошибка создания пользователя");
-					response.sendRedirect(request.getHeader("Referer"));
-				} else {
-					session.setAttribute(ParamAndAttribute.ERROR_MESSAGE_ATTRIBUTE, "Error of creating user");
-					response.sendRedirect(request.getHeader("Referer"));
-				}
-			}
+			user = userService.create(user, locale);			
+			session.setAttribute(ParamAndAttribute.USER_ATTRIBUTE, user);
+			response.sendRedirect("Controler?command=cn.main.page");			
 		} catch (ServiceException e) {
 			String errorMessage = e.getMessage();
 			session.setAttribute(ParamAndAttribute.ERROR_MESSAGE_ATTRIBUTE, errorMessage);
 			session.setAttribute(ParamAndAttribute.ERROR_INPUT_ATTRIBUTE, ErrorMap.getErrorsOfCreating());
 			session.setAttribute(ParamAndAttribute.ERROR_TEMP_DATA_ATTRIBUTE, ErrorMap.getTempDataForErrors());
 			session.setAttribute(ParamAndAttribute.ACTIVE_TAB_ATTRIBUTE, activeTab);
-			response.sendRedirect(request.getHeader("Referer"));
+			RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.USER_REGISTRATION_PAGE);
+			try {
+				dispatcher.forward(request, response);
+			} catch (ServletException | IOException e1) {
+				for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+					log.error(stackTraceElement.toString());
+				}
+			}
+		} catch (IOException e) {
+			for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+				log.error(stackTraceElement.toString());
+			}
 		}
 
 	}

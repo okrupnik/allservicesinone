@@ -1,4 +1,7 @@
 by\epam\service\exception\ServiceException.class
+by\epam\service\SpecializationService.class
+by\epam\service\impl\ServiceConstant.class
+by\epam\service\impl\SpecializationServiceImpl.class
 by\epam\service\UserService.class
 by\epam\service\impl\Validator.class
 by\epam\service\OrderService.class

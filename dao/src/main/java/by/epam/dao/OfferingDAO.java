@@ -9,10 +9,10 @@ import by.epam.domain.performer.Performer;
 
 public interface OfferingDAO {
 	
-	Offering create(Offering offering) throws DAOException;
+	Offering create(final Offering offering) throws DAOException;
 	List<Offering> showOffering() throws DAOException;
-	List<Offering> showOfferingPerformer(Performer performer) throws DAOException;
-	List<Offering> shorOfferingOrder(Order order) throws DAOException;
-	Offering delete(Offering offering) throws DAOException;
+	List<Offering> showOfferingPerformer(final Performer performer) throws DAOException;
+	List<Offering> shorOfferingOrder(final Order order) throws DAOException;
+	Offering delete(final Offering offering) throws DAOException;
 
 }
