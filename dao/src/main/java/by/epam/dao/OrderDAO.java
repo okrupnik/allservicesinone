@@ -12,9 +12,22 @@ import by.epam.domain.user.User;
 public interface OrderDAO {
 
 	Order create(final User user, final Order order) throws DAOException;
-	List<Order> showOrder(final User user) throws DAOException;
+
+	List<Order> getAllOrderOfUser(final User user, final int offset, final int noOfRecords) throws DAOException;
+	
+	Order getOrder(final int orderId) throws DAOException;
+
 	List<Order> showOrderCustomer(final Customer customer) throws DAOException;
+
 	List<Order> showOrderPerformer(final Performer performer) throws DAOException;
+
 	List<Offering> showOrderOffering(final Order order) throws DAOException;
+	
+	boolean editOrder(final Order order) throws DAOException;
+
 	Order delete(final Order order) throws DAOException;
+
+	int getNoOfRecords() throws DAOException;
+	
+	boolean delete(final String idOrder) throws DAOException;
 }

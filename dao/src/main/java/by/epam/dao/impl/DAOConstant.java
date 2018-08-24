@@ -61,5 +61,17 @@ public class DAOConstant {
 	public static final String EDUCATION_RU_PARAM_NAME = "typeEducationRu";
 	public static final String REPAIR_TRANSPORT_EN_PARAM_NAME = "typeRepairTransportEn";
 	public static final String REPAIR_TRANSPORT_RU_PARAM_NAME = "typeRepairTransportRu";
+	
+	public static final String TITLE_ORDER_PARAM_NAME = "title";
+	public static final String DESCRIPTION_ORDER_PARAM_NAME = "description";
+	public static final String SUBTYPE_SPECIALIZATION_ORDER_PARAM_NAME = "subtypeSpecialization";
+	public static final String STATUS_ORDER_PARAM_NAME = "status";
+	public static final String END_DATE_ORDER_PARAM_NAME = "endDate";
+	public static final String DATE_CREATING_ORDER_PARAM_NAME = "dateOfCreating";
+	public static final String ATTACHMENT_ORDER_PARAM_NAME = "attachments";
+	public static final String USERNAME_PERFORMER_ORDER_PARAM_NAME = "performer";
+	public static final String ID_SPECIALIZATION_ORDER_PARAM_NAME = "specialization_id";
+	public static final String SPECIALIZATION_DESCRIPT_ORDER_PARAM_NAME = "descriptionru";
+	public static final String ACTIVITIE_SPECIALIZATION_ORDER_PARAM_NAME = "activities";
 
 }

@@ -20,6 +20,9 @@ public class SQLRequest {
 	public static final String SELECT_ALL_USER = "SELECT SQL_CALC_FOUND_ROWS * FROM allservices.users, allservices.roles, allservices.persons WHERE roles.id=users.roles_id AND persons.id=users.persons_id AND users.isDelete='false' LIMIT ?, ?";
 	public static final String SELECT_COUNT_USER = "SELECT FOUND_ROWS()";
 	public static final String SELECT_USER_ID = "SELECT users.id FROM allservices.users WHERE users.username=?";
+	public static final String SELECT_ALL_ORDER_OF_USER = "SELECT SQL_CALC_FOUND_ROWS orders.id, orders.title, orders.description, orders.subtypeSpecialization, orders.status, orders.address, orders.endDate, orders.dateOfCreating, orders.attachments, orders.performer, orders.specialization_id, specialization.descriptionru, specialization.activities FROM allservices.users, allservices.orders, allservices.specialization WHERE users.id=orders.users_id AND specialization.id=orders.specialization_id AND users.username=? LIMIT ?, ?";
+	public static final String SELECT_COUNT_ORDER = "SELECT FOUND_ROWS()";
+	public static final String SELECT_ORDER_OF_USER = "SELECT orders.id, orders.title, orders.description, orders.subtypeSpecialization, orders.status, orders.address, orders.endDate, orders.dateOfCreating, orders.attachments, orders.performer, orders.specialization_id, specialization.descriptionru, specialization.activities FROM allservices.users, allservices.orders, allservices.specialization WHERE users.id=orders.users_id AND specialization.id=orders.specialization_id AND orders.id=?";
 	
 	public static final String SELECT_SPECIALIZATION_TRUCKING_EN = "SELECT specialization.descriptionen, truckingindustry.typesTruckingEn FROM allservices.specialization, allservices.truckingindustry WHERE specialization.id=truckingindustry.specialization_id AND specialization.activities=?";
 	public static final String SELECT_SPECIALIZATION_TRUCKING_RU = "SELECT specialization.descriptionru, truckingindustry.typesTruckingRu FROM allservices.specialization, allservices.truckingindustry WHERE specialization.id=truckingindustry.specialization_id AND specialization.activities=?";
@@ -69,9 +72,10 @@ public class SQLRequest {
 	public static final String UPDATE_PASSWORD = "UPDATE allservices.users SET users.password=? WHERE users.username=?";
 	
 	public static final String DELETE_USER = "UPDATE allservices.users SET users.isDelete='true' WHERE users.username=?";
-	
-	public static final String CREATE_ORDER = "INSERT INTO allservices.orders (orders.title, orders.description, orders.subtypeSpecialization, orders.status, orders.address, orders.startDate, orders.dateOfCreating, orders.attachments, orders.users_id, orders.specialization_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	
+		
+	public static final String CREATE_ORDER = "INSERT INTO allservices.orders (orders.title, orders.description, orders.subtypeSpecialization, orders.status, orders.address, orders.endDate, orders.dateOfCreating, orders.attachments, orders.users_id, orders.specialization_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	public static final String UPDATE_ORDER = "UPDATE allservices.orders SET orders.title=?, orders.description=?, orders.subtypeSpecialization=?, orders.status=?, orders.address=?, orders.endDate=?, orders.dateOfCreating=?, orders.attachments=? WHERE orders.id=?";
+	public static final String DELETE_ORDER = "DELETE FROM allservices.orders WHERE orders.id=?";
 	
 	private SQLRequest() {
 	}	

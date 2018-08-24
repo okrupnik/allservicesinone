@@ -16,18 +16,16 @@ import org.slf4j.LoggerFactory;
 import by.epam.controller.command.Command;
 import by.epam.domain.error.ErrorMap;
 import by.epam.domain.order.Order;
-import by.epam.domain.specialization.Specialization;
-import by.epam.domain.user.User;
 import by.epam.service.OrderService;
 import by.epam.service.ServiceFactory;
 import by.epam.service.exception.ServiceException;
 
-public class CreateOrderRepair implements Command {
-	private static final Logger log = LoggerFactory.getLogger(CreateOrderRepair.class.getName());
+public class EditOrderUser implements Command{
+	private static final Logger log = LoggerFactory.getLogger(EditOrderUser.class.getName());
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		int idOrder = 0;
 		String titleOrder = null;
 		int idSpecialization = 0;
 		String description = null;
@@ -38,10 +36,8 @@ public class CreateOrderRepair implements Command {
 		String address = null;
 		String attachment = null;
 		Order orderRepair = null;
-		User user = (User) request.getSession(true).getAttribute(ParamAndAttribute.USER_ATTRIBUTE);
-		Specialization specialization = (Specialization) request.getSession(true)
-				.getAttribute(ParamAndAttribute.SPECIALIZATION_ATTRIBUTE);
-
+		
+		idOrder = Integer.parseInt(request.getParameter(ParamAndAttribute.ORDER_ID_PARAM_NAME));
 		titleOrder = request.getParameter(ParamAndAttribute.ORDER_TITLE_PARAM_NAME);
 		idSpecialization = Integer.parseInt(request.getParameter(ParamAndAttribute.ID_SPECIALIZATION_TITLE_PARAM_NAME));
 		description = request.getParameter(ParamAndAttribute.DESCRIPTION_PARAM_NAME);
@@ -52,8 +48,8 @@ public class CreateOrderRepair implements Command {
 		dateOfCreating = LocalDate.now();
 		address = request.getParameter(ParamAndAttribute.ADDRESS_PARAM_NAME);
 		attachment = request.getParameter(ParamAndAttribute.ATTACHMENT_PARAM_NAME);
-
-		orderRepair = new Order.Builder().setTitle(titleOrder).setIdSpecialization(idSpecialization)
+		
+		orderRepair = new Order.Builder().setIdOrder(idOrder).setTitle(titleOrder).setIdSpecialization(idSpecialization)
 				.setDescription(description).setStatus(status).setSubtypeSpecialization(subspecialization)
 				.setEndDate(endDate).setDateOfCreating(dateOfCreating).setAddress(address).setAttachment(attachment)
 				.build();
@@ -62,22 +58,23 @@ public class CreateOrderRepair implements Command {
 		OrderService orderService = serviceFactory.getOrderService();
 		HttpSession session = request.getSession();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
-
+		
 		try {
-			orderRepair = orderService.create(user, orderRepair, locale);
+			orderService.editOrder(orderRepair, locale);
+			session.setAttribute(ParamAndAttribute.ORDER_EDIT_ATTRIBUTE, orderRepair);
 			if (locale.equals(ControllerConstant.LOCALE_RU_PARAM_NAME)) {
-				session.setAttribute(ParamAndAttribute.SUCCESS_EDIT_ATTRIBUTE, "Заказ успешно создан");
+				session.setAttribute(ParamAndAttribute.SUCCESS_EDIT_ATTRIBUTE, "Заказ успешно изменен");
 			} else {
-				session.setAttribute(ParamAndAttribute.SUCCESS_EDIT_ATTRIBUTE, "The order created successfully");
+				session.setAttribute(ParamAndAttribute.SUCCESS_EDIT_ATTRIBUTE, "The order changing successfully");
 			}
-			RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.USER_EDIT_SUCCESS_PAGE);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.ORDER_EDIT_SUCCESS_PAGE);
 			dispatcher.forward(request, response);
 		} catch (ServiceException e) {
 			String errorMessage = e.getMessage();
 			session.setAttribute(ParamAndAttribute.ERROR_MESSAGE_ATTRIBUTE, errorMessage);
 			session.setAttribute(ParamAndAttribute.ERROR_INPUT_ATTRIBUTE, ErrorMap.getErrorsOfCreating());
 			session.setAttribute(ParamAndAttribute.ERROR_TEMP_DATA_ATTRIBUTE, ErrorMap.getTempDataForErrors());
-			RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.ORDER_REPAIR_PAGE);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.ORDER_REPAIR_EDIT_PAGE);
 			try {
 				dispatcher.forward(request, response);
 			} catch (ServletException | IOException e1) {
@@ -90,7 +87,6 @@ public class CreateOrderRepair implements Command {
 				log.error(stackTraceElement.toString());
 			}
 		}
-
 	}
 
 }

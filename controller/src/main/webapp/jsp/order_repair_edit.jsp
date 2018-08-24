@@ -16,7 +16,7 @@
 <fmt:message bundle="${loc}" key="locale.order.repair.date.text" var="dateText" />
 <fmt:message bundle="${loc}" key="locale.order.repair.address.text" var="addressText" />
 <fmt:message bundle="${loc}" key="locale.order.repair.attachment.text" var="attachmentText" />
-<fmt:message bundle="${loc}" key="locale.order.repair.button.text" var="buttonText" />
+<fmt:message bundle="${loc}" key="locale.order.repairedit.button.text" var="buttonText" />
 
 <html>
 
@@ -54,9 +54,10 @@
 	<div class="section">
         <div class="container">			
 			<form method="get" action="/controller/Controler" role="form" role="form">
-			<input type="hidden" name="command" value="cn.create.order.repair.page">
+			<input type="hidden" name="command" value="cn.change.order.repair.page">
+			<input type="hidden" name="orderid" value="${sessionScope.orderoredit.idOrder}">
 			<input type="hidden" name="idspecialization" value="2">
-			<input type="hidden" name="status" value="choose">
+			<input type="hidden" name="status" value="${sessionScope.orderoredit.status}">
 			<c:if test="${empty sessionScope.user}">
 				<div class="form-group">
 					<h3 style="color: #ff0000">
@@ -81,7 +82,14 @@
             </c:if>
 			<div class="form-group">
 				<label for="order-title"><i class="icon-order"></i> <b>${titleOrderText}* <font color="red"><c:out value="${sessionScope.errorInput['titleOrder']}"/></font></b></label>
-				<input class="form-control" id="order-title" name="title" type="text" placeholder="${titleOrderText}" >
+				<c:choose>
+					<c:when test="${not empty sessionScope.errorInput['titleOrder']}">
+                    	<input class="form-control" id="order-title" name="title" type="text" placeholder="${titleOrderText}" >
+                    </c:when>
+                    <c:otherwise>
+                    	<input class="form-control" id="order-title" name="title" type="text" value="${sessionScope.orderoredit.title}" >
+                    </c:otherwise>
+                </c:choose>
 			</div>
 			<div class="row">
 			<div class="col-sm-4">
@@ -108,13 +116,20 @@
                     	<textarea class="form-control" id="order-description" name="description" rows="4" >${sessionScope.errorTempData['descriptionOrder']}</textarea>
                     </c:when>
                     <c:otherwise>
-                    	<textarea class="form-control" id="order-description" name="description" rows="4" ></textarea>
+                    	<textarea class="form-control" id="order-description" name="description" rows="4" >${sessionScope.orderoredit.description}</textarea>
                     </c:otherwise>
                 </c:choose>
             </div>
 			<div class="form-group">
 				<label for="order-date"><i class="icon-order"></i> <b>${dateText}</b></label>
-				<input type="date" class="order-date" id="date" name="enddate" placeholder="${dateText}">
+				<c:choose>
+					<c:when test="${not empty sessionScope.orderoredit.endDate}">
+                    	<input type="date" class="order-date" id="date" name="enddate" value="${sessionScope.orderoredit.endDate}">
+                    </c:when>
+                    <c:otherwise>
+                    	<input type="date" class="order-date" id="date" name="enddate" placeholder="${dateText}">
+                    </c:otherwise>
+                </c:choose>
             </div>
             <div class="form-group">
 				<label for="order-address"><i class="icon-order"></i> <b>${addressText}</b></label>
@@ -123,7 +138,7 @@
                     	<input class="form-control" id="order-address" name="address" type="text" value="${sessionScope.errorTempData['addressOrder']}">
                     </c:when>
                     <c:otherwise>
-                    	<input class="form-control" id="order-address" name="address" type="text" placeholder="${addressText}" >
+                    	<input class="form-control" id="order-address" name="address" type="text" value="${sessionScope.orderoredit.address}" >
                     </c:otherwise>
                 </c:choose>
             </div>

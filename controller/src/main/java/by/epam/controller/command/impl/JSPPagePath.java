@@ -14,6 +14,9 @@ public class JSPPagePath {
 	public static final String USER_EDITOR_PAGE = "/jsp/user_editor.jsp";
 	public static final String USER_EDIT_SUCCESS_PAGE = "/jsp/user_edit_success.jsp";
 	public static final String ADMIN_EDIT_USER_SUCCESS_PAGE = "/jsp/admin_edit_user_success.jsp";
+	public static final String USER_ORDERS_PAGE = "/jsp/user_show_orders.jsp";
+	public static final String ADMIN_USER_ORDERS_PAGE = "/jsp/admin_user_show_orders.jsp";
+	public static final String ORDER_EDIT_SUCCESS_PAGE = "/jsp/order_edit_success.jsp";
 	
 	public static final String ORDER_TRUCKING_PAGE = "/jsp/order_trucking.jsp";
 	public static final String ORDER_REPAIR_PAGE = "/jsp/order_repair.jsp";
@@ -29,6 +32,21 @@ public class JSPPagePath {
 	public static final String ORDER_LEGAL_PAGE = "/jsp/order_legal.jsp";
 	public static final String ORDER_EDUCATION_PAGE = "/jsp/order_education.jsp";
 	public static final String ORDER_REPAIR_TRANCPORT_PAGE = "/jsp/order_repairtransport.jsp";
+	
+	public static final String ORDER_TRUCKING_EDIT_PAGE = "/jsp/order_trucking_edit.jsp";
+	public static final String ORDER_REPAIR_EDIT_PAGE = "/jsp/order_repair_edit.jsp";
+	public static final String ORDER_COURIER_EDIT_PAGE = "/jsp/order_courier_edit.jsp";
+	public static final String ORDER_CLEANING_EDIT_PAGE = "/jsp/order_cleaning_edit.jsp";
+	public static final String ORDER_COMPUTER_EDIT_PAGE = "/jsp/order_computer_edit.jsp";
+	public static final String ORDER_EVENTS_EDIT_PAGE = "/jsp/order_events_edit.jsp";
+	public static final String ORDER_DESIGN_EDIT_PAGE = "/jsp/order_design_edit.jsp";
+	public static final String ORDER_PHOTO_EDIT_PAGE = "/jsp/order_photo_edit.jsp";
+	public static final String ORDER_WEB_EDIT_PAGE = "/jsp/order_web_edit.jsp";
+	public static final String ORDER_INSTALL_EDIT_PAGE = "/jsp/order_install_edit.jsp";
+	public static final String ORDER_BEAUTY_EDIT_PAGE = "/jsp/order_beauty_edit.jsp";
+	public static final String ORDER_LEGAL_EDIT_PAGE = "/jsp/order_legal_edit.jsp";
+	public static final String ORDER_EDUCATION_EDIT_PAGE = "/jsp/order_education_edit.jsp";
+	public static final String ORDER_REPAIR_TRANCPORT_EDIT_PAGE = "/jsp/order_repairtransport_edit.jsp";
 	
 	public static final String TRUCKING_PARAM_NAME = "trucking";
 	public static final String REPAIR_PARAM_NAME = "repair";
@@ -46,6 +64,7 @@ public class JSPPagePath {
 	public static final String REPAIR_TRANCPORT_PARAM_NAME = "repairtransport";
 	
 	private static Map<String, String> goToPage = new HashMap<>();
+	private static Map<String, String> goToPageEdit = new HashMap<>();
 	
 	static {
 		goToPage.put(TRUCKING_PARAM_NAME, ORDER_TRUCKING_PAGE);
@@ -62,6 +81,21 @@ public class JSPPagePath {
 		goToPage.put(LEGAL_PARAM_NAME, ORDER_LEGAL_PAGE);
 		goToPage.put(EDUCATION_PARAM_NAME, ORDER_EDUCATION_PAGE);
 		goToPage.put(REPAIR_TRANCPORT_PARAM_NAME, ORDER_REPAIR_TRANCPORT_PAGE);
+		
+		goToPageEdit.put(TRUCKING_PARAM_NAME, ORDER_TRUCKING_EDIT_PAGE);
+		goToPageEdit.put(REPAIR_PARAM_NAME, ORDER_REPAIR_EDIT_PAGE);
+		goToPageEdit.put(COURIER_PARAM_NAME, ORDER_COURIER_EDIT_PAGE);
+		goToPageEdit.put(CLEANING_PARAM_NAME, ORDER_CLEANING_EDIT_PAGE);
+		goToPageEdit.put(COMPUTER_PARAM_NAME, ORDER_COMPUTER_EDIT_PAGE);
+		goToPageEdit.put(EVENTS_PARAM_NAME, ORDER_EVENTS_EDIT_PAGE);
+		goToPageEdit.put(DESIGN_PARAM_NAME, ORDER_DESIGN_EDIT_PAGE);
+		goToPageEdit.put(PHOTO_PARAM_NAME, ORDER_PHOTO_EDIT_PAGE);
+		goToPageEdit.put(WEB_PARAM_NAME, ORDER_WEB_EDIT_PAGE);
+		goToPageEdit.put(INSTALL_PARAM_NAME, ORDER_INSTALL_EDIT_PAGE);
+		goToPageEdit.put(BEAUTY_PARAM_NAME, ORDER_BEAUTY_EDIT_PAGE);
+		goToPageEdit.put(LEGAL_PARAM_NAME, ORDER_LEGAL_EDIT_PAGE);
+		goToPageEdit.put(EDUCATION_PARAM_NAME, ORDER_EDUCATION_EDIT_PAGE);
+		goToPageEdit.put(REPAIR_TRANCPORT_PARAM_NAME, ORDER_REPAIR_TRANCPORT_EDIT_PAGE);
 	}
 
 	private JSPPagePath() {
@@ -70,6 +104,10 @@ public class JSPPagePath {
 
 	public static String getGoToPage(String activitie) {		
 		return goToPage.get(activitie);
+	}
+	
+	public static String getGoToPageEdit(String activitie) {		
+		return goToPageEdit.get(activitie);
 	}
 		
 }

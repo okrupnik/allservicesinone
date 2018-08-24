@@ -6,6 +6,7 @@ public class ParamAndAttribute {
 	public static final String TYPE_PERSON_PARAM_NAME = "typePerson";
 	public static final String FORM_OWNERSHIP_PARAM_NAME = "formOwnership";
 	public static final String USERNAME_PARAM_NAME = "username";
+	public static final String USER_PARAM_NAME = "user";
 	public static final String PASSWORD_PARAM_NAME = "password";
 	public static final String OLD_PASSWORD_PARAM_NAME = "oldpassword";
 	public static final String NEW_PASSWORD_PARAM_NAME = "newpassword";
@@ -28,8 +29,10 @@ public class ParamAndAttribute {
 	public static final String ID_SPECIALIZATION_TITLE_PARAM_NAME = "idspecialization";
 	public static final String STATUS_PARAM_NAME = "status";
 	public static final String SUB_SPECIALIZATION_PARAM_NAME = "subspecialization";
-	public static final String START_DATE_PARAM_NAME = "startdate";
+	public static final String END_DATE_PARAM_NAME = "enddate";
 	public static final String ATTACHMENT_PARAM_NAME = "attachment";
+	public static final String ORDER_ID_PARAM_NAME = "orderid";
+	public static final String ACTIVE_SPECIALIZATION_PARAM_NAME = "specializationactivitie";
 	
 	
 	public static final String USER_ATTRIBUTE = "user";
@@ -46,6 +49,9 @@ public class ParamAndAttribute {
 	
 	public static final String NO_OF_PAGES_PARAM_NAME = "noofpages";
 	public static final String CURRENT_PAGE_PARAM_NAME = "currentpage";
+	
+	public static final String ORDER_LIST_ATTRIBUTE = "orderlist";
+	public static final String ORDER_EDIT_ATTRIBUTE = "orderoredit";
 		
 	private ParamAndAttribute() {
 	}

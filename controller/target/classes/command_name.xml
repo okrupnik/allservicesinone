@@ -20,6 +20,11 @@
 	<command commandName="cn.signout.page"	className="by.epam.controller.command.impl.SignOut" />
 	<command commandName="cn.choose.specialization.page"	className="by.epam.controller.command.impl.ChooseSpecialization" />
 	<command commandName="cn.create.order.repair.page"	className="by.epam.controller.command.impl.CreateOrderRepair" />
+	<command commandName="cn.user.show.orders.user.page"	className="by.epam.controller.command.impl.ShowOrderOfUser" />
+	<command commandName="cn.order.delete.page"	className="by.epam.controller.command.impl.DeleteOrder" />
+	<command commandName="cn.user.to.order.edit.page"	className="by.epam.controller.command.impl.ToEditOrderUser" />
+	<command commandName="cn.change.order.repair.page"	className="by.epam.controller.command.impl.EditOrderUser" />
+	<command commandName="cn.admin.show.orders.user.page"	className="by.epam.controller.command.impl.ShowOrderOfUserByAdmin" />
 	
 
 </comm:commands>

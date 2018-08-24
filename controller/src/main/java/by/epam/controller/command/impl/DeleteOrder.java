@@ -12,36 +12,37 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import by.epam.controller.command.Command;
+import by.epam.service.OrderService;
 import by.epam.service.ServiceFactory;
 import by.epam.service.UserService;
 import by.epam.service.exception.ServiceException;
 
-public class DeleteUser implements Command{
+public class DeleteOrder implements Command{
 	private static final Logger log = LoggerFactory.getLogger(DeleteUser.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String username = request.getParameter(ParamAndAttribute.USERNAME_PARAM_NAME);
+		String idOrder = request.getParameter(ParamAndAttribute.ORDER_ID_PARAM_NAME);
 
 		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		UserService userService = serviceFactory.getUserService();
+		OrderService orderService = serviceFactory.getOrderService();
 		HttpSession session = request.getSession();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 		
 		try {			
-			userService.delete(username, locale);
+			orderService.delete(idOrder, locale);
 			if (locale.equals(ControllerConstant.LOCALE_RU_PARAM_NAME)) {
-				session.setAttribute(ParamAndAttribute.SUCCESS_EDIT_ATTRIBUTE, "Пользователь успешно удален");
+				session.setAttribute(ParamAndAttribute.SUCCESS_EDIT_ATTRIBUTE, "Заказ успешно удален");
 			} else {
-				session.setAttribute(ParamAndAttribute.SUCCESS_EDIT_ATTRIBUTE, "The user deleted successfully");
+				session.setAttribute(ParamAndAttribute.SUCCESS_EDIT_ATTRIBUTE, "The order deleted successfully");
 			}
-			RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.ADMIN_EDIT_USER_SUCCESS_PAGE);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.ORDER_EDIT_SUCCESS_PAGE);
 			dispatcher.forward(request, response);			
 		} catch (ServiceException e) {
 			String errorMessage = e.getMessage();
 			session.setAttribute(ParamAndAttribute.ERROR_MESSAGE_ATTRIBUTE, errorMessage);
-			RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.USER_SETTING_ADMIN_PAGE);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.USER_ORDERS_PAGE);
 			try {
 				dispatcher.forward(request, response);
 			} catch (ServletException | IOException e1) {
@@ -54,6 +55,7 @@ public class DeleteUser implements Command{
 				log.error(stackTraceElement.toString());
 			}
 		} 
+		
 	}
 
 }

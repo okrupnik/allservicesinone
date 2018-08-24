@@ -6,23 +6,19 @@
 
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="local" var="loc" />
-<fmt:message bundle="${loc}" key="locale.user.edit.title.text" var="titleText" />
-<fmt:message bundle="${loc}" key="locale.user.edit.username.text" var="userNameText" />
-<fmt:message bundle="${loc}" key="locale.user.edit.email.text" var="emailText" />
-<fmt:message bundle="${loc}" key="locale.user.edit.phoneNumber.text" var="phoneNumberText" />
-<fmt:message bundle="${loc}" key="locale.user.edit.address.text" var="addressText" />
-<fmt:message bundle="${loc}" key="locale.user.edit.role.text" var="roleText" />
-<fmt:message bundle="${loc}" key="locale.user.edit.typePerson.text" var="typePersonText" />
-<fmt:message bundle="${loc}" key="locale.user.edit.edit.text" var="editText" />
-<fmt:message bundle="${loc}" key="locale.user.edit.delete.text" var="deleteText" />
-<fmt:message bundle="${loc}" key="locale.user.edit.orderoroffer.text" var="orderOrOfferText" />
-<fmt:message bundle="${loc}" key="locale.user.edit.order.text" var="orderText" />
-<fmt:message bundle="${loc}" key="locale.user.edit.offer.text" var="offerText" />
-<fmt:message bundle="${loc}" key="locale.user.edit.previous.text" var="previousText" />
-<fmt:message bundle="${loc}" key="locale.user.edit.next.text" var="nextText" />
-<fmt:message bundle="${loc}" key="locale.user.edit.modal.title.text" var="modalTitleText" />
-<fmt:message bundle="${loc}" key="locale.user.edit.modal.yes.text" var="yesText" />
-<fmt:message bundle="${loc}" key="locale.user.edit.modal.no.text" var="noText" />
+<fmt:message bundle="${loc}" key="locale.user.order.titlepage.text" var="titleText" />
+<fmt:message bundle="${loc}" key="locale.user.order.title.text" var="titleOrderText" />
+<fmt:message bundle="${loc}" key="locale.user.order.description.text" var="descriptionText" />
+<fmt:message bundle="${loc}" key="locale.user.order.dateofcreating.text" var="dateCreateText" />
+<fmt:message bundle="${loc}" key="locale.user.order.enddate.text" var="endDateText" />
+<fmt:message bundle="${loc}" key="locale.user.order.address.text" var="addressText" />
+<fmt:message bundle="${loc}" key="locale.user.order.edit.text" var="editText" />
+<fmt:message bundle="${loc}" key="locale.user.order.delete.text" var="deleteText" />
+<fmt:message bundle="${loc}" key="locale.user.order.previous.text" var="previousText" />
+<fmt:message bundle="${loc}" key="locale.user.order.next.text" var="nextText" />
+<fmt:message bundle="${loc}" key="locale.user.order.modal.title.text" var="modalTitleText" />
+<fmt:message bundle="${loc}" key="locale.user.order.modal.yes.text" var="yesText" />
+<fmt:message bundle="${loc}" key="locale.user.order.modal.no.text" var="noText" />
 
 
  <html>
@@ -57,11 +53,12 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body delete-user">
+                <div class="modal-body delete-order">
                 	<form method="post" action="/controller/Controler" role="form" role="form">
-						<input type="hidden" name="command" value="cn.user.delete.page">
-						<input type="hidden" id="login-username" name="username" value="">
-                    	<label for="user" id="user-label"></label>
+						<input type="hidden" name="command" value="cn.order.delete.page">
+						<input type="hidden" id="order-id" name="orderid" value="">
+						<input type="hidden" id="order-title" name="orderTitle" value="">
+						<label for="order" id="order-label"></label>
                     	<div class="modal-footer">
                     		<button type="submit" class="btn btn-primary">${yesText}</button>   
                     		<button type="button" class="btn btn-secondary" data-dismiss="modal">${noText}</button>
@@ -85,60 +82,43 @@
     </div>
     <div class="section">
         <div class="container">
-            <table class="table table-bordered">
+        	<table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">${userNameText}</th>
-                        <th scope="col">${emailText}</th>
-                        <th scope="col">${phoneNumberText}</th>
+                        <th scope="col">${titleOrderText}</th>
+                        <th scope="col">${descriptionText}</th>
+                        <th scope="col">${dateCreateText}</th>
+                        <th scope="col">${endDateText}</th>
                         <th scope="col">${addressText}</th>
-                        <th scope="col">${roleText}</th>
-                        <th scope="col">${typePersonText}</th>
                         <th scope="col">${editText}</th>
                         <th scope="col">${deleteText}</th>
-                        <th scope="col">${orderOrOfferText}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="user" items="${sessionScope.userlist}">
+                    <c:forEach var="order" items="${sessionScope.orderlist}">
                         <tr>
-                            <td>${user.username}</td>
-                            <td>${user.email}</td>
-                            <td>${user.phoneNumber}</td>
-                            <td>${user.address}</td>
-                            <td>${user.role.typeRole}</td>
-                            <td>${user.person.typePerson}</td>
+                            <td>${order.title}</td>
+                            <td>${order.description}</td>
+                            <td>${order.dateOfCreating}</td>
+                            <td>${order.endDate}</td>
+                            <td>${order.address}</td>
                             <td>
-                                <form method="post" action="/controller/Controler" role="form" role="form">
-                                    <input type="hidden" name="command" value="cn.admin.to.user.settings.page">
-                                    <input type="hidden" name="username" value="${user.username}">
+                                <form method="get" action="/controller/Controler" role="form" role="form">
+                                    <input type="hidden" name="command" value="cn.user.to.order.edit.page">
+                                    <input type="hidden" name="orderid" value="${order.idOrder}">
+                                    <input type="hidden" name="specializationid" value="${order.idSpecialization}">
+                                    <input type="hidden" name="specializationactivitie" value="${order.activitieSpecialization}">
                                     <button type="submit" class="btn btn-primary">${editText}</button>
                                 </form>
                             </td>
                             <td>                            	
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal" data-usernamedel="${user.username}">${deleteText}</button>
-                            </td>
-                            <td>        
-                            	<c:if test="${user.role.typeRole=='user' && user.person.typePerson=='customer'}">
-                                	<form method="post" action="/controller/Controler" role="form" role="form">
-                                   		<input type="hidden" name="command" value="cn.admin.show.orders.user.page">
-                                   		<input type="hidden" name="username" value="${user.username}">
-                                   		<button type="submit" class="btn btn-primary">${orderText}</button>
-                                	</form>
-                            	</c:if>
-                            	<c:if test="${user.role.typeRole=='user' && user.person.typePerson=='performer'}">
-                                	<form method="post" action="/controller/Controler" role="form" role="form">
-                                   		<input type="hidden" name="command" value="cn.admin.show.offer.user.page">
-                                   		<input type="hidden" name="username" value="${user.username}">
-                                   		<button type="submit" class="btn btn-primary">${offerText}</button>
-                                	</form>
-                            	</c:if>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal" data-orderiddel="${order.idOrder}" data-ordertitledel="${order.title}">${deleteText}</button>
                             </td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
-	
+            	
 	<!-- Pagination -->
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
@@ -147,7 +127,7 @@
                         <c:choose>
                             <c:when test="${currentpage != 1}">
                                 <li class="page-item">
-                                    <a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.edit.page&page=${sessionScope.currentpage - 1}" tabindex="-1">${previousText}</a>
+                                    <a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.show.orders.user.page&page=${sessionScope.currentpage - 1}" tabindex="-1">${previousText}</a>
                                 </li>
                             </c:when>
                             <c:otherwise>
@@ -167,7 +147,7 @@
                                             <li class="page-item"><a class="page-link" href="#">${i}</a></li>
                                         </c:when>
                                         <c:otherwise>
-                                            <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.edit.page&page=${i}">${i}</a></li>
+                                            <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.show.orders.user.page&page=${i}">${i}</a></li>
                                         </c:otherwise>
                                     </c:choose>
                                 </c:forEach>
@@ -181,15 +161,15 @@
                                                     <li class="page-item"><a class="page-link" href="#">${i}</a></li>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.edit.page&page=${i}">${i}</a></li>
+                                                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.show.orders.user.page&page=${i}">${i}</a></li>
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:forEach>
                                         <li class="page-item"><a class="page-link" href="#">...</a></li>
-                                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.edit.page&page=${noofpages}">${noofpages}</a></li>
+                                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.show.orders.user.page&page=${noofpages}">${noofpages}</a></li>
                                     </c:when>
                                     <c:when test="${(currentpage > 3) and (noofpages - currentpage >= 3)}">
-                                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.edit.page&page=1">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.show.orders.user.page&page=1">1</a></li>
                                         <li class="page-item"><a class="page-link" href="#">...</a></li>
                                         <c:forEach begin="${currentpage-2}" end="${currentpage+2}" var="i">
                                             <c:choose>
@@ -197,14 +177,14 @@
                                                     <li class="page-item"><a class="page-link" href="#">${i}</a></li>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.edit.page&page=${i}">${i}</a></li>
+                                                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.show.orders.user.page&page=${i}">${i}</a></li>
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:forEach>
-                                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.edit.page&page=${noofpages}">${noofpages}</a></li>
+                                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.show.orders.user.page&page=${noofpages}">${noofpages}</a></li>
                                     </c:when>
                                     <c:otherwise>
-                                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.edit.page&page=1">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.show.orders.user.page&page=1">1</a></li>
                                         <li class="page-item"><a class="page-link" href="#">...</a></li>
                                         <c:forEach begin="${currentpage}" end="${noofpages}" var="i">
                                             <c:choose>
@@ -212,7 +192,7 @@
                                                     <li class="page-item"><a class="page-link" href="#">${i}</a></li>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.edit.page&page=${i}">${i}</a></li>
+                                                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.show.orders.user.page&page=${i}">${i}</a></li>
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:forEach>
@@ -225,7 +205,7 @@
                             <c:choose>
                                 <c:when test="${currentpage lt noofpages}">
                                     <li class="page-item">
-                                        <a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.edit.page&page=${currentpage + 1}" tabindex="-1">${nextText}</a>
+                                        <a class="page-link" href="${pageContext.request.contextPath}/Controler?command=cn.user.show.orders.user.page&page=${currentpage + 1}" tabindex="-1">${nextText}</a>
                                     </li>
                                 </c:when>
                                 <c:otherwise>
@@ -262,9 +242,11 @@
     <script>
     	$('#deleteModal').on('show.bs.modal', function(e) {
     		var $modal = $(this),
-    			usernamedel = e.relatedTarget.dataset.usernamedel;
-    		document.getElementById('login-username').value = usernamedel;
-    		document.getElementById('user-label').innerHTML = usernamedel;
+    			orderiddel = e.relatedTarget.dataset.orderiddel,
+    			ordertitledel = e.relatedTarget.dataset.ordertitledel;
+    		document.getElementById('order-id').value = orderiddel;
+    		document.getElementById('order-title').value = ordertitledel;
+    		document.getElementById('order-label').innerHTML = ordertitledel;
     	})
  	</script>
 </body>
