@@ -1,5 +1,6 @@
 package by.epam.dao;
 
+import by.epam.dao.impl.SQLOfferingDAO;
 import by.epam.dao.impl.SQLOrderDAO;
 import by.epam.dao.impl.SQLSpecializationDAO;
 import by.epam.dao.impl.SQLUserDAO;
@@ -10,6 +11,7 @@ private static final DAOFactory instance = new DAOFactory();
 	
 	private static final UserDAO userDAO = new SQLUserDAO();
 	private static final OrderDAO orderDAO = new SQLOrderDAO();
+	private static final OfferingDAO offerinDAO = new SQLOfferingDAO();
 	private static final SpecializationDAO specializationDAO = new SQLSpecializationDAO();
 
 	private DAOFactory() {	
@@ -25,6 +27,10 @@ private static final DAOFactory instance = new DAOFactory();
 	
 	public OrderDAO getOrderDAO() {
 		return orderDAO;
+	}
+
+	public OfferingDAO getOfferinDAO() {
+		return offerinDAO;
 	}
 
 	public SpecializationDAO getSpecializationDAO() {

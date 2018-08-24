@@ -1,56 +1,78 @@
 package by.epam.domain.order;
 
-import by.epam.domain.performer.Performer;
+import by.epam.domain.user.User;
 
 public class Offering {
 
-	private String description;
-	private String isDelete;
-	private Performer performer;
-	private Order order;
-	
-	public Offering() {
-		
-	}
-
-	public Offering(String description, String isDelete, Performer performer, Order order) {
-		super();
-		this.description = description;
-		this.isDelete = isDelete;
-		this.performer = performer;
-		this.order = order;
-	}
+	private final String description;
+	private final String isDelete;
+	private final String titleOrder;
+	private final User user;
+	private final int idOrder;
 
 	public String getDescription() {
 		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public String getIsDelete() {
 		return isDelete;
 	}
 
-	public void setIsDelete(String isDelete) {
-		this.isDelete = isDelete;
+	public String getTitleOrder() {
+		return titleOrder;
 	}
 
-	public Performer getPerformer() {
-		return performer;
+	public User getUser() {
+		return user;
 	}
 
-	public void setPerformer(Performer performer) {
-		this.performer = performer;
+	public int getIdOrder() {
+		return idOrder;
 	}
 
-	public Order getOrder() {
-		return order;
+	private Offering(Builder builder) {
+		this.description = builder.description;
+		this.isDelete = builder.isDelete;
+		this.titleOrder = builder.titleOrder;
+		this.user = builder.user;
+		this.idOrder = builder.idOrder;
 	}
 
-	public void setOrder(Order order) {
-		this.order = order;
+	public static class Builder {
+		private String description;
+		private String isDelete;
+		private String titleOrder;
+		private User user;
+		private int idOrder;
+
+		public Builder setDescription(String description) {
+			this.description = description;
+			return this;
+		}
+
+		public Builder setIsDelete(String isDelete) {
+			this.isDelete = isDelete;
+			return this;
+		}
+
+		public Builder setTitleOrder(String titleOrder) {
+			this.titleOrder = titleOrder;
+			return this;
+		}
+
+		public Builder setUser(User user) {
+			this.user = user;
+			return this;
+		}
+
+		public Builder setIdOrder(int idOrder) {
+			this.idOrder = idOrder;
+			return this;
+		}
+
+		public Offering build() {
+			return new Offering(this);
+		}
 	}
 
 	@Override
@@ -58,9 +80,10 @@ public class Offering {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + idOrder;
 		result = prime * result + ((isDelete == null) ? 0 : isDelete.hashCode());
-		result = prime * result + ((order == null) ? 0 : order.hashCode());
-		result = prime * result + ((performer == null) ? 0 : performer.hashCode());
+		result = prime * result + ((titleOrder == null) ? 0 : titleOrder.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -78,22 +101,24 @@ public class Offering {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
+		if (idOrder != other.idOrder)
+			return false;
 		if (isDelete == null) {
 			if (other.isDelete != null)
 				return false;
 		} else if (!isDelete.equals(other.isDelete))
 			return false;
-		if (order == null) {
-			if (other.order != null)
+		if (titleOrder == null) {
+			if (other.titleOrder != null)
 				return false;
-		} else if (!order.equals(other.order))
+		} else if (!titleOrder.equals(other.titleOrder))
 			return false;
-		if (performer == null) {
-			if (other.performer != null)
+		if (user == null) {
+			if (other.user != null)
 				return false;
-		} else if (!performer.equals(other.performer))
+		} else if (!user.equals(other.user))
 			return false;
 		return true;
 	}
-	
+
 }

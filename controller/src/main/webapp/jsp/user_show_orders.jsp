@@ -12,8 +12,15 @@
 <fmt:message bundle="${loc}" key="locale.user.order.dateofcreating.text" var="dateCreateText" />
 <fmt:message bundle="${loc}" key="locale.user.order.enddate.text" var="endDateText" />
 <fmt:message bundle="${loc}" key="locale.user.order.address.text" var="addressText" />
+<fmt:message bundle="${loc}" key="locale.user.order.status.text" var="statusText" />
+<fmt:message bundle="${loc}" key="locale.user.order.performer.text" var="performerText" />
+<fmt:message bundle="${loc}" key="locale.user.order.choose.text" var="chooseText" />
+<fmt:message bundle="${loc}" key="locale.user.order.process.text" var="processText" />
+<fmt:message bundle="${loc}" key="locale.user.order.completed.text" var="completedText" />
+<fmt:message bundle="${loc}" key="locale.user.order.notperformer.text" var="notperformerText" />
 <fmt:message bundle="${loc}" key="locale.user.order.edit.text" var="editText" />
 <fmt:message bundle="${loc}" key="locale.user.order.delete.text" var="deleteText" />
+<fmt:message bundle="${loc}" key="locale.user.order.choiceperformer.text" var="choiceperformerText" />
 <fmt:message bundle="${loc}" key="locale.user.order.previous.text" var="previousText" />
 <fmt:message bundle="${loc}" key="locale.user.order.next.text" var="nextText" />
 <fmt:message bundle="${loc}" key="locale.user.order.modal.title.text" var="modalTitleText" />
@@ -90,6 +97,8 @@
                         <th scope="col">${dateCreateText}</th>
                         <th scope="col">${endDateText}</th>
                         <th scope="col">${addressText}</th>
+                        <th scope="col">${statusText}</th>
+                        <th scope="col">${performerText}</th>
                         <th scope="col">${editText}</th>
                         <th scope="col">${deleteText}</th>
                     </tr>
@@ -102,6 +111,23 @@
                             <td>${order.dateOfCreating}</td>
                             <td>${order.endDate}</td>
                             <td>${order.address}</td>
+                            <c:if test="${order.status == 'choose'}">
+                            	<td>${chooseText}</td>                            
+                            </c:if>
+                            <c:if test="${order.status == 'process'}">
+                            	<td>${processText}</td>                            
+                            </c:if>
+                            <c:if test="${order.status == 'completed'}">
+                            	<td>${completedText}</td>                            
+                            </c:if>
+                            <c:choose>
+                            	<c:when test="${not empty order.usernamePerformer}">
+                                	<td>${order.usernamePerformer}</td> 
+                            	</c:when>
+                            	<c:otherwise>
+                                	<td>${notperformerText}</td>  
+                            	</c:otherwise>
+                        	</c:choose>
                             <td>
                                 <form method="get" action="/controller/Controler" role="form" role="form">
                                     <input type="hidden" name="command" value="cn.user.to.order.edit.page">
@@ -114,6 +140,17 @@
                             <td>                            	
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal" data-orderiddel="${order.idOrder}" data-ordertitledel="${order.title}">${deleteText}</button>
                             </td>
+                            <c:if test="${order.status == 'choose'}">
+                            	<td>
+									<form method="post" action="/controller/Controler" role="form" role="form">
+                                    	<input type="hidden" name="command" value="cn.to.show.offer.page">
+                                    	<input type="hidden" name="orderid" value="${order.idOrder}">
+                                    	<input type="hidden" name="title" value="${order.title}">
+                                    	<input type="hidden" name="username" value="${user.username}">
+                                    	<button type="submit" class="btn btn-primary">${choiceperformerText}</button>
+                                </form>
+								</td>                            
+                            </c:if>
                         </tr>
                     </c:forEach>
                 </tbody>

@@ -25,6 +25,8 @@
 	<command commandName="cn.user.to.order.edit.page"	className="by.epam.controller.command.impl.ToEditOrderUser" />
 	<command commandName="cn.change.order.repair.page"	className="by.epam.controller.command.impl.EditOrderUser" />
 	<command commandName="cn.admin.show.orders.user.page"	className="by.epam.controller.command.impl.ShowOrderOfUserByAdmin" />
+	<command commandName="cn.select.performer.page"	className="by.epam.controller.command.impl.SelectPerformerForOrder" />
+	<command commandName="cn.to.show.offer.page"	className="by.epam.controller.command.impl.ShowOfferingForOrder" />
 	
 
 </comm:commands>

@@ -1,6 +1,5 @@
 package by.epam.dao.impl;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;

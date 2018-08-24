@@ -52,7 +52,11 @@ public class ParamAndAttribute {
 	
 	public static final String ORDER_LIST_ATTRIBUTE = "orderlist";
 	public static final String ORDER_EDIT_ATTRIBUTE = "orderoredit";
-		
+	public static final String ORDER_TITLE_ATTRIBUTE = "orderTitle";
+	public static final String ORDER_ID_ATTRIBUTE = "orderid";
+	
+	public static final String OFFERING_LIST_ATTRIBUTE = "offeringList";
+	
 	private ParamAndAttribute() {
 	}
 }
