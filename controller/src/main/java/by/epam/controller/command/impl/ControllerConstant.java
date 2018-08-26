@@ -1,6 +1,6 @@
 package by.epam.controller.command.impl;
 
-public class ControllerConstant {
+public final class ControllerConstant {
 
 	public static final String COMMAND = "command";
 	public static final String PREVIOUS_COMMAND_AND_ATTRIBUTE = "previousCommandAndAttribute";

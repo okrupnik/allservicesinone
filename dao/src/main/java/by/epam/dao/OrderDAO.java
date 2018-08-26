@@ -3,10 +3,7 @@ package by.epam.dao;
 import java.util.List;
 
 import by.epam.dao.exception.DAOException;
-import by.epam.domain.customer.Customer;
-import by.epam.domain.order.Offering;
 import by.epam.domain.order.Order;
-import by.epam.domain.performer.Performer;
 import by.epam.domain.user.User;
 
 public interface OrderDAO {
@@ -15,17 +12,11 @@ public interface OrderDAO {
 
 	List<Order> getAllOrderOfUser(final User user, final int offset, final int noOfRecords) throws DAOException;
 	
+	List<Order> getAllOrdersOfUsers(final int offset, final int noOfRecords) throws DAOException;
+	
 	Order getOrder(final int orderId) throws DAOException;
-
-	List<Order> showOrderCustomer(final Customer customer) throws DAOException;
-
-	List<Order> showOrderPerformer(final Performer performer) throws DAOException;
-
-	List<Offering> showOrderOffering(final Order order) throws DAOException;
 	
 	boolean editOrder(final Order order) throws DAOException;
-
-	Order delete(final Order order) throws DAOException;
 
 	int getNoOfRecords() throws DAOException;
 	

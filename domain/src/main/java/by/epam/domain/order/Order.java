@@ -1,6 +1,7 @@
 package by.epam.domain.order;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import by.epam.domain.performer.Performer;
 
@@ -19,7 +20,8 @@ public class Order {
 	private String address;
 	private String attachment;
 	private String usernamePerformer;
-	private Performer performer;	
+	private Performer performer;
+	private List<Offering> offeringList;
 		
 	public int getIdOrder() {
 		return idOrder;
@@ -133,6 +135,14 @@ public class Order {
 		this.activitieSpecialization = activitieSpecialization;
 	}
 
+	public List<Offering> getOfferingList() {
+		return offeringList;
+	}
+
+	public void setOfferingList(List<Offering> offeringList) {
+		this.offeringList = offeringList;
+	}
+
 	private Order(Builder builder) {
 		this.idOrder = builder.idOrder;
 		this.title = builder.title;
@@ -148,6 +158,7 @@ public class Order {
 		this.attachment = builder.attachment;
 		this.usernamePerformer = builder.usernamePerformer;
 		this.performer = builder.performer;
+		this.offeringList = builder.offeringList;
 	}
 
 	public static class Builder {
@@ -165,6 +176,7 @@ public class Order {
 		private String attachment;
 		private String usernamePerformer;
 		private Performer performer;	
+		private List<Offering> offeringList;
 				
 		public Builder setIdOrder(int idOrder) {
 			this.idOrder = idOrder;
@@ -236,6 +248,10 @@ public class Order {
 			return this;
 		}
 
+		public Builder setOffering(List<Offering> offeringList) {
+			this.offeringList = offeringList;
+			return this;
+		}
 
 		public Order build() {
 			return new Order(this);
@@ -254,6 +270,7 @@ public class Order {
 		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
 		result = prime * result + idOrder;
 		result = prime * result + idSpecialization;
+		result = prime * result + ((offeringList == null) ? 0 : offeringList.hashCode());
 		result = prime * result + ((performer == null) ? 0 : performer.hashCode());
 		result = prime * result + ((specialization == null) ? 0 : specialization.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
@@ -305,6 +322,11 @@ public class Order {
 		if (idOrder != other.idOrder)
 			return false;
 		if (idSpecialization != other.idSpecialization)
+			return false;
+		if (offeringList == null) {
+			if (other.offeringList != null)
+				return false;
+		} else if (!offeringList.equals(other.offeringList))
 			return false;
 		if (performer == null) {
 			if (other.performer != null)

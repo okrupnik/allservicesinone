@@ -91,7 +91,7 @@
                     </button>
                 </div>
                 <div class="modal-body select-user">
-                	<form method="post" action="/controller/Controler" role="form" role="form">
+                	<form method="get" action="/controller/Controler" role="form" role="form">
 						<input type="hidden" name="command" value="cn.select.performer.page">
 						<input type="hidden" id="orderid" name="orderid" value="${sessionScope.orderid}">
 						<input type="hidden" id="username" name="username" value="">

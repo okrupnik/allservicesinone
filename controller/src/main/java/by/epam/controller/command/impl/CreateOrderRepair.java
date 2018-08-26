@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import by.epam.controller.command.Command;
 import by.epam.domain.error.ErrorMap;
 import by.epam.domain.order.Order;
-import by.epam.domain.specialization.Specialization;
 import by.epam.domain.user.User;
 import by.epam.service.OrderService;
 import by.epam.service.ServiceFactory;
@@ -39,8 +38,6 @@ public class CreateOrderRepair implements Command {
 		String attachment = null;
 		Order orderRepair = null;
 		User user = (User) request.getSession(true).getAttribute(ParamAndAttribute.USER_ATTRIBUTE);
-		Specialization specialization = (Specialization) request.getSession(true)
-				.getAttribute(ParamAndAttribute.SPECIALIZATION_ATTRIBUTE);
 
 		titleOrder = request.getParameter(ParamAndAttribute.ORDER_TITLE_PARAM_NAME);
 		idSpecialization = Integer.parseInt(request.getParameter(ParamAndAttribute.ID_SPECIALIZATION_TITLE_PARAM_NAME));

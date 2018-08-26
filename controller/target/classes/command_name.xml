@@ -8,11 +8,25 @@
 	<command commandName="cn.localization.page"	className="by.epam.controller.command.impl.Localization" />
 	<command commandName="cn.signin.page"	className="by.epam.controller.command.impl.SignIn" />
 	<command commandName="cn.to.signin.page"	className="by.epam.controller.command.impl.ToSignIn" />
-	<command commandName="cn.registration.page"	className="by.epam.controller.command.impl.Registration" />
+	<command commandName="cn.registration.customer.natural.page"	className="by.epam.controller.command.impl.CustomerNaturalRegistration" />
+	<command commandName="cn.registration.customer.legal.page"	className="by.epam.controller.command.impl.CustomerLegalRegistration" />
+	<command commandName="cn.registration.customer.company.page"	className="by.epam.controller.command.impl.CustomerCompanyRegistration" />
+	<command commandName="cn.registration.performer.legal.page"	className="by.epam.controller.command.impl.PerformerLegalRegistration" />
+	<command commandName="cn.registration.performer.company.page"	className="by.epam.controller.command.impl.PerformerCompanyRegistration" />
 	<command commandName="cn.to.registration.page"	className="by.epam.controller.command.impl.ToRegistration" />
-	<command commandName="cn.user.settings.page"	className="by.epam.controller.command.impl.ChangingUserSetting" />
+	<command commandName="cn.admin.change.setting.page"	className="by.epam.controller.command.impl.ChangingAdminSetting" />
+	<command commandName="cn.customer.natural.change.setting.page"	className="by.epam.controller.command.impl.ChangingCustomerNaturalSetting" />
+	<command commandName="cn.customer.legal.change.setting.page"	className="by.epam.controller.command.impl.ChangingCustomerLegalSetting" />
+	<command commandName="cn.customer.company.change.setting.page"	className="by.epam.controller.command.impl.ChangingCustomerCompanySetting" />
+	<command commandName="cn.performer.legal.change.setting.page"	className="by.epam.controller.command.impl.ChangingPerformerLegalSetting" />
+	<command commandName="cn.performer.company.change.setting.page"	className="by.epam.controller.command.impl.ChangingPerformerCompanySetting" />
 	<command commandName="cn.to.user.settings.page"	className="by.epam.controller.command.impl.ToChangingUserSetting" />
-	<command commandName="cn.admin.change.user.settings.page"	className="by.epam.controller.command.impl.ChangingUserSettingByAdmin" />
+	<command commandName="cn.admin.change.administration.settings.page"	className="by.epam.controller.command.impl.ChangingAdministrationSettingByAdmin" />
+	<command commandName="cn.admin.change.customer.natural.settings.page"	className="by.epam.controller.command.impl.ChangingCustomerNaturalSettingByAdmin" />
+	<command commandName="cn.admin.change.customer.legal.settings.page"	className="by.epam.controller.command.impl.ChangingCustomerLegalSettingByAdmin" />
+	<command commandName="cn.admin.change.customer.company.settings.page"	className="by.epam.controller.command.impl.ChangingCustomerCompanySettingByAdmin" />
+	<command commandName="cn.admin.change.performer.legal.settings.page"	className="by.epam.controller.command.impl.ChangingPerformerLegalSettingByAdmin" />
+	<command commandName="cn.admin.change.performer.company.settings.page"	className="by.epam.controller.command.impl.ChangingPerformerCompanySettingByAdmin" />
 	<command commandName="cn.user.password.settings.page"	className="by.epam.controller.command.impl.ChangeUserPassword" />
 	<command commandName="cn.user.edit.page"	className="by.epam.controller.command.impl.EditUserByAdmin" />
 	<command commandName="cn.admin.to.user.settings.page"	className="by.epam.controller.command.impl.ToChangingUserByAdmin" />
@@ -22,11 +36,14 @@
 	<command commandName="cn.create.order.repair.page"	className="by.epam.controller.command.impl.CreateOrderRepair" />
 	<command commandName="cn.user.show.orders.user.page"	className="by.epam.controller.command.impl.ShowOrderOfUser" />
 	<command commandName="cn.order.delete.page"	className="by.epam.controller.command.impl.DeleteOrder" />
+	<command commandName="cn.show.all.orders.of.users.page"	className="by.epam.controller.command.impl.ShowAllOrdersOfUsers" />
 	<command commandName="cn.user.to.order.edit.page"	className="by.epam.controller.command.impl.ToEditOrderUser" />
 	<command commandName="cn.change.order.repair.page"	className="by.epam.controller.command.impl.EditOrderUser" />
 	<command commandName="cn.admin.show.orders.user.page"	className="by.epam.controller.command.impl.ShowOrderOfUserByAdmin" />
 	<command commandName="cn.select.performer.page"	className="by.epam.controller.command.impl.SelectPerformerForOrder" />
 	<command commandName="cn.to.show.offer.page"	className="by.epam.controller.command.impl.ShowOfferingForOrder" />
+	<command commandName="cn.user.show.orders.offering.page"	className="by.epam.controller.command.impl.ShowOffersForOrderOfPerformer" />
+	<command commandName="cn.add.offering.to.order.page"	className="by.epam.controller.command.impl.AddOfferingToOrder" />
 	
 
 </comm:commands>

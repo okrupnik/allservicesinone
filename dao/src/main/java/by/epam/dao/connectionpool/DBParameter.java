@@ -1,6 +1,6 @@
 package by.epam.dao.connectionpool;
 
-public class DBParameter {
+public final class DBParameter {
 
 	private DBParameter() {
 	}

@@ -1,6 +1,6 @@
 package by.epam.dao.impl;
 
-public class DAOConstant {
+public final class DAOConstant {
 	
 	public static final String ID_PARAM_NAME = "id";
 	public static final String TYPE_PERSON_PARAM_NAME = "typePerson";
@@ -73,5 +73,8 @@ public class DAOConstant {
 	public static final String ID_SPECIALIZATION_ORDER_PARAM_NAME = "specialization_id";
 	public static final String SPECIALIZATION_DESCRIPT_ORDER_PARAM_NAME = "descriptionru";
 	public static final String ACTIVITIE_SPECIALIZATION_ORDER_PARAM_NAME = "activities";
-
+	
+	private DAOConstant() {
+	}
+	
 }

@@ -4,11 +4,17 @@ import by.epam.domain.user.User;
 
 public class Offering {
 
+	private final int id;
 	private final String description;
 	private final String isDelete;
 	private final String titleOrder;
+	private final String usernamePerformer;
 	private final User user;
 	private final int idOrder;
+
+	public int getId() {
+		return id;
+	}
 
 	public String getDescription() {
 		return description;
@@ -22,6 +28,10 @@ public class Offering {
 		return titleOrder;
 	}
 
+	public String getUsernamePerformer() {
+		return usernamePerformer;
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -31,19 +41,28 @@ public class Offering {
 	}
 
 	private Offering(Builder builder) {
+		this.id = builder.id;
 		this.description = builder.description;
 		this.isDelete = builder.isDelete;
 		this.titleOrder = builder.titleOrder;
+		this.usernamePerformer = builder.usernamePerformer;
 		this.user = builder.user;
 		this.idOrder = builder.idOrder;
 	}
 
 	public static class Builder {
+		private int id;
 		private String description;
 		private String isDelete;
 		private String titleOrder;
+		private String usernamePerformer;
 		private User user;
 		private int idOrder;
+
+		public Builder setId(int id) {
+			this.id = id;
+			return this;
+		}
 
 		public Builder setDescription(String description) {
 			this.description = description;
@@ -57,6 +76,11 @@ public class Offering {
 
 		public Builder setTitleOrder(String titleOrder) {
 			this.titleOrder = titleOrder;
+			return this;
+		}
+
+		public Builder setUsernamePerformer(String usernamePerformer) {
+			this.usernamePerformer = usernamePerformer;
 			return this;
 		}
 
@@ -80,10 +104,12 @@ public class Offering {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + id;
 		result = prime * result + idOrder;
 		result = prime * result + ((isDelete == null) ? 0 : isDelete.hashCode());
 		result = prime * result + ((titleOrder == null) ? 0 : titleOrder.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + ((usernamePerformer == null) ? 0 : usernamePerformer.hashCode());
 		return result;
 	}
 
@@ -100,6 +126,8 @@ public class Offering {
 			if (other.description != null)
 				return false;
 		} else if (!description.equals(other.description))
+			return false;
+		if (id != other.id)
 			return false;
 		if (idOrder != other.idOrder)
 			return false;
@@ -118,7 +146,11 @@ public class Offering {
 				return false;
 		} else if (!user.equals(other.user))
 			return false;
+		if (usernamePerformer == null) {
+			if (other.usernamePerformer != null)
+				return false;
+		} else if (!usernamePerformer.equals(other.usernamePerformer))
+			return false;
 		return true;
 	}
-
 }

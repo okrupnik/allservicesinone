@@ -16,6 +16,7 @@
 <fmt:message bundle="${loc}" key="locale.header.loginform.button.create.text"	var="buttonCreateAccount" />
 <fmt:message bundle="${loc}" key="locale.header.usermenu.ref.editor.text"	var="buttonEditor" />
 <fmt:message bundle="${loc}" key="locale.header.usermenu.ref.order.text"	var="buttonOrder" />
+<fmt:message bundle="${loc}" key="locale.header.usermenu.ref.offering.text"	var="buttonOffering" />
 <fmt:message bundle="${loc}" key="locale.header.usermenu.ref.message.text"	var="buttonMessage" />
 <fmt:message bundle="${loc}" key="locale.header.usermenu.ref.settings.text"	var="buttonSetting" />
 <fmt:message bundle="${loc}" key="locale.header.usermenu.ref.exit.text"	var="buttonExit" />
@@ -43,6 +44,16 @@
                                     	<c:if test="${sessionScope.user.person.typePerson=='customer'}">
                                     	<li role="menuitem">
                                             <a href="${pageContext.request.contextPath}/Controler?command=cn.user.show.orders.user.page">
+                                                <img src="${pageContext.request.contextPath}/img/user/user-order.png" alt="Order"> ${buttonOrder}
+                                            </a>
+                                        </li>
+                                    	</c:if>
+                                    	<c:if test="${sessionScope.user.person.typePerson=='performer'}">
+                                    	<li role="menuitem">
+                                            <a href="${pageContext.request.contextPath}/Controler?command=cn.user.show.orders.offering.page">
+                                                <img src="${pageContext.request.contextPath}/img/user/user-order.png" alt="Offering"> ${buttonOffering}
+                                            </a>
+                                            <a href="${pageContext.request.contextPath}/Controler?command=cn.user.show.orders.performer.page">
                                                 <img src="${pageContext.request.contextPath}/img/user/user-order.png" alt="Order"> ${buttonOrder}
                                             </a>
                                         </li>
@@ -203,7 +214,7 @@
                     </div>
                     <!-- /mainmenu-submenu -->
                 </li>
-                <li><a href="credits.html">${buttonAllTask}</a></li>
+                <li><a href="${pageContext.request.contextPath}/Controler?command=cn.show.all.orders.of.users.page">${buttonAllTask}</a></li>
             </ul>
         </nav>
     </div>

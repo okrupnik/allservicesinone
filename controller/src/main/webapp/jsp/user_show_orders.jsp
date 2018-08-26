@@ -101,6 +101,7 @@
                         <th scope="col">${performerText}</th>
                         <th scope="col">${editText}</th>
                         <th scope="col">${deleteText}</th>
+                        <th scope="col">${choiceperformerText}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -142,7 +143,7 @@
                             </td>
                             <c:if test="${order.status == 'choose'}">
                             	<td>
-									<form method="post" action="/controller/Controler" role="form" role="form">
+									<form method="get" action="/controller/Controler" role="form" role="form">
                                     	<input type="hidden" name="command" value="cn.to.show.offer.page">
                                     	<input type="hidden" name="orderid" value="${order.idOrder}">
                                     	<input type="hidden" name="title" value="${order.title}">

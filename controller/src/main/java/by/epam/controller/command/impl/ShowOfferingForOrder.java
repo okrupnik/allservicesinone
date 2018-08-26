@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import by.epam.controller.command.Command;
 import by.epam.domain.order.Offering;
 import by.epam.domain.page.PageDetail;
-import by.epam.domain.user.User;
 import by.epam.service.OfferingService;
 import by.epam.service.ServiceFactory;
 import by.epam.service.exception.ServiceException;
@@ -29,12 +28,10 @@ public class ShowOfferingForOrder implements Command{
 		List<Offering> offeringList = null;
 		String idOrder = null;
 		String orderTitle = null;
-		String username = null;
 		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
 		OfferingService offeringService = serviceFactory.getOfferingService();
 			
 		idOrder = request.getParameter(ParamAndAttribute.ORDER_ID_PARAM_NAME);
-		User user = (User) request.getSession().getAttribute(ParamAndAttribute.USER_ATTRIBUTE); 
 		HttpSession session = request.getSession();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 		String page = request.getParameter(ParamAndAttribute.PAGE_ATTRIBUTE);

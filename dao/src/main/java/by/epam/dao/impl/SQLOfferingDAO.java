@@ -16,8 +16,6 @@ import by.epam.dao.UserDAO;
 import by.epam.dao.connectionpool.ConnectionPool;
 import by.epam.dao.exception.DAOException;
 import by.epam.domain.order.Offering;
-import by.epam.domain.order.Order;
-import by.epam.domain.performer.Performer;
 import by.epam.domain.user.User;
 
 public class SQLOfferingDAO implements OfferingDAO {
@@ -89,30 +87,12 @@ public class SQLOfferingDAO implements OfferingDAO {
 	}
 
 	@Override
-	public List<Offering> showOffering() throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Offering> showOfferingPerformer(Performer performer) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Offering> shorOfferingOrder(Order order) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int getNoOfRecords() throws DAOException {
 		return noOfRecords;
 	}
 
 	@Override
-	public boolean selectPerformerForOrder(String username, int idOrder) throws DAOException {
+	public boolean selectPerformerForOrder(final String username, final int idOrder) throws DAOException {
 
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -141,6 +121,12 @@ public class SQLOfferingDAO implements OfferingDAO {
 
 		}
 		return true;
+	}
+
+	@Override
+	public boolean addOfferfingToOrder(final User user, final int idOrder) throws DAOException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

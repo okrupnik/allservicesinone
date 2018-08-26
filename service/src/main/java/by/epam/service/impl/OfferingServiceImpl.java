@@ -8,8 +8,8 @@ import by.epam.dao.DAOFactory;
 import by.epam.dao.OfferingDAO;
 import by.epam.dao.exception.DAOException;
 import by.epam.domain.order.Offering;
-import by.epam.domain.order.Order;
 import by.epam.domain.page.PageDetail;
+import by.epam.domain.user.User;
 import by.epam.service.OfferingService;
 import by.epam.service.exception.ServiceException;
 
@@ -61,9 +61,38 @@ public class OfferingServiceImpl implements OfferingService {
 
 	@Override
 	public boolean selectPerformerForOrder(String username, String idOrder, String locale) throws ServiceException {
-		if (!username.isEmpty() && username != null) {
+		if (!username.isEmpty() || username != null) {
 			try {
 				if (offeringDAO.selectPerformerForOrder(username, Integer.parseInt(idOrder))) {
+					return true;
+				} else {
+					if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+						throw new ServiceException("Ошибка выбора исполнителя, попробуйте позже");
+					} else {
+						throw new ServiceException("Error of choosing performer, try it later");
+					}
+				}
+			} catch (DAOException e) {
+				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+					throw new ServiceException("Ошибка выбора исполнителя");
+				} else {
+					throw new ServiceException("Error of choosing performer");
+				}
+			}
+		} else {
+			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+				throw new ServiceException("Пользователь не найден");
+			} else {
+				throw new ServiceException("The user is not found");
+			}
+		}
+	}
+
+	@Override
+	public boolean addOfferfingToOrder(User user, String idOrder, String locale) throws ServiceException {
+		if (!user.getUsername().isEmpty() || user.getUsername() != null) {
+			try {
+				if (offeringDAO.addOfferfingToOrder(user, Integer.parseInt(idOrder))) {
 					return true;
 				} else {
 					if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {

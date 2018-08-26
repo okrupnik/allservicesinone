@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import by.epam.controller.command.Command;
 import by.epam.service.OrderService;
 import by.epam.service.ServiceFactory;
-import by.epam.service.UserService;
 import by.epam.service.exception.ServiceException;
 
 public class DeleteOrder implements Command{

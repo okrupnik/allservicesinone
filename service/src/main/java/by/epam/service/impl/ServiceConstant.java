@@ -1,6 +1,6 @@
 package by.epam.service.impl;
 
-public class ServiceConstant {
+public final class ServiceConstant {
 	
 	public static final String LOCALE_RU_PARAM_NAME = "ru";
 	public static final String LOCALE_EN_PARAM_NAME = "en";
@@ -57,5 +57,6 @@ public class ServiceConstant {
 	public static final String ADDRESS_ORDER_PARAM_NAME = "addressOrder";
 	public static final String STATUS_CHOOSE_ORDER_PARAM_NAME = "choose";
 	
-
+	private ServiceConstant() {
+	}	
 }

@@ -109,7 +109,7 @@
                             <td>${user.role.typeRole}</td>
                             <td>${user.person.typePerson}</td>
                             <td>
-                                <form method="post" action="/controller/Controler" role="form" role="form">
+                                <form method="get" action="/controller/Controler" role="form" role="form">
                                     <input type="hidden" name="command" value="cn.admin.to.user.settings.page">
                                     <input type="hidden" name="username" value="${user.username}">
                                     <button type="submit" class="btn btn-primary">${editText}</button>
@@ -120,16 +120,18 @@
                             </td>
                             <td>        
                             	<c:if test="${user.role.typeRole=='user' && user.person.typePerson=='customer'}">
-                                	<form method="post" action="/controller/Controler" role="form" role="form">
+                                	<form method="get" action="/controller/Controler" role="form" role="form">
                                    		<input type="hidden" name="command" value="cn.admin.show.orders.user.page">
                                    		<input type="hidden" name="username" value="${user.username}">
+                                   		<c:remove var="selecteduser" scope="session" />
                                    		<button type="submit" class="btn btn-primary">${orderText}</button>
                                 	</form>
                             	</c:if>
                             	<c:if test="${user.role.typeRole=='user' && user.person.typePerson=='performer'}">
-                                	<form method="post" action="/controller/Controler" role="form" role="form">
+                                	<form method="get" action="/controller/Controler" role="form" role="form">
                                    		<input type="hidden" name="command" value="cn.admin.show.offer.user.page">
                                    		<input type="hidden" name="username" value="${user.username}">
+                                   		<c:remove var="selecteduser" scope="session" />
                                    		<button type="submit" class="btn btn-primary">${offerText}</button>
                                 	</form>
                             	</c:if>

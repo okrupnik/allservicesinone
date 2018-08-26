@@ -1,6 +1,6 @@
 package by.epam.controller.command.impl;
 
-public class ParamAndAttribute {
+public final class ParamAndAttribute {
 	
 	public static final String LOCALE_PARAM_NAME = "local";
 	public static final String TYPE_PERSON_PARAM_NAME = "typePerson";

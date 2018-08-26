@@ -66,7 +66,7 @@ public class ShowOrderOfUserByAdmin implements Command{
 		} catch (ServiceException e) {
 			String errorMessage = e.getMessage();
 			session.setAttribute(ParamAndAttribute.ERROR_MESSAGE_ATTRIBUTE, errorMessage);
-			RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.ERROR_PAGE);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.ERROR_SHOW_ORDER_OR_OFFERING_PAGE);
 			try {
 				dispatcher.forward(request, response);
 			} catch (ServletException | IOException e1) {

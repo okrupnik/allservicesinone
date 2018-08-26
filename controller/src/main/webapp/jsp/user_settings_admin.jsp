@@ -93,7 +93,7 @@
                             <div class="tab-pane fade in active" id="tabUserSetting">             
                             	<c:if test="${sessionScope.selecteduser.person.typePerson=='servicePerson'}">   
                                     <form method="post" action="/controller/Controler" role="form" role="form">
-                                        <input type="hidden" name="command" value="cn.admin.change.user.settings.page">
+                                        <input type="hidden" name="command" value="cn.admin.change.administration.settings.page">
                                         <input type="hidden" name="typePerson" value="servicePerson">
                                         <c:if test="${not empty sessionScope.errorMessage}">
                                             <div class="form-group">
@@ -168,7 +168,7 @@
                                 </c:if>               	
                             	<c:if test="${sessionScope.selecteduser.person.typePerson=='customer' && sessionScope.selecteduser.customer.ownership.formOwnership=='natural'}">   
                                     <form method="post" action="/controller/Controler" role="form" role="form">
-                                        <input type="hidden" name="command" value="cn.admin.change.user.settings.page">
+                                        <input type="hidden" name="command" value="cn.admin.change.customer.natural.settings.page">
                                         <input type="hidden" name="typePerson" value="customer">
                                         <input type="hidden" name="formOwnership" value="natural">
                                         <c:if test="${not empty sessionScope.errorMessage}">
@@ -244,7 +244,7 @@
                                 </c:if>    
                                 <c:if test="${sessionScope.selecteduser.person.typePerson=='customer' && sessionScope.selecteduser.customer.ownership.formOwnership=='legal'}">   
                                     <form method="post" action="/controller/Controler" role="form" role="form">
-                                        <input type="hidden" name="command" value="cn.admin.change.user.settings.page">
+                                        <input type="hidden" name="command" value="cn.admin.change.customer.legal.settings.page">
                                         <input type="hidden" name="typePerson" value="customer">
                                         <input type="hidden" name="formOwnership" value="legal">
                                         <c:if test="${not empty sessionScope.errorMessage}">
@@ -335,7 +335,7 @@
                                 </c:if>    
                             	<c:if test="${sessionScope.selecteduser.person.typePerson=='customer' && sessionScope.selecteduser.customer.ownership.formOwnership=='company'}">   
                                     <form method="post" action="/controller/Controler" role="form" role="form">
-                                        <input type="hidden" name="command" value="cn.admin.change.user.settings.page">
+                                        <input type="hidden" name="command" value="cn.admin.change.customer.company.settings.page">
                                         <input type="hidden" name="typePerson" value="customer">
                                         <input type="hidden" name="formOwnership" value="company">
                                         <c:if test="${not empty sessionScope.errorMessage}">
@@ -436,7 +436,7 @@
                                 </c:if>  
                                  <c:if test="${sessionScope.selecteduser.person.typePerson=='performer' && sessionScope.selecteduser.performer.ownership.formOwnership=='legal'}">   
                                     <form method="post" action="/controller/Controler" role="form" role="form">
-                                        <input type="hidden" name="command" value="cn.admin.change.user.settings.page">
+                                        <input type="hidden" name="command" value="cn.admin.change.performer.legal.settings.page">
                                         <input type="hidden" name="typePerson" value="performer">
                                         <input type="hidden" name="formOwnership" value="legal">
                                         <c:if test="${not empty sessionScope.errorMessage}">
@@ -527,7 +527,7 @@
                                 </c:if>      
                                 <c:if test="${sessionScope.selecteduser.person.typePerson=='performer' && sessionScope.selecteduser.performer.ownership.formOwnership=='company'}">   
                                     <form method="post" action="/controller/Controler" role="form" role="form">
-                                        <input type="hidden" name="command" value="cn.admin.change.user.settings.page">
+                                        <input type="hidden" name="command" value="cn.admin.change.performer.company.settings.page">
                                         <input type="hidden" name="typePerson" value="performer">
                                         <input type="hidden" name="formOwnership" value="company">
                                         <c:if test="${not empty sessionScope.errorMessage}">

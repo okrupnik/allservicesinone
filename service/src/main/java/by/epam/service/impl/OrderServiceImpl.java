@@ -7,12 +7,9 @@ import java.util.Map;
 import by.epam.dao.DAOFactory;
 import by.epam.dao.OrderDAO;
 import by.epam.dao.exception.DAOException;
-import by.epam.domain.customer.Customer;
 import by.epam.domain.error.ErrorMap;
-import by.epam.domain.order.Offering;
 import by.epam.domain.order.Order;
 import by.epam.domain.page.PageDetail;
-import by.epam.domain.performer.Performer;
 import by.epam.domain.user.User;
 import by.epam.service.OrderService;
 import by.epam.service.exception.ServiceException;
@@ -119,7 +116,7 @@ public class OrderServiceImpl implements OrderService {
 	public Order getOrder(String orderId, String locale) throws ServiceException {		
 		Order order =null;
 		
-		if(!orderId.isEmpty() && orderId != null) {
+		if(!orderId.isEmpty() || orderId != null) {
 			try {
 				order = orderDAO.getOrder(Integer.parseInt(orderId));
 			} catch (NumberFormatException | DAOException e) {
@@ -138,30 +135,6 @@ public class OrderServiceImpl implements OrderService {
 		}
 		
 		return order;
-	}
-	
-	@Override
-	public List<Order> showOrderCustomer(final Customer customer, final String locale) throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Order> showOrderPerformer(final Performer performer, final String locale) throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Offering> showOrderOffering(final Order order, final String locale) throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Order delete(final Order order, final String locale) throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -220,7 +193,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public boolean delete(String idOrder, String locale) throws ServiceException {
 		
-		if (!idOrder.isEmpty() && idOrder != null) {
+		if (!idOrder.isEmpty() || idOrder != null) {
 			try {				
 				if (orderDAO.delete(idOrder)) {
 					return true;
@@ -245,6 +218,43 @@ public class OrderServiceImpl implements OrderService {
 				throw new ServiceException("The order is not found");
 			}	
 		}		
+	}
+
+	@Override
+	public List<Order> getAllOrdersOfUsers(String page, String locale) throws ServiceException {
+		
+		List<Order> orderList = null;
+		int currentPage = 1;
+		int noOfRecords = 0;
+		int noOfPages = 0;		
+		int recordsPerPage = 4;
+		
+		try {
+			if(page != null) {
+				currentPage = Integer.parseInt(page);
+			}
+			orderList = orderDAO.getAllOrdersOfUsers((currentPage-1)*recordsPerPage, recordsPerPage);
+			noOfRecords = orderDAO.getNoOfRecords();
+			noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
+			pagesDetails.put(ServiceConstant.NO_OF_PAGES_PARAM_NAME, noOfPages);
+			pagesDetails.put(ServiceConstant.CURRENT_PAGE_PARAM_NAME, currentPage);
+			PageDetail.setPagesDetails(pagesDetails);
+			if (orderList.isEmpty() || orderList == null) {
+				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+					throw new ServiceException("Список пуст");
+				} else {
+					throw new ServiceException("Orders list is empty");
+				}
+			}
+		} catch (DAOException e) {
+			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+				throw new ServiceException("Невозможно получить список заданий, попробуйте позже");
+			} else {
+				throw new ServiceException("Impossible to get users list, try it later");
+			}
+		}
+		
+		return orderList;
 	}
 
 	

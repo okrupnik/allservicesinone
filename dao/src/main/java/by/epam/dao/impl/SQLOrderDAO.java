@@ -16,10 +16,8 @@ import org.slf4j.LoggerFactory;
 import by.epam.dao.OrderDAO;
 import by.epam.dao.connectionpool.ConnectionPool;
 import by.epam.dao.exception.DAOException;
-import by.epam.domain.customer.Customer;
 import by.epam.domain.order.Offering;
 import by.epam.domain.order.Order;
-import by.epam.domain.performer.Performer;
 import by.epam.domain.user.User;
 
 public class SQLOrderDAO implements OrderDAO {
@@ -69,7 +67,6 @@ public class SQLOrderDAO implements OrderDAO {
 			resultSet.next();
 			orderId = resultSet.getInt(1);
 			order.setIdOrder(orderId);
-			;
 			connection.commit();
 		} catch (Exception e) {
 			try {
@@ -188,7 +185,7 @@ public class SQLOrderDAO implements OrderDAO {
 	}
 
 	@Override
-	public Order getOrder(int orderId) throws DAOException {
+	public Order getOrder(final int orderId) throws DAOException {
 		int id = 0;
 		String title = null;
 		String description = null;
@@ -257,36 +254,12 @@ public class SQLOrderDAO implements OrderDAO {
 	}
 
 	@Override
-	public List<Order> showOrderCustomer(final Customer customer) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Order> showOrderPerformer(final Performer performer) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Order delete(final Order order) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Offering> showOrderOffering(final Order order) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int getNoOfRecords() throws DAOException {
 		return noOfRecords;
 	}
 
 	@Override
-	public boolean editOrder(Order order) throws DAOException {
+	public boolean editOrder(final Order order) throws DAOException {
 		
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -326,7 +299,7 @@ public class SQLOrderDAO implements OrderDAO {
 	}
 
 	@Override
-	public boolean delete(String idOrder) throws DAOException {
+	public boolean delete(final String idOrder) throws DAOException {
 
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -355,6 +328,121 @@ public class SQLOrderDAO implements OrderDAO {
 
 		}
 		return true;
+	}
+
+	@Override
+	public List<Order> getAllOrdersOfUsers(final int offset, final int noOfRecords) throws DAOException {
+
+		int idOrder = 0;
+		String title = null;
+		String descriptionOrder = null;
+		String specialization = null;
+		String subtypeSpecialization = null;
+		String status = null;
+		String address = null;
+		LocalDate endDate = null;
+		LocalDate dateOfCreating = null;
+		String attachment = null;
+		String usernameOfChoosingPerformer = null;
+		int specializationId = 0;
+		String activitieSpecialization = null;
+		
+		int idOffering = 0;
+		String descriptionOffering = null; 
+		String usernamePerformer = null;
+
+		List<Order> orderList = new ArrayList<Order>();
+		List<Offering> offeringList = null;
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSetOrder = null;
+		ResultSet resultSetOffering = null;
+
+		Order order = null;
+		Offering offering = null;
+		ConnectionPool conPool = ConnectionPool.getInstance();
+		Connection connection = null;
+		
+		try {
+			connection = conPool.takeConnection();
+		} catch (InterruptedException e) {
+			log.error("The thread was interrupted", e);
+		}
+		try {
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_ALL_ORDERS_OF_USERS);
+			preparedStatement.setInt(1, offset);
+			preparedStatement.setInt(2, noOfRecords);
+			resultSetOrder = preparedStatement.executeQuery();
+			while (resultSetOrder.next()) {
+				idOrder = resultSetOrder.getInt(DAOConstant.ID_PARAM_NAME);
+				title = resultSetOrder.getString(DAOConstant.TITLE_ORDER_PARAM_NAME);
+				descriptionOrder = resultSetOrder.getString(DAOConstant.DESCRIPTION_ORDER_PARAM_NAME);
+				subtypeSpecialization = resultSetOrder.getString(DAOConstant.SUBTYPE_SPECIALIZATION_ORDER_PARAM_NAME);
+				status = resultSetOrder.getString(DAOConstant.STATUS_ORDER_PARAM_NAME);
+				address = resultSetOrder.getString(DAOConstant.ADDRESS_PARAM_NAME);
+				endDate = resultSetOrder.getDate(DAOConstant.END_DATE_ORDER_PARAM_NAME).toLocalDate();
+				dateOfCreating = resultSetOrder.getDate(DAOConstant.DATE_CREATING_ORDER_PARAM_NAME).toLocalDate();
+				attachment = resultSetOrder.getString(DAOConstant.ATTACHMENT_ORDER_PARAM_NAME);
+				usernameOfChoosingPerformer = resultSetOrder.getString(DAOConstant.USERNAME_PERFORMER_ORDER_PARAM_NAME);
+				specializationId = resultSetOrder.getInt(DAOConstant.ID_SPECIALIZATION_ORDER_PARAM_NAME);
+				specialization = resultSetOrder.getString(DAOConstant.SPECIALIZATION_DESCRIPT_ORDER_PARAM_NAME);
+				activitieSpecialization = resultSetOrder.getString(DAOConstant.ACTIVITIE_SPECIALIZATION_ORDER_PARAM_NAME);
+				
+				order = new Order.Builder().setIdOrder(idOrder).setTitle(title).setDescription(descriptionOrder)
+						.setSubtypeSpecialization(subtypeSpecialization).setStatus(status).setAddress(address)
+						.setEndDate(endDate).setDateOfCreating(dateOfCreating).setAttachment(attachment)
+						.setUsernamePerformer(usernameOfChoosingPerformer).setIdSpecialization(specializationId)
+						.setSpecialization(specialization).setActivitieSpecialization(activitieSpecialization).build();
+				orderList.add(order);
+			}
+			resultSetOrder = preparedStatement.executeQuery(SQLRequest.SELECT_COUNT_ORDER);
+			if (resultSetOrder.next())
+				this.noOfRecords = resultSetOrder.getInt(1);
+			
+			for (Order tempOrder : orderList) {		
+				offeringList = null;;
+				offeringList = new ArrayList<Offering>();
+				preparedStatement = connection.prepareStatement(SQLRequest.SELECT_ALL_OFFERING_BY_ID_ORDER);
+				preparedStatement.setInt(1, tempOrder.getIdOrder());
+				resultSetOffering = preparedStatement.executeQuery();
+				while (resultSetOffering.next()) {
+					idOffering = resultSetOffering.getInt(DAOConstant.ID_PARAM_NAME);
+					descriptionOffering = resultSetOffering.getString(DAOConstant.DESCRIPTION_ORDER_PARAM_NAME);
+					usernamePerformer = resultSetOffering.getString(DAOConstant.USERNAME_PARAM_NAME);
+					offering = new Offering.Builder().setId(idOffering).setDescription(descriptionOffering).setUsernamePerformer(usernamePerformer).build();
+					offeringList.add(offering);
+				}
+				tempOrder.setOfferingList(offeringList);
+			}			
+			
+			connection.commit();
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+				log.error("Transaction failed", e);
+			} catch (SQLException sqle) {
+				log.error("Rollback failed", e);
+			}
+		} finally {
+			try {
+				connection.setAutoCommit(true);
+				if (resultSetOffering != null)
+					resultSetOffering.close();
+				if (resultSetOrder != null)
+					resultSetOrder.close();
+				if (preparedStatement != null)
+					preparedStatement.close();
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+					log.error(stackTraceElement.toString());
+				}
+			}
+		}
+
+		return orderList;
 	}
 
 }

@@ -34,25 +34,24 @@ public class SQLUserDAO implements UserDAO {
 	private int noOfRecords;
 
 	@Override
-	public User create(final User user) throws DAOException {
+	public User createCustomerNatural(final User user) throws DAOException {
 		int roleId = 0;
 		int personId = 0;
 		int userId = 0;
 		int ownershipId = 0;
 		int customerId = 0;
-		int performerId = 0;
 
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 
 		ConnectionPool conPool = ConnectionPool.getInstance();
 		Connection connection = null;
+
 		try {
 			connection = conPool.takeConnection();
 		} catch (InterruptedException e) {
 			log.error("The thread was interrupted", e);
 		}
-
 		try {
 			connection.setAutoCommit(false);
 
@@ -86,102 +85,134 @@ public class SQLUserDAO implements UserDAO {
 			resultSet.next();
 			userId = resultSet.getInt(1);
 
-			if (user.getPerson().getTypePerson().equals(DAOConstant.SERVICE_PERSON_PARAM_NAME)) {
-				preparedStatement = connection.prepareStatement(SQLRequest.CREATE_SERVICE_PERSON);
-				preparedStatement.setString(1, user.getServiceStaffInfo().getName());
-				preparedStatement.setString(2, user.getServiceStaffInfo().getSurname());
-				preparedStatement.setInt(3, userId);
-				preparedStatement.executeUpdate();
+			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_OWNERSHIP_USER);
+			preparedStatement.setString(1, user.getCustomer().getOwnership().getFormOwnership());
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				ownershipId = Integer.parseInt(resultSet.getString(DAOConstant.ID_PARAM_NAME));
+
 			}
 
-			if (user.getPerson().getTypePerson().equals(DAOConstant.CUSTOMER_PARAM_NAME)) {
-				preparedStatement = connection.prepareStatement(SQLRequest.SELECT_OWNERSHIP_USER);
-				preparedStatement.setString(1, user.getCustomer().getOwnership().getFormOwnership());
-				resultSet = preparedStatement.executeQuery();
-				while (resultSet.next()) {
-					ownershipId = Integer.parseInt(resultSet.getString(DAOConstant.ID_PARAM_NAME));
-				}
+			preparedStatement = connection.prepareStatement(SQLRequest.CREATE_CUSTOMER_PERSON,
+					Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setInt(1, ownershipId);
+			preparedStatement.setInt(2, userId);
+			preparedStatement.executeUpdate();
+			resultSet = preparedStatement.getGeneratedKeys();
+			resultSet.next();
+			customerId = resultSet.getInt(1);
 
-				preparedStatement = connection.prepareStatement(SQLRequest.CREATE_CUSTOMER_PERSON,
-						Statement.RETURN_GENERATED_KEYS);
-				preparedStatement.setInt(1, ownershipId);
-				preparedStatement.setInt(2, userId);
-				preparedStatement.executeUpdate();
-				resultSet = preparedStatement.getGeneratedKeys();
-				resultSet.next();
-				customerId = resultSet.getInt(1);
+			preparedStatement = connection.prepareStatement(SQLRequest.CREATE_CUSTOMER_NATURAL_PERSON);
+			preparedStatement.setString(1, user.getCustomer().getNaturalCustomerInfo().getName());
+			preparedStatement.setString(2, user.getCustomer().getNaturalCustomerInfo().getSurname());
+			preparedStatement.setInt(3, customerId);
+			preparedStatement.executeUpdate();
 
-				switch (user.getCustomer().getOwnership().getFormOwnership()) {
-				case DAOConstant.CUSTOMER_NATURAL_PARAM_NAME:
-					preparedStatement = connection.prepareStatement(SQLRequest.CREATE_CUSTOMER_NATURAL_PERSON);
-					preparedStatement.setString(1, user.getCustomer().getNaturalCustomerInfo().getName());
-					preparedStatement.setString(2, user.getCustomer().getNaturalCustomerInfo().getSurname());
-					preparedStatement.setInt(3, customerId);
-					preparedStatement.executeUpdate();
-					break;
-				case DAOConstant.CUSTOMER_LEGAL_PARAM_NAME:
-					preparedStatement = connection.prepareStatement(SQLRequest.CREATE_CUSTOMER_LEGAL_PERSON);
-					preparedStatement.setString(1, user.getCustomer().getLegalCustomerInfo().getName());
-					preparedStatement.setString(2, user.getCustomer().getLegalCustomerInfo().getSurname());
-					preparedStatement.setString(3, user.getCustomer().getLegalCustomerInfo().getRequisites());
-					preparedStatement.setString(4, user.getCustomer().getLegalCustomerInfo().getCopyRegistration());
-					preparedStatement.setInt(5, customerId);
-					preparedStatement.executeUpdate();
-					break;
-				case DAOConstant.CUSTOMER_COMPANY_PARAM_NAME:
-					preparedStatement = connection.prepareStatement(SQLRequest.CREATE_CUSTOMER_COMPANY_PERSON);
-					preparedStatement.setString(1, user.getCustomer().getCompanyCustomerInfo().getNameCompany());
-					preparedStatement.setString(2, user.getCustomer().getCompanyCustomerInfo().getNameAgent());
-					preparedStatement.setString(3, user.getCustomer().getCompanyCustomerInfo().getSurnameAgent());
-					preparedStatement.setString(4, user.getCustomer().getCompanyCustomerInfo().getRequisites());
-					preparedStatement.setString(5, user.getCustomer().getCompanyCustomerInfo().getDescription());
-					preparedStatement.setInt(6, customerId);
-					preparedStatement.executeUpdate();
-					break;
-				}
-
-			} else {
-				if (user.getPerson().getTypePerson().equals(DAOConstant.PERFORMER_PARAM_NAME)) {
-					preparedStatement = connection.prepareStatement(SQLRequest.SELECT_OWNERSHIP_USER);
-					preparedStatement.setString(1, user.getPerformer().getOwnership().getFormOwnership());
-					resultSet = preparedStatement.executeQuery();
-					while (resultSet.next()) {
-						ownershipId = Integer.parseInt(resultSet.getString(DAOConstant.ID_PARAM_NAME));
-					}
-
-					preparedStatement = connection.prepareStatement(SQLRequest.CREATE_PERFORMER_PERSON,
-							Statement.RETURN_GENERATED_KEYS);
-					preparedStatement.setString(1, user.getPerformer().getRequisites());
-					preparedStatement.setInt(2, ownershipId);
-					preparedStatement.setInt(3, userId);
-					preparedStatement.executeUpdate();
-					resultSet = preparedStatement.getGeneratedKeys();
-					resultSet.next();
-					performerId = resultSet.getInt(1);
-
-					switch (user.getPerformer().getOwnership().getFormOwnership()) {
-					case DAOConstant.PERFORMER_LEGAL_PARAM_NAME:
-						preparedStatement = connection.prepareStatement(SQLRequest.CREATE_PERFORMER_LEGAL_PERSON);
-						preparedStatement.setString(1, user.getPerformer().getLegalPerformerInfo().getName());
-						preparedStatement.setString(2, user.getPerformer().getLegalPerformerInfo().getSurname());
-						preparedStatement.setString(3,
-								user.getPerformer().getLegalPerformerInfo().getCopyRegistration());
-						preparedStatement.setInt(4, performerId);
-						preparedStatement.executeUpdate();
-						break;
-					case DAOConstant.PERFORMER_COMPANY_PARAM_NAME:
-						preparedStatement = connection.prepareStatement(SQLRequest.CREATE_PERFORMER_COMPANY_PERSON);
-						preparedStatement.setString(1, user.getPerformer().getCompanyPerformerInfo().getNameCompany());
-						preparedStatement.setString(2, user.getPerformer().getCompanyPerformerInfo().getNameAgent());
-						preparedStatement.setString(3, user.getPerformer().getCompanyPerformerInfo().getSurnameAgent());
-						preparedStatement.setString(4, user.getPerformer().getCompanyPerformerInfo().getDescription());
-						preparedStatement.setInt(5, performerId);
-						preparedStatement.executeUpdate();
-						break;
-					}
-
+			connection.commit();
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+				log.error("Transaction failed", e);
+			} catch (SQLException sqle) {
+				log.error("Rollback failed", e);
+			}
+		} finally {
+			try {
+				connection.setAutoCommit(true);
+				if (resultSet != null)
+					resultSet.close();
+				if (preparedStatement != null)
+					preparedStatement.close();
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+					log.error(stackTraceElement.toString());
 				}
 			}
+		}
+
+		return user;
+	}
+
+	@Override
+	public User createCustomerLegal(final User user) throws DAOException {
+
+		int roleId = 0;
+		int personId = 0;
+		int userId = 0;
+		int ownershipId = 0;
+		int customerId = 0;
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		ConnectionPool conPool = ConnectionPool.getInstance();
+		Connection connection = null;
+
+		try {
+			connection = conPool.takeConnection();
+		} catch (InterruptedException e) {
+			log.error("The thread was interrupted", e);
+		}
+		try {
+			connection.setAutoCommit(false);
+
+			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_ROLE_USER);
+			preparedStatement.setString(1, user.getRole().getTypeRole());
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				roleId = Integer.parseInt(resultSet.getString(DAOConstant.ID_PARAM_NAME));
+			}
+
+			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_PERSON_USER);
+			preparedStatement.setString(1, user.getPerson().getTypePerson());
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				personId = Integer.parseInt(resultSet.getString(DAOConstant.ID_PARAM_NAME));
+			}
+
+			preparedStatement = connection.prepareStatement(SQLRequest.CREATE_USER, Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setString(1, user.getUsername());
+			preparedStatement.setString(2,
+					EncryptPassword.byteArrayToHexString(EncryptPassword.computeHash(user.getPassword())));
+			preparedStatement.setString(3, user.getIsDelete());
+			preparedStatement.setString(4, user.getEmail());
+			preparedStatement.setString(5, user.getPhoneNumber());
+			preparedStatement.setString(6, user.getAddress());
+			preparedStatement.setString(7, user.getPhoto());
+			preparedStatement.setInt(8, roleId);
+			preparedStatement.setInt(9, personId);
+			preparedStatement.executeUpdate();
+			resultSet = preparedStatement.getGeneratedKeys();
+			resultSet.next();
+			userId = resultSet.getInt(1);
+
+			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_OWNERSHIP_USER);
+			preparedStatement.setString(1, user.getCustomer().getOwnership().getFormOwnership());
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				ownershipId = Integer.parseInt(resultSet.getString(DAOConstant.ID_PARAM_NAME));
+
+			}
+
+			preparedStatement = connection.prepareStatement(SQLRequest.CREATE_CUSTOMER_PERSON,
+					Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setInt(1, ownershipId);
+			preparedStatement.setInt(2, userId);
+			preparedStatement.executeUpdate();
+			resultSet = preparedStatement.getGeneratedKeys();
+			resultSet.next();
+			customerId = resultSet.getInt(1);
+
+			preparedStatement = connection.prepareStatement(SQLRequest.CREATE_CUSTOMER_LEGAL_PERSON);
+			preparedStatement.setString(1, user.getCustomer().getLegalCustomerInfo().getName());
+			preparedStatement.setString(2, user.getCustomer().getLegalCustomerInfo().getSurname());
+			preparedStatement.setString(3, user.getCustomer().getLegalCustomerInfo().getRequisites());
+			preparedStatement.setString(4, user.getCustomer().getLegalCustomerInfo().getCopyRegistration());
+			preparedStatement.setInt(5, customerId);
+			preparedStatement.executeUpdate();
+
 			connection.commit();
 		} catch (Exception e) {
 			try {
@@ -211,15 +242,320 @@ public class SQLUserDAO implements UserDAO {
 	}
 
 	@Override
-	public User create(final User user, final Customer customer) throws DAOException {
+	public User createCustomerCompany(final User user) throws DAOException {
 
-		return null;
+		int roleId = 0;
+		int personId = 0;
+		int userId = 0;
+		int ownershipId = 0;
+		int customerId = 0;
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		ConnectionPool conPool = ConnectionPool.getInstance();
+		Connection connection = null;
+
+		try {
+			connection = conPool.takeConnection();
+		} catch (InterruptedException e) {
+			log.error("The thread was interrupted", e);
+		}
+		try {
+			connection.setAutoCommit(false);
+
+			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_ROLE_USER);
+			preparedStatement.setString(1, user.getRole().getTypeRole());
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				roleId = Integer.parseInt(resultSet.getString(DAOConstant.ID_PARAM_NAME));
+			}
+
+			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_PERSON_USER);
+			preparedStatement.setString(1, user.getPerson().getTypePerson());
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				personId = Integer.parseInt(resultSet.getString(DAOConstant.ID_PARAM_NAME));
+			}
+
+			preparedStatement = connection.prepareStatement(SQLRequest.CREATE_USER, Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setString(1, user.getUsername());
+			preparedStatement.setString(2,
+					EncryptPassword.byteArrayToHexString(EncryptPassword.computeHash(user.getPassword())));
+			preparedStatement.setString(3, user.getIsDelete());
+			preparedStatement.setString(4, user.getEmail());
+			preparedStatement.setString(5, user.getPhoneNumber());
+			preparedStatement.setString(6, user.getAddress());
+			preparedStatement.setString(7, user.getPhoto());
+			preparedStatement.setInt(8, roleId);
+			preparedStatement.setInt(9, personId);
+			preparedStatement.executeUpdate();
+			resultSet = preparedStatement.getGeneratedKeys();
+			resultSet.next();
+			userId = resultSet.getInt(1);
+
+			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_OWNERSHIP_USER);
+			preparedStatement.setString(1, user.getCustomer().getOwnership().getFormOwnership());
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				ownershipId = Integer.parseInt(resultSet.getString(DAOConstant.ID_PARAM_NAME));
+			}
+			preparedStatement = connection.prepareStatement(SQLRequest.CREATE_CUSTOMER_PERSON,
+					Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setInt(1, ownershipId);
+			preparedStatement.setInt(2, userId);
+			preparedStatement.executeUpdate();
+			resultSet = preparedStatement.getGeneratedKeys();
+			resultSet.next();
+			customerId = resultSet.getInt(1);
+
+			preparedStatement = connection.prepareStatement(SQLRequest.CREATE_CUSTOMER_COMPANY_PERSON);
+			preparedStatement.setString(1, user.getCustomer().getCompanyCustomerInfo().getNameCompany());
+			preparedStatement.setString(2, user.getCustomer().getCompanyCustomerInfo().getNameAgent());
+			preparedStatement.setString(3, user.getCustomer().getCompanyCustomerInfo().getSurnameAgent());
+			preparedStatement.setString(4, user.getCustomer().getCompanyCustomerInfo().getRequisites());
+			preparedStatement.setString(5, user.getCustomer().getCompanyCustomerInfo().getDescription());
+			preparedStatement.setInt(6, customerId);
+			preparedStatement.executeUpdate();
+
+			connection.commit();
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+				log.error("Transaction failed", e);
+			} catch (SQLException sqle) {
+				log.error("Rollback failed", e);
+			}
+		} finally {
+			try {
+				connection.setAutoCommit(true);
+				if (resultSet != null)
+					resultSet.close();
+				if (preparedStatement != null)
+					preparedStatement.close();
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+					log.error(stackTraceElement.toString());
+				}
+			}
+
+		}
+
+		return user;
 	}
 
 	@Override
-	public User create(final User user, final Performer performer) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+	public User createPerformerLegal(final User user) throws DAOException {
+
+		int roleId = 0;
+		int personId = 0;
+		int userId = 0;
+		int ownershipId = 0;
+		int performerId = 0;
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		ConnectionPool conPool = ConnectionPool.getInstance();
+		Connection connection = null;
+
+		try {
+			connection = conPool.takeConnection();
+		} catch (InterruptedException e) {
+			log.error("The thread was interrupted", e);
+		}
+		try {
+			connection.setAutoCommit(false);
+
+			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_ROLE_USER);
+			preparedStatement.setString(1, user.getRole().getTypeRole());
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				roleId = Integer.parseInt(resultSet.getString(DAOConstant.ID_PARAM_NAME));
+			}
+
+			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_PERSON_USER);
+			preparedStatement.setString(1, user.getPerson().getTypePerson());
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				personId = Integer.parseInt(resultSet.getString(DAOConstant.ID_PARAM_NAME));
+			}
+
+			preparedStatement = connection.prepareStatement(SQLRequest.CREATE_USER, Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setString(1, user.getUsername());
+			preparedStatement.setString(2,
+					EncryptPassword.byteArrayToHexString(EncryptPassword.computeHash(user.getPassword())));
+			preparedStatement.setString(3, user.getIsDelete());
+			preparedStatement.setString(4, user.getEmail());
+			preparedStatement.setString(5, user.getPhoneNumber());
+			preparedStatement.setString(6, user.getAddress());
+			preparedStatement.setString(7, user.getPhoto());
+			preparedStatement.setInt(8, roleId);
+			preparedStatement.setInt(9, personId);
+			preparedStatement.executeUpdate();
+			resultSet = preparedStatement.getGeneratedKeys();
+			resultSet.next();
+			userId = resultSet.getInt(1);
+
+			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_OWNERSHIP_USER);
+			preparedStatement.setString(1, user.getPerformer().getOwnership().getFormOwnership());
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				ownershipId = Integer.parseInt(resultSet.getString(DAOConstant.ID_PARAM_NAME));
+			}
+
+			preparedStatement = connection.prepareStatement(SQLRequest.CREATE_PERFORMER_PERSON,
+					Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setString(1, user.getPerformer().getRequisites());
+			preparedStatement.setInt(2, ownershipId);
+			preparedStatement.setInt(3, userId);
+			preparedStatement.executeUpdate();
+			resultSet = preparedStatement.getGeneratedKeys();
+			resultSet.next();
+			performerId = resultSet.getInt(1);
+
+			preparedStatement = connection.prepareStatement(SQLRequest.CREATE_PERFORMER_LEGAL_PERSON);
+			preparedStatement.setString(1, user.getPerformer().getLegalPerformerInfo().getName());
+			preparedStatement.setString(2, user.getPerformer().getLegalPerformerInfo().getSurname());
+			preparedStatement.setString(3, user.getPerformer().getLegalPerformerInfo().getCopyRegistration());
+			preparedStatement.setInt(4, performerId);
+			preparedStatement.executeUpdate();
+
+			connection.commit();
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+				log.error("Transaction failed", e);
+			} catch (SQLException sqle) {
+				log.error("Rollback failed", e);
+			}
+		} finally {
+			try {
+				connection.setAutoCommit(true);
+				if (resultSet != null)
+					resultSet.close();
+				if (preparedStatement != null)
+					preparedStatement.close();
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+					log.error(stackTraceElement.toString());
+				}
+			}
+
+		}
+
+		return user;
+
+	}
+
+	@Override
+	public User createPerformerCompany(final User user) throws DAOException {
+
+		int roleId = 0;
+		int personId = 0;
+		int userId = 0;
+		int ownershipId = 0;
+		int performerId = 0;
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		ConnectionPool conPool = ConnectionPool.getInstance();
+		Connection connection = null;
+
+		try {
+			connection = conPool.takeConnection();
+		} catch (InterruptedException e) {
+			log.error("The thread was interrupted", e);
+		}
+		try {
+			connection.setAutoCommit(false);
+
+			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_ROLE_USER);
+			preparedStatement.setString(1, user.getRole().getTypeRole());
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				roleId = Integer.parseInt(resultSet.getString(DAOConstant.ID_PARAM_NAME));
+			}
+
+			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_PERSON_USER);
+			preparedStatement.setString(1, user.getPerson().getTypePerson());
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				personId = Integer.parseInt(resultSet.getString(DAOConstant.ID_PARAM_NAME));
+			}
+
+			preparedStatement = connection.prepareStatement(SQLRequest.CREATE_USER, Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setString(1, user.getUsername());
+			preparedStatement.setString(2,
+					EncryptPassword.byteArrayToHexString(EncryptPassword.computeHash(user.getPassword())));
+			preparedStatement.setString(3, user.getIsDelete());
+			preparedStatement.setString(4, user.getEmail());
+			preparedStatement.setString(5, user.getPhoneNumber());
+			preparedStatement.setString(6, user.getAddress());
+			preparedStatement.setString(7, user.getPhoto());
+			preparedStatement.setInt(8, roleId);
+			preparedStatement.setInt(9, personId);
+			preparedStatement.executeUpdate();
+			resultSet = preparedStatement.getGeneratedKeys();
+			resultSet.next();
+			userId = resultSet.getInt(1);
+
+			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_OWNERSHIP_USER);
+			preparedStatement.setString(1, user.getPerformer().getOwnership().getFormOwnership());
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				ownershipId = Integer.parseInt(resultSet.getString(DAOConstant.ID_PARAM_NAME));
+			}
+
+			preparedStatement = connection.prepareStatement(SQLRequest.CREATE_PERFORMER_PERSON,
+					Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setString(1, user.getPerformer().getRequisites());
+			preparedStatement.setInt(2, ownershipId);
+			preparedStatement.setInt(3, userId);
+			preparedStatement.executeUpdate();
+			resultSet = preparedStatement.getGeneratedKeys();
+			resultSet.next();
+			performerId = resultSet.getInt(1);
+
+			preparedStatement = connection.prepareStatement(SQLRequest.CREATE_PERFORMER_COMPANY_PERSON);
+			preparedStatement.setString(1, user.getPerformer().getCompanyPerformerInfo().getNameCompany());
+			preparedStatement.setString(2, user.getPerformer().getCompanyPerformerInfo().getNameAgent());
+			preparedStatement.setString(3, user.getPerformer().getCompanyPerformerInfo().getSurnameAgent());
+			preparedStatement.setString(4, user.getPerformer().getCompanyPerformerInfo().getDescription());
+			preparedStatement.setInt(5, performerId);
+			preparedStatement.executeUpdate();
+
+			connection.commit();
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+				log.error("Transaction failed", e);
+			} catch (SQLException sqle) {
+				log.error("Rollback failed", e);
+			}
+		} finally {
+			try {
+				connection.setAutoCommit(true);
+				if (resultSet != null)
+					resultSet.close();
+				if (preparedStatement != null)
+					preparedStatement.close();
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+					log.error(stackTraceElement.toString());
+				}
+			}
+
+		}
+
+		return user;
 	}
 
 	@Override
@@ -244,7 +580,8 @@ public class SQLUserDAO implements UserDAO {
 
 		User user = null;
 		ConnectionPool conPool = ConnectionPool.getInstance();
-		Connection connection = null;;
+		Connection connection = null;
+		;
 		try {
 			connection = conPool.takeConnection();
 		} catch (InterruptedException e) {
@@ -480,21 +817,48 @@ public class SQLUserDAO implements UserDAO {
 
 		return existingUser;
 	}
-
+	
 	@Override
-	public Customer getCustomer(final String username) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean editAdministration(final User user) throws DAOException {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		ConnectionPool conPool = ConnectionPool.getInstance();
+
+		try (Connection connection = conPool.takeConnection()) {
+
+			preparedStatement = connection.prepareStatement(SQLRequest.UPDATE_SERVICE_PERSON);
+			preparedStatement.setString(1, user.getEmail());
+			preparedStatement.setString(2, user.getPhoneNumber());
+			preparedStatement.setString(3, user.getAddress());
+			preparedStatement.setString(4, user.getPhoto());
+			preparedStatement.setString(5, user.getServiceStaffInfo().getName());
+			preparedStatement.setString(6, user.getServiceStaffInfo().getSurname());
+			preparedStatement.setString(7, user.getUsername());
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			log.error("Can't to get access to DataBase or get the data from table", e);
+		} catch (InterruptedException e) {
+			log.error("The thread was interrupted", e);
+		} finally {
+			try {
+				if (resultSet != null)
+					resultSet.close();
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (SQLException e) {
+				for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+					log.error(stackTraceElement.toString());
+				}
+			}
+		}
+
+		return true;
 	}
 
 	@Override
-	public Performer getPerformer(final String username) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean editUser(final User user) throws DAOException {
+	public boolean editCustomerNatural(final User user) throws DAOException {
 
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -503,95 +867,15 @@ public class SQLUserDAO implements UserDAO {
 
 		try (Connection connection = conPool.takeConnection()) {
 
-			if (user.getPerson().getTypePerson().equals(DAOConstant.SERVICE_PERSON_PARAM_NAME)) {
-				preparedStatement = connection.prepareStatement(SQLRequest.UPDATE_SERVICE_PERSON);
-				preparedStatement.setString(1, user.getEmail());
-				preparedStatement.setString(2, user.getPhoneNumber());
-				preparedStatement.setString(3, user.getAddress());
-				preparedStatement.setString(4, user.getPhoto());
-				preparedStatement.setString(5, user.getServiceStaffInfo().getName());
-				preparedStatement.setString(6, user.getServiceStaffInfo().getSurname());
-				preparedStatement.setString(7, user.getUsername());
-				preparedStatement.executeUpdate();
-			}
-
-			if (user.getPerson().getTypePerson().equals(DAOConstant.CUSTOMER_PARAM_NAME)) {
-				switch (user.getCustomer().getOwnership().getFormOwnership()) {
-				case DAOConstant.CUSTOMER_NATURAL_PARAM_NAME:
-					preparedStatement = connection.prepareStatement(SQLRequest.UPDATE_CUSTOMER_NATURAL_PERSON);
-					preparedStatement.setString(1, user.getEmail());
-					preparedStatement.setString(2, user.getPhoneNumber());
-					preparedStatement.setString(3, user.getAddress());
-					preparedStatement.setString(4, user.getPhoto());
-					preparedStatement.setString(5, user.getCustomer().getNaturalCustomerInfo().getName());
-					preparedStatement.setString(6, user.getCustomer().getNaturalCustomerInfo().getSurname());
-					preparedStatement.setString(7, user.getUsername());
-					preparedStatement.executeUpdate();
-					break;
-				case DAOConstant.CUSTOMER_LEGAL_PARAM_NAME:
-					preparedStatement = connection.prepareStatement(SQLRequest.UPDATE_CUSTOMER_LEGAL_PERSON);
-					preparedStatement.setString(1, user.getEmail());
-					preparedStatement.setString(2, user.getPhoneNumber());
-					preparedStatement.setString(3, user.getAddress());
-					preparedStatement.setString(4, user.getPhoto());
-					preparedStatement.setString(5, user.getCustomer().getLegalCustomerInfo().getName());
-					preparedStatement.setString(6, user.getCustomer().getLegalCustomerInfo().getSurname());
-					preparedStatement.setString(7, user.getCustomer().getLegalCustomerInfo().getRequisites());
-					preparedStatement.setString(8, user.getCustomer().getLegalCustomerInfo().getCopyRegistration());
-					preparedStatement.setString(9, user.getUsername());
-					preparedStatement.executeUpdate();
-					break;
-				case DAOConstant.CUSTOMER_COMPANY_PARAM_NAME:
-					preparedStatement = connection.prepareStatement(SQLRequest.UPDATE_CUSTOMER_COMPANY_PERSON);
-					preparedStatement.setString(1, user.getEmail());
-					preparedStatement.setString(2, user.getPhoneNumber());
-					preparedStatement.setString(3, user.getAddress());
-					preparedStatement.setString(4, user.getPhoto());
-					preparedStatement.setString(5, user.getCustomer().getCompanyCustomerInfo().getNameCompany());
-					preparedStatement.setString(6, user.getCustomer().getCompanyCustomerInfo().getNameAgent());
-					preparedStatement.setString(7, user.getCustomer().getCompanyCustomerInfo().getSurnameAgent());
-					preparedStatement.setString(8, user.getCustomer().getCompanyCustomerInfo().getRequisites());
-					preparedStatement.setString(9, user.getCustomer().getCompanyCustomerInfo().getDescription());
-					preparedStatement.setString(10, user.getUsername());
-					preparedStatement.executeUpdate();
-					break;
-				}
-
-			} else {
-				if (user.getPerson().getTypePerson().equals(DAOConstant.PERFORMER_PARAM_NAME)) {
-					switch (user.getPerformer().getOwnership().getFormOwnership()) {
-					case DAOConstant.PERFORMER_LEGAL_PARAM_NAME:
-						preparedStatement = connection.prepareStatement(SQLRequest.UPDATE_PERFORMER_LEGAL_PERSON);
-						preparedStatement.setString(1, user.getEmail());
-						preparedStatement.setString(2, user.getPhoneNumber());
-						preparedStatement.setString(3, user.getAddress());
-						preparedStatement.setString(4, user.getPhoto());
-						preparedStatement.setString(5, user.getPerformer().getRequisites());
-						preparedStatement.setString(6, user.getPerformer().getLegalPerformerInfo().getName());
-						preparedStatement.setString(7, user.getPerformer().getLegalPerformerInfo().getSurname());
-						preparedStatement.setString(8,
-								user.getPerformer().getLegalPerformerInfo().getCopyRegistration());
-						preparedStatement.setString(9, user.getUsername());
-						preparedStatement.executeUpdate();
-						break;
-					case DAOConstant.PERFORMER_COMPANY_PARAM_NAME:
-						preparedStatement = connection.prepareStatement(SQLRequest.UPDATE_PERFORMER_COMPANY_PERSON);
-						preparedStatement.setString(1, user.getEmail());
-						preparedStatement.setString(2, user.getPhoneNumber());
-						preparedStatement.setString(3, user.getAddress());
-						preparedStatement.setString(4, user.getPhoto());
-						preparedStatement.setString(5, user.getPerformer().getRequisites());
-						preparedStatement.setString(6, user.getPerformer().getCompanyPerformerInfo().getNameCompany());
-						preparedStatement.setString(7, user.getPerformer().getCompanyPerformerInfo().getNameAgent());
-						preparedStatement.setString(8, user.getPerformer().getCompanyPerformerInfo().getSurnameAgent());
-						preparedStatement.setString(9, user.getPerformer().getCompanyPerformerInfo().getDescription());
-						preparedStatement.setString(10, user.getUsername());
-						preparedStatement.executeUpdate();
-						break;
-					}
-
-				}
-			}
+			preparedStatement = connection.prepareStatement(SQLRequest.UPDATE_CUSTOMER_NATURAL_PERSON);
+			preparedStatement.setString(1, user.getEmail());
+			preparedStatement.setString(2, user.getPhoneNumber());
+			preparedStatement.setString(3, user.getAddress());
+			preparedStatement.setString(4, user.getPhoto());
+			preparedStatement.setString(5, user.getCustomer().getNaturalCustomerInfo().getName());
+			preparedStatement.setString(6, user.getCustomer().getNaturalCustomerInfo().getSurname());
+			preparedStatement.setString(7, user.getUsername());
+			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
 			log.error("Can't to get access to DataBase or get the data from table", e);
@@ -615,15 +899,177 @@ public class SQLUserDAO implements UserDAO {
 	}
 
 	@Override
-	public boolean editCustomer(final Customer customer) throws DAOException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean editCustomerLegal(final User user) throws DAOException {
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		ConnectionPool conPool = ConnectionPool.getInstance();
+
+		try (Connection connection = conPool.takeConnection()) {
+
+			preparedStatement = connection.prepareStatement(SQLRequest.UPDATE_CUSTOMER_LEGAL_PERSON);
+			preparedStatement.setString(1, user.getEmail());
+			preparedStatement.setString(2, user.getPhoneNumber());
+			preparedStatement.setString(3, user.getAddress());
+			preparedStatement.setString(4, user.getPhoto());
+			preparedStatement.setString(5, user.getCustomer().getLegalCustomerInfo().getName());
+			preparedStatement.setString(6, user.getCustomer().getLegalCustomerInfo().getSurname());
+			preparedStatement.setString(7, user.getCustomer().getLegalCustomerInfo().getRequisites());
+			preparedStatement.setString(8, user.getCustomer().getLegalCustomerInfo().getCopyRegistration());
+			preparedStatement.setString(9, user.getUsername());
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			log.error("Can't to get access to DataBase or get the data from table", e);
+		} catch (InterruptedException e) {
+			log.error("The thread was interrupted", e);
+		} finally {
+			try {
+				if (resultSet != null)
+					resultSet.close();
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (SQLException e) {
+				for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+					log.error(stackTraceElement.toString());
+				}
+			}
+
+		}
+
+		return true;
 	}
 
 	@Override
-	public boolean editPerformer(final Performer performer) throws DAOException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean editCustomerCompany(final User user) throws DAOException {
+		
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		ConnectionPool conPool = ConnectionPool.getInstance();
+
+		try (Connection connection = conPool.takeConnection()) {
+
+			preparedStatement = connection.prepareStatement(SQLRequest.UPDATE_CUSTOMER_COMPANY_PERSON);
+			preparedStatement.setString(1, user.getEmail());
+			preparedStatement.setString(2, user.getPhoneNumber());
+			preparedStatement.setString(3, user.getAddress());
+			preparedStatement.setString(4, user.getPhoto());
+			preparedStatement.setString(5, user.getCustomer().getCompanyCustomerInfo().getNameCompany());
+			preparedStatement.setString(6, user.getCustomer().getCompanyCustomerInfo().getNameAgent());
+			preparedStatement.setString(7, user.getCustomer().getCompanyCustomerInfo().getSurnameAgent());
+			preparedStatement.setString(8, user.getCustomer().getCompanyCustomerInfo().getRequisites());
+			preparedStatement.setString(9, user.getCustomer().getCompanyCustomerInfo().getDescription());
+			preparedStatement.setString(10, user.getUsername());
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			log.error("Can't to get access to DataBase or get the data from table", e);
+		} catch (InterruptedException e) {
+			log.error("The thread was interrupted", e);
+		} finally {
+			try {
+				if (resultSet != null)
+					resultSet.close();
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (SQLException e) {
+				for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+					log.error(stackTraceElement.toString());
+				}
+			}
+
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean editPerformerLegal(final User user) throws DAOException {
+		
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		ConnectionPool conPool = ConnectionPool.getInstance();
+
+		try (Connection connection = conPool.takeConnection()) {
+
+			preparedStatement = connection.prepareStatement(SQLRequest.UPDATE_PERFORMER_LEGAL_PERSON);
+			preparedStatement.setString(1, user.getEmail());
+			preparedStatement.setString(2, user.getPhoneNumber());
+			preparedStatement.setString(3, user.getAddress());
+			preparedStatement.setString(4, user.getPhoto());
+			preparedStatement.setString(5, user.getPerformer().getRequisites());
+			preparedStatement.setString(6, user.getPerformer().getLegalPerformerInfo().getName());
+			preparedStatement.setString(7, user.getPerformer().getLegalPerformerInfo().getSurname());
+			preparedStatement.setString(8, user.getPerformer().getLegalPerformerInfo().getCopyRegistration());
+			preparedStatement.setString(9, user.getUsername());
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			log.error("Can't to get access to DataBase or get the data from table", e);
+		} catch (InterruptedException e) {
+			log.error("The thread was interrupted", e);
+		} finally {
+			try {
+				if (resultSet != null)
+					resultSet.close();
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (SQLException e) {
+				for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+					log.error(stackTraceElement.toString());
+				}
+			}
+
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean editPerformerCompany(final User user) throws DAOException {
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		ConnectionPool conPool = ConnectionPool.getInstance();
+
+		try (Connection connection = conPool.takeConnection()) {
+
+			preparedStatement = connection.prepareStatement(SQLRequest.UPDATE_PERFORMER_COMPANY_PERSON);
+			preparedStatement.setString(1, user.getEmail());
+			preparedStatement.setString(2, user.getPhoneNumber());
+			preparedStatement.setString(3, user.getAddress());
+			preparedStatement.setString(4, user.getPhoto());
+			preparedStatement.setString(5, user.getPerformer().getRequisites());
+			preparedStatement.setString(6, user.getPerformer().getCompanyPerformerInfo().getNameCompany());
+			preparedStatement.setString(7, user.getPerformer().getCompanyPerformerInfo().getNameAgent());
+			preparedStatement.setString(8, user.getPerformer().getCompanyPerformerInfo().getSurnameAgent());
+			preparedStatement.setString(9, user.getPerformer().getCompanyPerformerInfo().getDescription());
+			preparedStatement.setString(10, user.getUsername());
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			log.error("Can't to get access to DataBase or get the data from table", e);
+		} catch (InterruptedException e) {
+			log.error("The thread was interrupted", e);
+		} finally {
+			try {
+				if (resultSet != null)
+					resultSet.close();
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (SQLException e) {
+				for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+					log.error(stackTraceElement.toString());
+				}
+			}
+
+		}
+
+		return true;
 	}
 
 	@Override
@@ -713,9 +1159,9 @@ public class SQLUserDAO implements UserDAO {
 		ConnectionPool conPool = ConnectionPool.getInstance();
 
 		try (Connection connection = conPool.takeConnection()) {
-			preparedStatement = connection.prepareStatement(SQLRequest.DELETE_USER);			
+			preparedStatement = connection.prepareStatement(SQLRequest.DELETE_USER);
 			preparedStatement.setString(1, username);
-			preparedStatement.executeUpdate();			
+			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			log.error("Can't to get access to DataBase or get the data from table", e);
 		} catch (InterruptedException e) {
@@ -753,7 +1199,8 @@ public class SQLUserDAO implements UserDAO {
 
 		User user = null;
 		ConnectionPool conPool = ConnectionPool.getInstance();
-		Connection connection = null;;
+		Connection connection = null;
+		;
 		try {
 			connection = conPool.takeConnection();
 		} catch (InterruptedException e) {
@@ -782,7 +1229,7 @@ public class SQLUserDAO implements UserDAO {
 
 			}
 			resultSet = preparedStatement.executeQuery(SQLRequest.SELECT_COUNT_USER);
-			if(resultSet.next())
+			if (resultSet.next())
 				this.noOfRecords = resultSet.getInt(1);
 			connection.commit();
 		} catch (Exception e) {
@@ -817,7 +1264,7 @@ public class SQLUserDAO implements UserDAO {
 	}
 
 	@Override
-	public User getUser(String username) throws DAOException {
+	public User getUser(final String username) throws DAOException {
 		String isDelete = null;
 		String photo = null;
 		String role = null;
@@ -838,7 +1285,8 @@ public class SQLUserDAO implements UserDAO {
 
 		User user = null;
 		ConnectionPool conPool = ConnectionPool.getInstance();
-		Connection connection = null;;
+		Connection connection = null;
+		;
 		try {
 			connection = conPool.takeConnection();
 		} catch (InterruptedException e) {
@@ -1033,4 +1481,5 @@ public class SQLUserDAO implements UserDAO {
 		}
 		return user;
 	}
+
 }
