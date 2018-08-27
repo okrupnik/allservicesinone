@@ -41,7 +41,7 @@
     <jsp:include page="_header.jsp"></jsp:include>
     <jsp:include page="_press.jsp"></jsp:include>
     
-    <!-- Modal window delete -->
+    <!-- Modal window add offering -->
     <div class="modal fade" id="addOfferModal" tabindex="-1" role="dialog" aria-labelledby="#addOfferModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -52,7 +52,7 @@
                     </button>
                 </div>
                 <div class="modal-body offering-order">
-                	<form method="get" action="/controller/Controler" role="form" role="form">
+                	<form method="post" action="/controller/Controler" role="form" role="form">
 						<input type="hidden" name="command" value="cn.add.offering.to.order.page">
 						<input type="hidden" id="order-id" name="orderid" value="">
 						<input type="hidden" name="username" value="${sessionScope.user.username}">
@@ -66,8 +66,7 @@
                     		<button type="button" class="btn btn-secondary" data-dismiss="modal">${noText}</button>
                     	</div>                  
                     </form>                      
-                </div>
-                
+                </div>                
             </div>
         </div>
     </div>

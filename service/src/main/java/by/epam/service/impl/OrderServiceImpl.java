@@ -24,7 +24,7 @@ public class OrderServiceImpl implements OrderService {
 	OrderDAO orderDAO = daoFactory.getOrderDAO();
 
 	@Override
-	public Order create(User user, Order order, String locale) throws ServiceException {
+	public Order create(final User user, Order order, final String locale) throws ServiceException {
 		errorOfCreating.replaceAll((k, v) -> null);
 		errorOfCreating.clear();
 		tempDataForError.replaceAll((k, v) -> null);
@@ -113,8 +113,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Order getOrder(String orderId, String locale) throws ServiceException {		
-		Order order =null;
+	public Order getOrder(final String orderId, final String locale) throws ServiceException {		
+		Order order = null;
 		
 		if(!orderId.isEmpty() || orderId != null) {
 			try {
@@ -138,7 +138,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public boolean editOrder(Order order, String locale) throws ServiceException {
+	public boolean editOrder(final Order order, final String locale) throws ServiceException {
 		errorOfCreating.replaceAll((k, v) -> null);
 		errorOfCreating.clear();
 		tempDataForError.replaceAll((k, v) -> null);
@@ -191,7 +191,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public boolean delete(String idOrder, String locale) throws ServiceException {
+	public boolean delete(final String idOrder, final String locale) throws ServiceException {
 		
 		if (!idOrder.isEmpty() || idOrder != null) {
 			try {				
@@ -221,7 +221,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> getAllOrdersOfUsers(String page, String locale) throws ServiceException {
+	public List<Order> getAllOrdersOfUsers(final String page, final String locale) throws ServiceException {
 		
 		List<Order> orderList = null;
 		int currentPage = 1;

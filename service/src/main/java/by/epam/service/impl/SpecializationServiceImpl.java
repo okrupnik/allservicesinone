@@ -269,7 +269,7 @@ public class SpecializationServiceImpl implements SpecializationService {
 	}
 
 	@Override
-	public void checkSpecialization(Specialization specialization, final String locale) throws ServiceException {
+	public void checkSpecialization(final Specialization specialization, final String locale) throws ServiceException {
 		if (specialization == null) {
 			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
 				throw new ServiceException("Невозможно перейти на страницу создания заказа");

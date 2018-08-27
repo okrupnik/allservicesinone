@@ -33,18 +33,18 @@ public class AddOfferingToOrder implements Command{
 		HttpSession session = request.getSession();
 		
 		try {
-			offeringService.addOfferfingToOrder(user, idOrder, locale);
+			offeringService.addOfferfingToOrder(user, idOrder, description, locale);
 			if (locale.equals(ControllerConstant.LOCALE_RU_PARAM_NAME)) {
 				session.setAttribute(ParamAndAttribute.SUCCESS_EDIT_ATTRIBUTE, "Предложение успешно добавлено к заказу");
 			} else {
 				session.setAttribute(ParamAndAttribute.SUCCESS_EDIT_ATTRIBUTE, "The offering was added to the order successfully");
 			}
-			RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.ADD_OFFERING_SUCCESS);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.ADD_OFFERING_SUCCESS_PAGE);
 			dispatcher.forward(request, response);			
 		} catch (ServiceException e) {
 			String errorMessage = e.getMessage();
 			session.setAttribute(ParamAndAttribute.ERROR_MESSAGE_ATTRIBUTE, errorMessage);
-			RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.ORDER_OFFERING_PAGE);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.ADD_OFFERING_ERROR_PAGE);
 			try {
 				dispatcher.forward(request, response);
 			} catch (ServletException | IOException e1) {

@@ -32,6 +32,7 @@ public final class ParamAndAttribute {
 	public static final String END_DATE_PARAM_NAME = "enddate";
 	public static final String ATTACHMENT_PARAM_NAME = "attachment";
 	public static final String ORDER_ID_PARAM_NAME = "orderid";
+	public static final String OFFERING_ID_PARAM_NAME = "offeringid";
 	public static final String ACTIVE_SPECIALIZATION_PARAM_NAME = "specializationactivitie";
 	
 	

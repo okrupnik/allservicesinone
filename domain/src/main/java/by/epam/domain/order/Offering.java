@@ -6,7 +6,6 @@ public class Offering {
 
 	private final int id;
 	private final String description;
-	private final String isDelete;
 	private final String titleOrder;
 	private final String usernamePerformer;
 	private final User user;
@@ -19,11 +18,7 @@ public class Offering {
 	public String getDescription() {
 		return description;
 	}
-
-	public String getIsDelete() {
-		return isDelete;
-	}
-
+	
 	public String getTitleOrder() {
 		return titleOrder;
 	}
@@ -43,7 +38,6 @@ public class Offering {
 	private Offering(Builder builder) {
 		this.id = builder.id;
 		this.description = builder.description;
-		this.isDelete = builder.isDelete;
 		this.titleOrder = builder.titleOrder;
 		this.usernamePerformer = builder.usernamePerformer;
 		this.user = builder.user;
@@ -53,7 +47,6 @@ public class Offering {
 	public static class Builder {
 		private int id;
 		private String description;
-		private String isDelete;
 		private String titleOrder;
 		private String usernamePerformer;
 		private User user;
@@ -66,11 +59,6 @@ public class Offering {
 
 		public Builder setDescription(String description) {
 			this.description = description;
-			return this;
-		}
-
-		public Builder setIsDelete(String isDelete) {
-			this.isDelete = isDelete;
 			return this;
 		}
 
@@ -106,7 +94,6 @@ public class Offering {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + id;
 		result = prime * result + idOrder;
-		result = prime * result + ((isDelete == null) ? 0 : isDelete.hashCode());
 		result = prime * result + ((titleOrder == null) ? 0 : titleOrder.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		result = prime * result + ((usernamePerformer == null) ? 0 : usernamePerformer.hashCode());
@@ -130,11 +117,6 @@ public class Offering {
 		if (id != other.id)
 			return false;
 		if (idOrder != other.idOrder)
-			return false;
-		if (isDelete == null) {
-			if (other.isDelete != null)
-				return false;
-		} else if (!isDelete.equals(other.isDelete))
 			return false;
 		if (titleOrder == null) {
 			if (other.titleOrder != null)

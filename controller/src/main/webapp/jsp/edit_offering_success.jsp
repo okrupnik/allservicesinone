@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
 
     <script src="${pageContext.request.contextPath}/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-    <script>setTimeout(function(){window.location.href = '${pageContext.request.contextPath}/Controler?command=cn.show.all.orders.of.users.page';}, 2 * 1000);</script>
+    <script>setTimeout(function(){window.location.href = '${pageContext.request.contextPath}/Controler?command=cn.user.show.offering.orders.page';}, 2 * 1000);</script>
 </head>
 
 <body>

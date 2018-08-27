@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 	UserDAO userDAO = daoFactory.getUserDAO();
 
 	@Override
-	public User createCustomerNatural(User user, String locale) throws ServiceException {
+	public User createCustomerNatural(User user, final String locale) throws ServiceException {
 
 		validateParamUser(user, locale);
 
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User createCustomerLegal(User user, String locale) throws ServiceException {
+	public User createCustomerLegal(User user, final String locale) throws ServiceException {
 
 		validateParamUser(user, locale);
 
@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User createCustomerCompany(User user, String locale) throws ServiceException {
+	public User createCustomerCompany(User user, final String locale) throws ServiceException {
 
 		validateParamUser(user, locale);
 
@@ -128,7 +128,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User createPerformerLegal(User user, String locale) throws ServiceException {
+	public User createPerformerLegal(User user, final String locale) throws ServiceException {
 
 		validateParamUser(user, locale);
 
@@ -163,7 +163,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User createPerformerCompany(User user, String locale) throws ServiceException {
+	public User createPerformerCompany(User user, final String locale) throws ServiceException {
 
 		validateParamUser(user, locale);
 
@@ -295,7 +295,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean editAdministration(User user, String locale) throws ServiceException {
+	public boolean editAdministration(final User user, final String locale) throws ServiceException {
 
 		validateParamUserChanging(user, locale);
 
@@ -329,7 +329,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean editCustomerNatural(User user, String locale) throws ServiceException {
+	public boolean editCustomerNatural(final User user, final String locale) throws ServiceException {
 
 		validateParamUserChanging(user, locale);
 
@@ -363,7 +363,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean editCustomerLegal(User user, String locale) throws ServiceException {
+	public boolean editCustomerLegal(final User user, final String locale) throws ServiceException {
 
 		validateParamUserChanging(user, locale);
 
@@ -397,7 +397,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean editCustomerCompany(User user, String locale) throws ServiceException {
+	public boolean editCustomerCompany(final User user, final String locale) throws ServiceException {
 
 		validateParamUserChanging(user, locale);
 
@@ -431,7 +431,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean editPerformerLegal(User user, String locale) throws ServiceException {
+	public boolean editPerformerLegal(final User user, final String locale) throws ServiceException {
 
 		validateParamUserChanging(user, locale);
 
@@ -465,7 +465,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean editPerformerCompany(User user, String locale) throws ServiceException {
+	public boolean editPerformerCompany(final User user, final String locale) throws ServiceException {
 
 		validateParamUserChanging(user, locale);
 
@@ -499,7 +499,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean changePassword(final User user, String oldPassword, final String newPassword,
+	public boolean changePassword(final User user, final String oldPassword, final String newPassword,
 			final String confirmPassword, final String locale) throws ServiceException {
 
 		errorOfCreating.replaceAll((k, v) -> null);
@@ -618,7 +618,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUser(String username, String locale) throws ServiceException {
+	public User getUser(final String username, final String locale) throws ServiceException {
 		User user = null;
 
 		if (!username.isEmpty() || username != null) {
@@ -643,7 +643,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void validateParamUser(User user, String locale) throws ServiceException {
+	public void validateParamUser(final User user, final String locale) throws ServiceException {
 		errorOfCreating.replaceAll((k, v) -> null);
 		errorOfCreating.clear();
 		tempDataForError.replaceAll((k, v) -> null);
@@ -784,7 +784,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void validateParamUserChanging(User user, String locale) throws ServiceException {
+	public void validateParamUserChanging(final User user, final String locale) throws ServiceException {
 
 		errorOfCreating.replaceAll((k, v) -> null);
 		errorOfCreating.clear();

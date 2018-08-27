@@ -355,8 +355,7 @@ public class SQLOrderDAO implements OrderDAO {
 		List<Offering> offeringList = null;
 
 		PreparedStatement preparedStatement = null;
-		ResultSet resultSetOrder = null;
-		ResultSet resultSetOffering = null;
+		ResultSet resultSet = null;
 
 		Order order = null;
 		Offering offering = null;
@@ -373,21 +372,21 @@ public class SQLOrderDAO implements OrderDAO {
 			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_ALL_ORDERS_OF_USERS);
 			preparedStatement.setInt(1, offset);
 			preparedStatement.setInt(2, noOfRecords);
-			resultSetOrder = preparedStatement.executeQuery();
-			while (resultSetOrder.next()) {
-				idOrder = resultSetOrder.getInt(DAOConstant.ID_PARAM_NAME);
-				title = resultSetOrder.getString(DAOConstant.TITLE_ORDER_PARAM_NAME);
-				descriptionOrder = resultSetOrder.getString(DAOConstant.DESCRIPTION_ORDER_PARAM_NAME);
-				subtypeSpecialization = resultSetOrder.getString(DAOConstant.SUBTYPE_SPECIALIZATION_ORDER_PARAM_NAME);
-				status = resultSetOrder.getString(DAOConstant.STATUS_ORDER_PARAM_NAME);
-				address = resultSetOrder.getString(DAOConstant.ADDRESS_PARAM_NAME);
-				endDate = resultSetOrder.getDate(DAOConstant.END_DATE_ORDER_PARAM_NAME).toLocalDate();
-				dateOfCreating = resultSetOrder.getDate(DAOConstant.DATE_CREATING_ORDER_PARAM_NAME).toLocalDate();
-				attachment = resultSetOrder.getString(DAOConstant.ATTACHMENT_ORDER_PARAM_NAME);
-				usernameOfChoosingPerformer = resultSetOrder.getString(DAOConstant.USERNAME_PERFORMER_ORDER_PARAM_NAME);
-				specializationId = resultSetOrder.getInt(DAOConstant.ID_SPECIALIZATION_ORDER_PARAM_NAME);
-				specialization = resultSetOrder.getString(DAOConstant.SPECIALIZATION_DESCRIPT_ORDER_PARAM_NAME);
-				activitieSpecialization = resultSetOrder.getString(DAOConstant.ACTIVITIE_SPECIALIZATION_ORDER_PARAM_NAME);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				idOrder = resultSet.getInt(DAOConstant.ID_PARAM_NAME);
+				title = resultSet.getString(DAOConstant.TITLE_ORDER_PARAM_NAME);
+				descriptionOrder = resultSet.getString(DAOConstant.DESCRIPTION_ORDER_PARAM_NAME);
+				subtypeSpecialization = resultSet.getString(DAOConstant.SUBTYPE_SPECIALIZATION_ORDER_PARAM_NAME);
+				status = resultSet.getString(DAOConstant.STATUS_ORDER_PARAM_NAME);
+				address = resultSet.getString(DAOConstant.ADDRESS_PARAM_NAME);
+				endDate = resultSet.getDate(DAOConstant.END_DATE_ORDER_PARAM_NAME).toLocalDate();
+				dateOfCreating = resultSet.getDate(DAOConstant.DATE_CREATING_ORDER_PARAM_NAME).toLocalDate();
+				attachment = resultSet.getString(DAOConstant.ATTACHMENT_ORDER_PARAM_NAME);
+				usernameOfChoosingPerformer = resultSet.getString(DAOConstant.USERNAME_PERFORMER_ORDER_PARAM_NAME);
+				specializationId = resultSet.getInt(DAOConstant.ID_SPECIALIZATION_ORDER_PARAM_NAME);
+				specialization = resultSet.getString(DAOConstant.SPECIALIZATION_DESCRIPT_ORDER_PARAM_NAME);
+				activitieSpecialization = resultSet.getString(DAOConstant.ACTIVITIE_SPECIALIZATION_ORDER_PARAM_NAME);
 				
 				order = new Order.Builder().setIdOrder(idOrder).setTitle(title).setDescription(descriptionOrder)
 						.setSubtypeSpecialization(subtypeSpecialization).setStatus(status).setAddress(address)
@@ -396,20 +395,20 @@ public class SQLOrderDAO implements OrderDAO {
 						.setSpecialization(specialization).setActivitieSpecialization(activitieSpecialization).build();
 				orderList.add(order);
 			}
-			resultSetOrder = preparedStatement.executeQuery(SQLRequest.SELECT_COUNT_ORDER);
-			if (resultSetOrder.next())
-				this.noOfRecords = resultSetOrder.getInt(1);
+			resultSet = preparedStatement.executeQuery(SQLRequest.SELECT_COUNT_ORDER);
+			if (resultSet.next())
+				this.noOfRecords = resultSet.getInt(1);
 			
 			for (Order tempOrder : orderList) {		
 				offeringList = null;;
 				offeringList = new ArrayList<Offering>();
 				preparedStatement = connection.prepareStatement(SQLRequest.SELECT_ALL_OFFERING_BY_ID_ORDER);
 				preparedStatement.setInt(1, tempOrder.getIdOrder());
-				resultSetOffering = preparedStatement.executeQuery();
-				while (resultSetOffering.next()) {
-					idOffering = resultSetOffering.getInt(DAOConstant.ID_PARAM_NAME);
-					descriptionOffering = resultSetOffering.getString(DAOConstant.DESCRIPTION_ORDER_PARAM_NAME);
-					usernamePerformer = resultSetOffering.getString(DAOConstant.USERNAME_PARAM_NAME);
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					idOffering = resultSet.getInt(DAOConstant.ID_PARAM_NAME);
+					descriptionOffering = resultSet.getString(DAOConstant.DESCRIPTION_ORDER_PARAM_NAME);
+					usernamePerformer = resultSet.getString(DAOConstant.USERNAME_PARAM_NAME);
 					offering = new Offering.Builder().setId(idOffering).setDescription(descriptionOffering).setUsernamePerformer(usernamePerformer).build();
 					offeringList.add(offering);
 				}
@@ -427,10 +426,8 @@ public class SQLOrderDAO implements OrderDAO {
 		} finally {
 			try {
 				connection.setAutoCommit(true);
-				if (resultSetOffering != null)
-					resultSetOffering.close();
-				if (resultSetOrder != null)
-					resultSetOrder.close();
+				if (resultSet != null)
+					resultSet.close();
 				if (preparedStatement != null)
 					preparedStatement.close();
 				if (connection != null)

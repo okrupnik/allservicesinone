@@ -11,7 +11,7 @@ import by.epam.controller.command.Command;
 
 
 @WebServlet(name = "Controler", urlPatterns = { "/Controler" })
-public class Controller extends HttpServlet {
+public final class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static final String COMMAND_PARAM_NAME = "command";

@@ -53,8 +53,11 @@ public final class JSPPagePath {
 	public static final String ORDER_REPAIR_TRANCPORT_EDIT_PAGE = "/jsp/order_repairtransport_edit.jsp";
 	
 	public static final String ORDER_OFFERING_PAGE = "/jsp/show_offering_orders.jsp";
-	public static final String ADD_OFFERING_SUCCESS = "/jsp/add_offering_success.jsp";
-	public static final String ADD_OFFERING_ERROR = "/jsp/error_add_offering.jsp";
+	public static final String ADD_OFFERING_SUCCESS_PAGE = "/jsp/add_offering_success.jsp";
+	public static final String ADD_OFFERING_ERROR_PAGE = "/jsp/error_add_offering.jsp";
+	public static final String OFFERINGS_OF_PERFORMER_PAGE = "/jsp/offerings_performer.jsp";
+	public static final String EDIT_OFFERING_SUCCESS_PAGE = "/jsp/edit_offering_success.jsp";
+	public static final String EDIT_OFFERING_ERROR_PAGE = "/jsp/error_edit_offering.jsp";
 	
 	public static final String TRUCKING_PARAM_NAME = "trucking";
 	public static final String REPAIR_PARAM_NAME = "repair";
