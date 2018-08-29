@@ -7,6 +7,7 @@ public class Offering {
 	private final int id;
 	private final String description;
 	private final String titleOrder;
+	private final String statusOrder;
 	private final String usernamePerformer;
 	private final User user;
 	private final int idOrder;
@@ -21,6 +22,10 @@ public class Offering {
 	
 	public String getTitleOrder() {
 		return titleOrder;
+	}
+
+	public String getStatusOrder() {
+		return statusOrder;
 	}
 
 	public String getUsernamePerformer() {
@@ -39,6 +44,7 @@ public class Offering {
 		this.id = builder.id;
 		this.description = builder.description;
 		this.titleOrder = builder.titleOrder;
+		this.statusOrder = builder.statusOrder;
 		this.usernamePerformer = builder.usernamePerformer;
 		this.user = builder.user;
 		this.idOrder = builder.idOrder;
@@ -48,6 +54,7 @@ public class Offering {
 		private int id;
 		private String description;
 		private String titleOrder;
+		private String statusOrder;
 		private String usernamePerformer;
 		private User user;
 		private int idOrder;
@@ -64,6 +71,11 @@ public class Offering {
 
 		public Builder setTitleOrder(String titleOrder) {
 			this.titleOrder = titleOrder;
+			return this;
+		}
+
+		public Builder setStatusOrder(String statusOrder) {
+			this.statusOrder = statusOrder;
 			return this;
 		}
 
@@ -94,6 +106,7 @@ public class Offering {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + id;
 		result = prime * result + idOrder;
+		result = prime * result + ((statusOrder == null) ? 0 : statusOrder.hashCode());
 		result = prime * result + ((titleOrder == null) ? 0 : titleOrder.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		result = prime * result + ((usernamePerformer == null) ? 0 : usernamePerformer.hashCode());
@@ -118,6 +131,11 @@ public class Offering {
 			return false;
 		if (idOrder != other.idOrder)
 			return false;
+		if (statusOrder == null) {
+			if (other.statusOrder != null)
+				return false;
+		} else if (!statusOrder.equals(other.statusOrder))
+			return false;
 		if (titleOrder == null) {
 			if (other.titleOrder != null)
 				return false;
@@ -134,5 +152,5 @@ public class Offering {
 		} else if (!usernamePerformer.equals(other.usernamePerformer))
 			return false;
 		return true;
-	}
+	}	
 }

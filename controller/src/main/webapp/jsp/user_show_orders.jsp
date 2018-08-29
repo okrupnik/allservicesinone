@@ -130,16 +130,20 @@
                             	</c:otherwise>
                         	</c:choose>
                             <td>
-                                <form method="get" action="/controller/Controler" role="form" role="form">
-                                    <input type="hidden" name="command" value="cn.user.to.order.edit.page">
-                                    <input type="hidden" name="orderid" value="${order.idOrder}">
-                                    <input type="hidden" name="specializationid" value="${order.idSpecialization}">
-                                    <input type="hidden" name="specializationactivitie" value="${order.activitieSpecialization}">
-                                    <button type="submit" class="btn btn-primary">${editText}</button>
-                                </form>
+                            	<c:if test="${order.status == 'choose'}">
+                                	<form method="get" action="/controller/Controler" role="form" role="form">
+                                    	<input type="hidden" name="command" value="cn.user.to.order.edit.page">
+                                    	<input type="hidden" name="orderid" value="${order.idOrder}">
+                                    	<input type="hidden" name="specializationid" value="${order.idSpecialization}">
+                                    	<input type="hidden" name="specializationactivitie" value="${order.activitieSpecialization}">
+                                    	<button type="submit" class="btn btn-primary">${editText}</button>
+                                	</form>
+                            	</c:if>
                             </td>
-                            <td>                            	
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal" data-orderiddel="${order.idOrder}" data-ordertitledel="${order.title}">${deleteText}</button>
+                            <td>
+                            	<c:if test="${order.status == 'choose'}">                            	
+                                	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal" data-orderiddel="${order.idOrder}" data-ordertitledel="${order.title}">${deleteText}</button>
+                                </c:if>
                             </td>
                             <c:if test="${order.status == 'choose'}">
                             	<td>

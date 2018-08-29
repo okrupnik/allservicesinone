@@ -46,6 +46,10 @@
 	<command commandName="cn.add.offering.to.order.page"	className="by.epam.controller.command.impl.AddOfferingToOrder" />
 	<command commandName="cn.edit.offering.to.order.page"	className="by.epam.controller.command.impl.EditOfferingOfOrder" />
 	<command commandName="cn.delete.offering.to.order.page"	className="by.epam.controller.command.impl.DeleteOfferingOfOrder" />
+	<command commandName="cn.admin.show.offering.user.page"	className="by.epam.controller.command.impl.ShowOfferingOfUserByAdmin" />
+	<command commandName="cn.user.show.orders.performer.page"	className="by.epam.controller.command.impl.ShowOrdersOfPerformer" />
+	<command commandName="cn.order.completed.peformer.page"	className="by.epam.controller.command.impl.CompletedOrderByPerformer" />
+	<command commandName="cn.show.all.performer.page"	className="by.epam.controller.command.impl.ShowAllPerformers" />
 	
 
 </comm:commands>

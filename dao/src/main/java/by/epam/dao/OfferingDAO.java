@@ -16,6 +16,8 @@ public interface OfferingDAO {
 	
 	List<Offering> getOfferingsOfUser(final User user, final int offset, final int noOfRecords) throws DAOException;
 	
+	List<Offering> getOfferingsOfUserByAdmin(final User user, final int offset, final int noOfRecords) throws DAOException;
+	
 	boolean edit(final int idOffering, final String description) throws DAOException;
 	
 	boolean delete(final int idOffering) throws DAOException;

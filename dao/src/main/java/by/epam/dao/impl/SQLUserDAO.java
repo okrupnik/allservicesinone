@@ -19,6 +19,8 @@ import by.epam.domain.customer.CompanyCustomerInfo;
 import by.epam.domain.customer.Customer;
 import by.epam.domain.customer.LegalCustomerInfo;
 import by.epam.domain.customer.NaturalCustomerInfo;
+import by.epam.domain.order.Offering;
+import by.epam.domain.order.Order;
 import by.epam.domain.ownership.Ownership;
 import by.epam.domain.performer.CompanyPerformerInfo;
 import by.epam.domain.performer.LegalPerformerInfo;
@@ -817,7 +819,7 @@ public class SQLUserDAO implements UserDAO {
 
 		return existingUser;
 	}
-	
+
 	@Override
 	public boolean editAdministration(final User user) throws DAOException {
 		PreparedStatement preparedStatement = null;
@@ -943,7 +945,7 @@ public class SQLUserDAO implements UserDAO {
 
 	@Override
 	public boolean editCustomerCompany(final User user) throws DAOException {
-		
+
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 
@@ -987,7 +989,7 @@ public class SQLUserDAO implements UserDAO {
 
 	@Override
 	public boolean editPerformerLegal(final User user) throws DAOException {
-		
+
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 
@@ -1480,6 +1482,134 @@ public class SQLUserDAO implements UserDAO {
 
 		}
 		return user;
+	}
+
+	@Override
+	public List<User> getAllPerformer(int offset, int noOfRecords) throws DAOException {
+
+		String userName = null;
+		String isDelete = null;
+		String photo = null;
+		String role = null;
+		String typePerson = null;
+		String email = null;
+		String phoneNumber = null;
+		String address = null;
+		String requisites = null;
+		String formOwnership = null;
+		String name = null;
+		String surname = null;
+		String nameCompany = null;
+		String description = null;
+		LegalPerformerInfo legalPerformerInfo = null;
+		CompanyPerformerInfo companyPerformerInfo = null;
+		Performer performer = null;
+		List<User> userList = new ArrayList<>();
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		User user = null;
+		ConnectionPool conPool = ConnectionPool.getInstance();
+		Connection connection = null;
+		;
+		try {
+			connection = conPool.takeConnection();
+		} catch (InterruptedException e) {
+			log.error("The thread was interrupted", e);
+		}
+		try {
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_ALL_USER_PERFORMER);
+			preparedStatement.setInt(1, offset);
+			preparedStatement.setInt(2, noOfRecords);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				userName = resultSet.getString(DAOConstant.USERNAME_PARAM_NAME);
+				isDelete = resultSet.getString(DAOConstant.IS_DELETE_PARAM_NAME);
+				email = resultSet.getString(DAOConstant.EMAIL_PARAM_NAME);
+				phoneNumber = resultSet.getString(DAOConstant.PHONE_NUMBER_PARAM_NAME);
+				address = resultSet.getString(DAOConstant.ADDRESS_PARAM_NAME);
+				photo = resultSet.getString(DAOConstant.PHOTO_PARAM_NAME);
+				role = resultSet.getString(DAOConstant.ROLE_PARAM_NAME);
+				typePerson = resultSet.getString(DAOConstant.TYPE_PERSON_PARAM_NAME);
+				requisites = resultSet.getString(DAOConstant.REQUISITES_PARAM_NAME);
+				formOwnership = resultSet.getString(DAOConstant.FORM_OWNERSHIP_PARAM_NAME);
+				user = new User.Builder().setUsername(userName).setIsDelete(isDelete).setEmail(email)
+						.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
+						.setRole(new Role.Builder().setTypeRole(role).build())
+						.setPerson(new Person.Builder().setTypePerson(typePerson).build())
+						.setPerformer(new Performer.Builder().setRequisites(requisites)
+								.setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build()).build())
+						.build();
+				userList.add(user);
+			}
+			resultSet = preparedStatement.executeQuery(SQLRequest.SELECT_COUNT_USER);
+			if (resultSet.next())
+				this.noOfRecords = resultSet.getInt(1);
+
+			for (User tempUser : userList) {
+				if (DAOConstant.CUSTOMER_LEGAL_PARAM_NAME
+						.equals(tempUser.getPerformer().getOwnership().getFormOwnership())) {
+					preparedStatement = connection.prepareStatement(SQLRequest.SELECT_ALL_LEGAL_PERFORMER);
+					preparedStatement.setString(1, tempUser.getUsername());
+					resultSet = preparedStatement.executeQuery();
+					while (resultSet.next()) {
+						name = resultSet.getString(DAOConstant.NAME_PARAM_NAME);
+						surname = resultSet.getString(DAOConstant.SURNAME_PARAM_NAME);
+						performer = new Performer.Builder().setRequisites(tempUser.getPerformer().getRequisites())
+								.setOwnership(tempUser.getPerformer().getOwnership())
+								.setLegalPerformerInfo(
+										new LegalPerformerInfo.Builder().setName(name).setSurname(surname).build())
+								.build();
+						tempUser.setPerformer(performer);
+					}
+				}
+				if (DAOConstant.CUSTOMER_COMPANY_PARAM_NAME
+						.equals(tempUser.getPerformer().getOwnership().getFormOwnership())) {
+					preparedStatement = connection.prepareStatement(SQLRequest.SELECT_ALL_COMPANY_PERFORMER);
+					preparedStatement.setString(1, tempUser.getUsername());
+					resultSet = preparedStatement.executeQuery();
+					while (resultSet.next()) {
+						nameCompany = resultSet.getString(DAOConstant.COMPANY_PARAM_NAME);
+						name = resultSet.getString(DAOConstant.NAME_AGENT_PARAM_NAME);
+						surname = resultSet.getString(DAOConstant.SURNAME_AGENT_PARAM_NAME);
+						description = resultSet.getString(DAOConstant.SURNAME_AGENT_PARAM_NAME);
+						performer = new Performer.Builder().setRequisites(tempUser.getPerformer().getRequisites())
+								.setOwnership(tempUser.getPerformer().getOwnership())
+								.setCompanyPerformerInfo(
+										new CompanyPerformerInfo.Builder().setNameCompany(nameCompany).setNameAgent(name).setSurnameAgent(surname).setDescription(description).build())
+								.build();
+						tempUser.setPerformer(performer);
+					}
+				}
+			}
+
+			connection.commit();
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+				log.error("Transaction failed", e);
+			} catch (SQLException sqle) {
+				log.error("Rollback failed", e);
+			}
+		} finally {
+			try {
+				connection.setAutoCommit(true);
+				if (resultSet != null)
+					resultSet.close();
+				if (preparedStatement != null)
+					preparedStatement.close();
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+					log.error(stackTraceElement.toString());
+				}
+			}
+		}
+
+		return userList;
 	}
 
 }

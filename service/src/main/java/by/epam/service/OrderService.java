@@ -18,6 +18,8 @@ public interface OrderService {
 	
 	boolean editOrder(final Order order, final String locale) throws ServiceException;
 	
+	boolean changeStatusOrder(final String idOrder, final String locale) throws ServiceException;
+	
 	boolean delete(final String idOrder, final String locale) throws ServiceException;
 
 }

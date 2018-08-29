@@ -18,7 +18,7 @@ public class User {
 	private final Person person;
 	private final ServiceStaffInfo serviceStaffInfo;
 	private final Customer customer;
-	private final Performer performer;
+	private Performer performer;
 	
 	public String getUsername() {
 		return username;
@@ -68,6 +68,10 @@ public class User {
 		return performer;
 	}
 	
+	public void setPerformer(Performer performer) {
+		this.performer = performer;
+	}
+
 	private User(Builder builder) {
 		this.username = builder.username;
 		this.password = builder.password;

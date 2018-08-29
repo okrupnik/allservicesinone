@@ -285,9 +285,9 @@ public class UserServiceImpl implements UserService {
 			}
 		} else {
 			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
-				throw new ServiceException("Недостаточно прав для редактирования пользователей");
+				throw new ServiceException("Недостаточно прав для получения списка пользователей пользователей");
 			} else {
-				throw new ServiceException("Insufficient privileges for editing users");
+				throw new ServiceException("Insufficient privileges to get users list");
 			}
 		}
 
@@ -873,6 +873,43 @@ public class UserServiceImpl implements UserService {
 					user.getPerformer().getCompanyPerformerInfo().getDescription());
 		}
 
+	}
+
+	@Override
+	public List<User> getAllPerformer(final String page, final String locale) throws ServiceException {
+
+		List<User> users = null;
+		int currentPage = 1;
+		int noOfRecords = 0;
+		int noOfPages = 0;
+		int recordsPerPage = 4;
+
+		try {
+			if (page != null) {
+				currentPage = Integer.parseInt(page);
+			}
+			users = userDAO.getAllPerformer((currentPage - 1) * recordsPerPage, recordsPerPage);
+			noOfRecords = userDAO.getNoOfRecords();
+			noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
+			pagesDetails.put(ServiceConstant.NO_OF_PAGES_PARAM_NAME, noOfPages);
+			pagesDetails.put(ServiceConstant.CURRENT_PAGE_PARAM_NAME, currentPage);
+			PageDetail.setPagesDetails(pagesDetails);
+			if (users.isEmpty() || users == null) {
+				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+					throw new ServiceException("Список пуст");
+				} else {
+					throw new ServiceException("Users list is empty");
+				}
+			}
+		} catch (DAOException e) {
+			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+				throw new ServiceException("Невозможно получить список пользователей, попробуйте позже");
+			} else {
+				throw new ServiceException("Impossible to get users list, try it later");
+			}
+		}
+
+		return users;
 	}
 
 }

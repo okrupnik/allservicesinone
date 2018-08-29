@@ -39,6 +39,7 @@ public final class ParamAndAttribute {
 	public static final String USER_ATTRIBUTE = "user";
 	public static final String SELECTED_USER_ATTRIBUTE = "selecteduser";
 	public static final String USER_LIST_ATTRIBUTE = "userlist";
+	public static final String PERFORMER_LIST_ATTRIBUTE = "userperformerlist";
 	public static final String PAGE_ATTRIBUTE = "page";
 	public static final String ERROR_MESSAGE_ATTRIBUTE = "errorMessage";
 	public static final String LOCALE_ATTRIBUTE = "local";

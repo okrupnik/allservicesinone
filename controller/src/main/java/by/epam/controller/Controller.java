@@ -22,7 +22,7 @@ public final class Controller extends HttpServlet {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(final HttpServletRequest request, final HttpServletResponse response)
 			throws ServletException, IOException {
 		String commandName = request.getParameter(COMMAND_PARAM_NAME);
 
@@ -30,7 +30,7 @@ public final class Controller extends HttpServlet {
 		command.execute(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}

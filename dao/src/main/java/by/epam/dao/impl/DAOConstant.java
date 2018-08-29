@@ -30,6 +30,7 @@ public final class DAOConstant {
 	public static final String SURNAME_AGENT_PARAM_NAME = "surnameagent";
 	public static final String DESCRIPTION_PARAM_NAME = "description";
 	public static final String ACTIVE_TAB_PARAM_NAME = "active";
+	public static final String PERFORMER_TYPE_PARAM_NAME = "performer";
 	
 	public static final String SPECIALIZATION_EN_PARAM_NAME = "descriptionen";
 	public static final String SPECIALIZATION_RU_PARAM_NAME = "descriptionru";

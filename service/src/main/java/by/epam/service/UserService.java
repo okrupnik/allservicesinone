@@ -26,6 +26,8 @@ public interface UserService {
 	User getUser(final String username, final String locale) throws ServiceException;
 
 	List<User> getAllUser(final User user, final String page, final String locale) throws ServiceException;
+	
+	List<User> getAllPerformer(final String page, final String locale) throws ServiceException;
 
 	boolean editAdministration(final User user, final String locale) throws ServiceException;
 

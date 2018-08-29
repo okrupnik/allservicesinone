@@ -126,7 +126,11 @@ public class SQLOrderDAO implements OrderDAO {
 		}
 		try {
 			connection.setAutoCommit(false);
-			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_ALL_ORDER_OF_USER);
+			if (DAOConstant.PERFORMER_TYPE_PARAM_NAME.equals(user.getPerson().getTypePerson())) {
+				preparedStatement = connection.prepareStatement(SQLRequest.SELECT_ALL_ORDER_OF_PERFORMER);
+			} else {
+				preparedStatement = connection.prepareStatement(SQLRequest.SELECT_ALL_ORDER_OF_USER);
+			}			
 			preparedStatement.setString(1, user.getUsername());
 			preparedStatement.setInt(2, offset);
 			preparedStatement.setInt(3, noOfRecords);
@@ -440,6 +444,38 @@ public class SQLOrderDAO implements OrderDAO {
 		}
 
 		return orderList;
+	}
+
+	@Override
+	public boolean changeStatusOrder(int idOrder) throws DAOException {
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		ConnectionPool conPool = ConnectionPool.getInstance();
+
+		try (Connection connection = conPool.takeConnection()) {
+			preparedStatement = connection.prepareStatement(SQLRequest.UPDATE_STATUS_ORDER);			
+			preparedStatement.setInt(1, idOrder);
+			preparedStatement.executeUpdate();			
+		} catch (SQLException e) {
+			log.error("Can't to get access to DataBase or get the data from table", e);
+		} catch (InterruptedException e) {
+			log.error("The thread was interrupted", e);
+		} finally {
+			try {
+				if (resultSet != null)
+					resultSet.close();
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (SQLException e) {
+				for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+					log.error(stackTraceElement.toString());
+				}
+			}
+
+		}
+		return true;
 	}
 
 }

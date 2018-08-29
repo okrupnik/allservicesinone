@@ -289,4 +289,57 @@ public class SQLOfferingDAO implements OfferingDAO {
 		return true;
 	}
 
+	@Override
+	public List<Offering> getOfferingsOfUserByAdmin(final User user, final int offset, final int noOfRecords) throws DAOException {
+
+		int idOffering = 0;
+		String description = null;
+		String titleOrder = null;
+		String statusOrder = null;
+		List<Offering> offeringList = new ArrayList<>();
+		Offering offering = null;
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		ConnectionPool conPool = ConnectionPool.getInstance();
+
+		try (Connection connection = conPool.takeConnection()) {
+			preparedStatement = connection.prepareStatement(SQLRequest.SELECT_OFFERINGS_OF_USER_BY_ADMIN);
+			preparedStatement.setString(1, user.getUsername());
+			preparedStatement.setInt(2, offset);
+			preparedStatement.setInt(3, noOfRecords);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				idOffering = resultSet.getInt(DAOConstant.ID_PARAM_NAME);
+				description = resultSet.getString(DAOConstant.DESCRIPTION_ORDER_PARAM_NAME);
+				titleOrder = resultSet.getString(DAOConstant.TITLE_ORDER_PARAM_NAME);				
+				statusOrder = resultSet.getString(DAOConstant.STATUS_ORDER_PARAM_NAME);
+				offering = new Offering.Builder().setId(idOffering).setDescription(description).setTitleOrder(titleOrder).setStatusOrder(statusOrder).setUser(user).build();
+				offeringList.add(offering);
+			}
+			resultSet = preparedStatement.executeQuery(SQLRequest.SELECT_COUNT_USER);
+			if (resultSet.next())
+				this.noOfRecords = resultSet.getInt(1);
+			connection.commit();
+		} catch (SQLException e) {
+			log.error("Can't to get access to DataBase or get the data from table", e);
+		} catch (InterruptedException e) {
+			log.error("The thread was interrupted", e);
+		} finally {
+			try {
+				if (resultSet != null)
+					resultSet.close();
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} catch (SQLException e) {
+				for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+					log.error(stackTraceElement.toString());
+				}
+			}
+		}
+
+		return offeringList;
+	}
+
 }

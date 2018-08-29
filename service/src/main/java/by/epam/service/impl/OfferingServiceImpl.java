@@ -6,7 +6,6 @@ import java.util.Map;
 
 import by.epam.dao.DAOFactory;
 import by.epam.dao.OfferingDAO;
-import by.epam.dao.OrderDAO;
 import by.epam.dao.exception.DAOException;
 import by.epam.domain.order.Offering;
 import by.epam.domain.page.PageDetail;
@@ -46,14 +45,14 @@ public class OfferingServiceImpl implements OfferingService {
 				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
 					throw new ServiceException("Список пуст");
 				} else {
-					throw new ServiceException("Orders list is empty");
+					throw new ServiceException("Offering list is empty");
 				}
 			}
 		} catch (DAOException e) {
 			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
-				throw new ServiceException("Невозможно получить список заданий, попробуйте позже");
+				throw new ServiceException("Невозможно получить список предложений, попробуйте позже");
 			} else {
-				throw new ServiceException("Impossible to get users list, try it later");
+				throw new ServiceException("Impossible to get offering list, try it later");
 			}
 		}
 
@@ -143,14 +142,14 @@ public class OfferingServiceImpl implements OfferingService {
 				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
 					throw new ServiceException("Список пуст");
 				} else {
-					throw new ServiceException("Orders list is empty");
+					throw new ServiceException("Offering list is empty");
 				}
 			}
 		} catch (DAOException e) {
 			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
 				throw new ServiceException("Невозможно получить список заданий, попробуйте позже");
 			} else {
-				throw new ServiceException("Impossible to get users list, try it later");
+				throw new ServiceException("Impossible to get offering list, try it later");
 			}
 		}
 
@@ -215,6 +214,43 @@ public class OfferingServiceImpl implements OfferingService {
 				throw new ServiceException("The offering is not found");
 			}	
 		}		
+	}
+
+	@Override
+	public List<Offering> getOfferingsOfUserByAdmin(final User user, final String page, final String locale) throws ServiceException {
+
+		List<Offering> offeringList = null;
+		int currentPage = 1;
+		int noOfRecords = 0;
+		int noOfPages = 0;
+		int recordsPerPage = 4;
+
+		try {
+			if (page != null) {
+				currentPage = Integer.parseInt(page);
+			}
+			offeringList = offeringDAO.getOfferingsOfUserByAdmin(user, (currentPage - 1) * recordsPerPage, recordsPerPage);
+			noOfRecords = offeringDAO.getNoOfRecords();
+			noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
+			pagesDetails.put(ServiceConstant.NO_OF_PAGES_PARAM_NAME, noOfPages);
+			pagesDetails.put(ServiceConstant.CURRENT_PAGE_PARAM_NAME, currentPage);
+			PageDetail.setPagesDetails(pagesDetails);
+			if (offeringList.isEmpty() || offeringList == null) {
+				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+					throw new ServiceException("Список пуст");
+				} else {
+					throw new ServiceException("Offering list is empty");
+				}
+			}
+		} catch (DAOException e) {
+			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+				throw new ServiceException("Невозможно получить список заданий, попробуйте позже");
+			} else {
+				throw new ServiceException("Impossible to get offering list, try it later");
+			}
+		}
+
+		return offeringList;
 	}
 
 }

@@ -12,8 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import by.epam.controller.command.Command;
-import by.epam.domain.page.PageDetail;
-import by.epam.domain.user.User;
 import by.epam.service.OfferingService;
 import by.epam.service.ServiceFactory;
 import by.epam.service.exception.ServiceException;
@@ -25,8 +23,7 @@ public class EditOfferingOfOrder implements Command{
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String idOffering = request.getParameter(ParamAndAttribute.OFFERING_ID_PARAM_NAME);
-		String description = request.getParameter(ParamAndAttribute.DESCRIPTION_PARAM_NAME);
-		User user = (User) request.getSession().getAttribute(ParamAndAttribute.USER_ATTRIBUTE); 		
+		String description = request.getParameter(ParamAndAttribute.DESCRIPTION_PARAM_NAME); 		
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 		HttpSession session = request.getSession();
 		

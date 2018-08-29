@@ -37,6 +37,8 @@ public interface UserDAO {
 	
 	List<User> getAllUser(final int offset, final int noOfRecords) throws DAOException;
 	
+	List<User> getAllPerformer(final int offset, final int noOfRecords) throws DAOException;
+	
 	String checkPassword(final String oldPassword) throws DAOException;
 	
 	boolean editPassword (final User user, final String newPassword) throws DAOException;

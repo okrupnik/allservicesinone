@@ -17,6 +17,8 @@ public interface OrderDAO {
 	Order getOrder(final int orderId) throws DAOException;
 	
 	boolean editOrder(final Order order) throws DAOException;
+	
+	boolean changeStatusOrder(final int idOrder) throws DAOException;
 
 	int getNoOfRecords() throws DAOException;
 	

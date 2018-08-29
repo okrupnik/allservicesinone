@@ -27,7 +27,12 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
 
     <script src="${pageContext.request.contextPath}/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-    <script>setTimeout(function(){window.location.href = '${pageContext.request.contextPath}/Controler?command=cn.user.show.offering.orders.page';}, 2 * 1000);</script>
+    <c:if test="${user.role.typeRole=='admin' && user.person.typePerson=='servicePerson'}">
+    	<script>setTimeout(function(){window.location.href = '${pageContext.request.contextPath}/Controler?command=cn.admin.show.offering.user.page';}, 2 * 1000);</script>
+    </c:if>
+    <c:if test="${user.role.typeRole=='user' && user.person.typePerson=='performer'}">
+    	<script>setTimeout(function(){window.location.href = '${pageContext.request.contextPath}/Controler?command=cn.user.show.offering.orders.page';}, 2 * 1000);</script>
+    </c:if>
 </head>
 
 <body>

@@ -62,7 +62,7 @@ public class ConnectionPool {
 		try {
 			this.poolSize = Integer.parseInt(dbResourseManager.getValue(DBParameter.DB_POLL_SIZE));
 		} catch (NumberFormatException e) {
-			poolSize = 13;
+			poolSize = 40;
 		}
 	}
 
@@ -91,7 +91,7 @@ public class ConnectionPool {
 		return connection;
 	}
 
-	public void riOfConnection() throws SQLException {
+	public void ridOfConnection() throws SQLException {
 		clearConnectionPool();
 	}
 

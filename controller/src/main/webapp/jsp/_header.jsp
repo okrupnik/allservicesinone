@@ -137,7 +137,7 @@
                     </a>
                 </li>
                 <li class="active"><a href="${pageContext.request.contextPath}/Controler?command=cn.main.page">${buttonHome}</a></li>
-                <li><a href="#">${buttonPerformer}</a></li>
+                <li><a href="${pageContext.request.contextPath}/Controler?command=cn.show.all.performer.page">${buttonPerformer}</a></li>
                 <li class="has-submenu"><a href="#">${buttonCreateTask}</a>
                     <div class="mainmenu-submenu">
                         <div class="mainmenu-submenu-inner">

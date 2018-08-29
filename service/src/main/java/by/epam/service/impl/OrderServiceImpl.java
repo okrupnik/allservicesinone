@@ -257,5 +257,34 @@ public class OrderServiceImpl implements OrderService {
 		return orderList;
 	}
 
+	@Override
+	public boolean changeStatusOrder(String idOrder, String locale) throws ServiceException {
+		if (!idOrder.isEmpty() || idOrder != null) {
+			try {				
+				if (orderDAO.changeStatusOrder(Integer.parseInt(idOrder))) {
+					return true;
+				} else {
+					if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+						throw new ServiceException("Ошибка изменения статуса заказа, попробуйте позже");
+					} else {
+						throw new ServiceException("Error of changing of status of order, try it later");
+					}
+				}	
+			} catch (DAOException e) {
+				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+					throw new ServiceException("Ошибка изменения статуса заказа");
+				} else {
+					throw new ServiceException("Error of changing of status of order");
+				}	
+			}
+		} else {
+			if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+				throw new ServiceException("Заказ не найден");
+			} else {
+				throw new ServiceException("The order is not found");
+			}	
+		}		
+	}
+
 	
 }

@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import by.epam.controller.command.Command;
-import by.epam.domain.user.User;
 import by.epam.service.OfferingService;
 import by.epam.service.ServiceFactory;
 import by.epam.service.exception.ServiceException;

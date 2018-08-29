@@ -19,8 +19,10 @@ public final class JSPPagePath {
 	public static final String USER_ORDERS_PAGE = "/jsp/user_show_orders.jsp";
 	public static final String ADMIN_USER_ORDERS_PAGE = "/jsp/admin_user_show_orders.jsp";
 	public static final String ORDER_EDIT_SUCCESS_PAGE = "/jsp/order_edit_success.jsp";
+	public static final String ORDER_EDIT_FAIL_PAGE = "/jsp/error_order_edit.jsp";
 	public static final String PERFORMER_SELECTED_SUCCESS_PAGE = "/jsp/performer_select_success.jsp";
 	public static final String ALL_ORDERS_OF_USER_PAGE = "/jsp/show_all_orders_of_users.jsp";	
+	public static final String ALL_PERFORMERS_PAGE = "/jsp/show_all_performers.jsp";
 	
 	public static final String ORDER_TRUCKING_PAGE = "/jsp/order_trucking.jsp";
 	public static final String ORDER_REPAIR_PAGE = "/jsp/order_repair.jsp";
@@ -58,6 +60,8 @@ public final class JSPPagePath {
 	public static final String OFFERINGS_OF_PERFORMER_PAGE = "/jsp/offerings_performer.jsp";
 	public static final String EDIT_OFFERING_SUCCESS_PAGE = "/jsp/edit_offering_success.jsp";
 	public static final String EDIT_OFFERING_ERROR_PAGE = "/jsp/error_edit_offering.jsp";
+	public static final String ADMIN_USER_OFFERING_PAGE = "/jsp/admin_user_show_offering.jsp";
+	public static final String PERFORMER_ORDERS_PAGE = "/jsp/show_orders_of_performer.jsp";
 	
 	public static final String TRUCKING_PARAM_NAME = "trucking";
 	public static final String REPAIR_PARAM_NAME = "repair";

@@ -33,6 +33,9 @@
     <c:if test="${user.role.typeRole=='user' && user.person.typePerson=='customer'}">
     	<script>setTimeout(function(){window.location.href = '${pageContext.request.contextPath}/Controler?command=cn.user.show.orders.user.page';}, 2 * 1000);</script>
     </c:if>
+    <c:if test="${user.role.typeRole=='user' && user.person.typePerson=='performer'}">
+    	<script>setTimeout(function(){window.location.href = '${pageContext.request.contextPath}/Controler?command=cn.user.show.orders.performer.page';}, 2 * 1000);</script>
+    </c:if>
 </head>
 
 <body>
