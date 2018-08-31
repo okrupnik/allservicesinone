@@ -23,11 +23,12 @@ import by.epam.service.ServiceFactory;
 import by.epam.service.UserService;
 import by.epam.service.exception.ServiceException;
 
-public class ChangingCustomerCompanySetting implements Command{
+public class ChangingCustomerCompanySetting implements Command {
 	private static final Logger log = LoggerFactory.getLogger(ChangingCustomerCompanySetting.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String photo = null;
 		String typePerson = null;
@@ -53,22 +54,21 @@ public class ChangingCustomerCompanySetting implements Command{
 		surname = request.getParameter(ParamAndAttribute.SURNAME_AGENT_PARAM_NAME);
 		requisites = request.getParameter(ParamAndAttribute.REQUISITES_PARAM_NAME);
 		description = request.getParameter(ParamAndAttribute.DESCRIPTION_PARAM_NAME);
-		
-		user = new User.Builder().setUsername(user.getUsername())
-				.setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email)
-				.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
-				.setRole(new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build())
-				.setPerson(new Person.Builder().setTypePerson(typePerson).build())
-				.setCustomer(new Customer.Builder()
-						.setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build())
-						.setCompanyCustomerInfo(new CompanyCustomerInfo.Builder().setNameCompany(companyName)
-								.setNameAgent(name).setSurnameAgent(surname).setRequisites(requisites)
-								.setDescription(description).build())
-						.build())
+
+		Role role = new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build();
+		Person person = new Person.Builder().setTypePerson(typePerson).build();
+		CompanyCustomerInfo companyCustomerInfo = new CompanyCustomerInfo.Builder().setNameCompany(companyName)
+				.setNameAgent(name).setSurnameAgent(surname).setRequisites(requisites).setDescription(description)
 				.build();
-		
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		UserService userService = serviceFactory.getUserService();
+		Ownership ownership = new Ownership.Builder().setFormOwnership(formOwnership).build();
+		Customer customerCompany = new Customer.Builder().setOwnership(ownership).setCompanyCustomerInfo(companyCustomerInfo)
+				.build();
+
+		user = new User.Builder().setUsername(user.getUsername()).setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME)
+				.setEmail(email).setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo).setRole(role)
+				.setPerson(person).setCustomer(customerCompany).build();
+
+		UserService userService = ServiceFactory.getInstatnce().getUserService();
 		HttpSession session = request.getSession();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 
@@ -99,7 +99,7 @@ public class ChangingCustomerCompanySetting implements Command{
 			for (StackTraceElement stackTraceElement : e.getStackTrace()) {
 				log.error(stackTraceElement.toString());
 			}
-		}		
+		}
 	}
 
 }

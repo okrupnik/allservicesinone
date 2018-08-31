@@ -21,7 +21,7 @@ public class ToChangingUserByAdmin implements Command{
 	private static final Logger log = LoggerFactory.getLogger(ToChangingUserByAdmin.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) {
 		
 		String locale = null;
 		User selectedUser = null;
@@ -30,8 +30,7 @@ public class ToChangingUserByAdmin implements Command{
 		username = request.getParameter(ParamAndAttribute.USERNAME_PARAM_NAME);
 		locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 		
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		UserService userService = serviceFactory.getUserService();
+		UserService userService = ServiceFactory.getInstatnce().getUserService();
 		HttpSession session = request.getSession();
 		
 		try {

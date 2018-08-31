@@ -1,3 +1,4 @@
+D:\Programming\Java\Epam\Project\allservicesinone\service\src\main\java\by\epam\service\impl\OfferingServiceImpl.java
 D:\Programming\Java\Epam\Project\allservicesinone\service\src\main\java\by\epam\service\impl\UserServiceImpl.java
 D:\Programming\Java\Epam\Project\allservicesinone\service\src\main\java\by\epam\service\SpecializationService.java
 D:\Programming\Java\Epam\Project\allservicesinone\service\src\main\java\by\epam\service\ServiceFactory.java
@@ -6,5 +7,6 @@ D:\Programming\Java\Epam\Project\allservicesinone\service\src\main\java\by\epam\
 D:\Programming\Java\Epam\Project\allservicesinone\service\src\main\java\by\epam\service\impl\ServiceConstant.java
 D:\Programming\Java\Epam\Project\allservicesinone\service\src\main\java\by\epam\service\exception\ServiceException.java
 D:\Programming\Java\Epam\Project\allservicesinone\service\src\main\java\by\epam\service\UserService.java
+D:\Programming\Java\Epam\Project\allservicesinone\service\src\main\java\by\epam\service\OfferingService.java
 D:\Programming\Java\Epam\Project\allservicesinone\service\src\main\java\by\epam\service\impl\Validator.java
 D:\Programming\Java\Epam\Project\allservicesinone\service\src\main\java\by\epam\service\OrderService.java

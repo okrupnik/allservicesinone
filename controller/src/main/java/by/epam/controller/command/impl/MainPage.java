@@ -16,13 +16,12 @@ public class MainPage implements Command {
 	private static final Logger log = LoggerFactory.getLogger(MainPage.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) {
 		String local = null;
 		local = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 		if (local == null) {
 			local = ControllerConstant.LOCALE_EN_PARAM_NAME;
 		}
-//		String getParam = request.getLocale().getLanguage();
 		request.getSession(true).setAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE, local);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.MAIN_PAGE);

@@ -20,12 +20,11 @@ public class DeleteUser implements Command{
 	private static final Logger log = LoggerFactory.getLogger(DeleteUser.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) {
 
 		String username = request.getParameter(ParamAndAttribute.USERNAME_PARAM_NAME);
 
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		UserService userService = serviceFactory.getUserService();
+		UserService userService = ServiceFactory.getInstatnce().getUserService();
 		HttpSession session = request.getSession();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 		

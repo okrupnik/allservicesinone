@@ -24,7 +24,7 @@ public class EditOrderUser implements Command{
 	private static final Logger log = LoggerFactory.getLogger(EditOrderUser.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		int idOrder = 0;
 		String titleOrder = null;
 		int idSpecialization = 0;
@@ -54,8 +54,7 @@ public class EditOrderUser implements Command{
 				.setEndDate(endDate).setDateOfCreating(dateOfCreating).setAddress(address).setAttachment(attachment)
 				.build();
 
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		OrderService orderService = serviceFactory.getOrderService();
+		OrderService orderService = ServiceFactory.getInstatnce().getOrderService();
 		HttpSession session = request.getSession();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 		

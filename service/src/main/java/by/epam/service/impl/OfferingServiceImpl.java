@@ -20,6 +20,9 @@ public class OfferingServiceImpl implements OfferingService {
 
 	public Map<String, Integer> pagesDetails = new HashMap<>();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Offering> getAllOfferingForOrder(final String idOrder, final String page, final String locale)
 			throws ServiceException {
@@ -59,6 +62,9 @@ public class OfferingServiceImpl implements OfferingService {
 		return offeringList;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean selectPerformerForOrder(final String username, final String idOrder, final String locale)
 			throws ServiceException {
@@ -89,6 +95,9 @@ public class OfferingServiceImpl implements OfferingService {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean addOfferfingToOrder(final User user, final String idOrder, final String description,
 			final String locale) throws ServiceException {
@@ -119,6 +128,9 @@ public class OfferingServiceImpl implements OfferingService {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Offering> getOfferingsOfUser(final User user, final String page, final String locale) throws ServiceException {
 
@@ -156,6 +168,9 @@ public class OfferingServiceImpl implements OfferingService {
 		return offeringList;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean edit(final String idOffering, final String description, final String locale) throws ServiceException {
 
@@ -186,6 +201,9 @@ public class OfferingServiceImpl implements OfferingService {
 		}		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean delete(final String idOffering, final String locale) throws ServiceException {
 
@@ -216,6 +234,9 @@ public class OfferingServiceImpl implements OfferingService {
 		}		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Offering> getOfferingsOfUserByAdmin(final User user, final String page, final String locale) throws ServiceException {
 

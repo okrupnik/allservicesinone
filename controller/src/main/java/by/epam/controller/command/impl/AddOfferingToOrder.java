@@ -21,14 +21,13 @@ public class AddOfferingToOrder implements Command{
 	private static final Logger log = LoggerFactory.getLogger(AddOfferingToOrder.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		
 		String idOrder = request.getParameter(ParamAndAttribute.ORDER_ID_PARAM_NAME);
 		String description = request.getParameter(ParamAndAttribute.DESCRIPTION_PARAM_NAME);
 		User user = (User) request.getSession().getAttribute(ParamAndAttribute.USER_ATTRIBUTE); 
 		
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		OfferingService offeringService = serviceFactory.getOfferingService();
+		OfferingService offeringService = ServiceFactory.getInstatnce().getOfferingService();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 		HttpSession session = request.getSession();
 		

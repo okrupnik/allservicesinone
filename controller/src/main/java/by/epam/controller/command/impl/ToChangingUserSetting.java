@@ -16,7 +16,7 @@ public class ToChangingUserSetting implements Command{
 	private static final Logger log = LoggerFactory.getLogger(ToChangingUserSetting.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) {
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.USER_SETTING_PAGE);		
 		try {

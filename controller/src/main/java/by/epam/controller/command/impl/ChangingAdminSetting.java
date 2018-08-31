@@ -21,11 +21,12 @@ import by.epam.service.ServiceFactory;
 import by.epam.service.UserService;
 import by.epam.service.exception.ServiceException;
 
-public class ChangingAdminSetting implements Command{
+public class ChangingAdminSetting implements Command {
 	private static final Logger log = LoggerFactory.getLogger(ChangingAdminSetting.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String photo = null;
 		String typePerson = null;
@@ -34,7 +35,7 @@ public class ChangingAdminSetting implements Command{
 		String name = null;
 		String surname = null;
 		String address = null;
-		
+
 		User user = (User) request.getSession(true).getAttribute(ParamAndAttribute.USER_ATTRIBUTE);
 		typePerson = request.getParameter(ParamAndAttribute.TYPE_PERSON_PARAM_NAME);
 		email = request.getParameter(ParamAndAttribute.EMAIL_PARAM_NAME);
@@ -43,17 +44,16 @@ public class ChangingAdminSetting implements Command{
 		photo = request.getParameter(ParamAndAttribute.PHOTO_PARAM_NAME);
 		name = request.getParameter(ParamAndAttribute.NAME_PARAM_NAME);
 		surname = request.getParameter(ParamAndAttribute.SURNAME_PARAM_NAME);
-		
-		user = new User.Builder().setUsername(user.getUsername())
-				.setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email).setPhoneNumber(phoneNumber)
-				.setAddress(address).setPhoto(photo)
-				.setRole(new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build())
-				.setPerson(new Person.Builder().setTypePerson(typePerson).build())
-				.setServiceStaffInfo(new ServiceStaffInfo.Builder().setName(name).setSurname(surname).build())
-				.build();
-		
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		UserService userService = serviceFactory.getUserService();
+
+		Role role = new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build();
+		Person person = new Person.Builder().setTypePerson(typePerson).build();
+		ServiceStaffInfo serviceStaffInfo = new ServiceStaffInfo.Builder().setName(name).setSurname(surname).build();
+
+		user = new User.Builder().setUsername(user.getUsername()).setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME)
+				.setEmail(email).setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo).setRole(role)
+				.setPerson(person).setServiceStaffInfo(serviceStaffInfo).build();
+
+		UserService userService = ServiceFactory.getInstatnce().getUserService();
 		HttpSession session = request.getSession();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 
@@ -84,7 +84,7 @@ public class ChangingAdminSetting implements Command{
 			for (StackTraceElement stackTraceElement : e.getStackTrace()) {
 				log.error(stackTraceElement.toString());
 			}
-		}		
+		}
 	}
 
 }

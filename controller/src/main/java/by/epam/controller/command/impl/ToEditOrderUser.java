@@ -23,7 +23,7 @@ public class ToEditOrderUser implements Command{
 	private static final Logger log = LoggerFactory.getLogger(ToEditOrderUser.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		
 		String locale = null;
 		String orderId = null;
@@ -34,9 +34,8 @@ public class ToEditOrderUser implements Command{
 		orderId = request.getParameter(ParamAndAttribute.ORDER_ID_PARAM_NAME);
 		activitieSpecialization = request.getParameter(ParamAndAttribute.ACTIVE_SPECIALIZATION_PARAM_NAME);
 		
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		SpecializationService specializationService = serviceFactory.getSpecializationService();
-		OrderService orderService = serviceFactory.getOrderService();
+		SpecializationService specializationService = ServiceFactory.getInstatnce().getSpecializationService();
+		OrderService orderService = ServiceFactory.getInstatnce().getOrderService();
 		Specialization specialization = null;
 		HttpSession session = request.getSession();
 		

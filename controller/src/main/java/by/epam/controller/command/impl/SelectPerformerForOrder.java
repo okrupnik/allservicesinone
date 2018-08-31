@@ -20,13 +20,12 @@ public class SelectPerformerForOrder implements Command{
 	private static final Logger log = LoggerFactory.getLogger(SelectPerformerForOrder.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 
 		String username = request.getParameter(ParamAndAttribute.USERNAME_PARAM_NAME);
 		String idOrder = request.getParameter(ParamAndAttribute.ORDER_ID_PARAM_NAME);
 		
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		OfferingService offeringService = serviceFactory.getOfferingService();
+		OfferingService offeringService = ServiceFactory.getInstatnce().getOfferingService();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 		HttpSession session = request.getSession();
 		

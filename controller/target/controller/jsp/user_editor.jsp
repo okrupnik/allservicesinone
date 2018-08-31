@@ -15,6 +15,9 @@
 <fmt:message bundle="${loc}" key="locale.user.edit.typePerson.text" var="typePersonText" />
 <fmt:message bundle="${loc}" key="locale.user.edit.edit.text" var="editText" />
 <fmt:message bundle="${loc}" key="locale.user.edit.delete.text" var="deleteText" />
+<fmt:message bundle="${loc}" key="locale.user.edit.orderoroffer.text" var="orderOrOfferText" />
+<fmt:message bundle="${loc}" key="locale.user.edit.order.text" var="orderText" />
+<fmt:message bundle="${loc}" key="locale.user.edit.offer.text" var="offerText" />
 <fmt:message bundle="${loc}" key="locale.user.edit.previous.text" var="previousText" />
 <fmt:message bundle="${loc}" key="locale.user.edit.next.text" var="nextText" />
 <fmt:message bundle="${loc}" key="locale.user.edit.modal.title.text" var="modalTitleText" />
@@ -57,7 +60,8 @@
                 <div class="modal-body delete-user">
                 	<form method="post" action="/controller/Controler" role="form" role="form">
 						<input type="hidden" name="command" value="cn.user.delete.page">
-                    	<input class="modal-form-control" id="login-username" type="text" name="username" value=""  >
+						<input type="hidden" id="login-username" name="username" value="">
+                    	<label for="user" id="user-label"></label>
                     	<div class="modal-footer">
                     		<button type="submit" class="btn btn-primary">${yesText}</button>   
                     		<button type="button" class="btn btn-secondary" data-dismiss="modal">${noText}</button>
@@ -92,6 +96,7 @@
                         <th scope="col">${typePersonText}</th>
                         <th scope="col">${editText}</th>
                         <th scope="col">${deleteText}</th>
+                        <th scope="col">${orderOrOfferText}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -104,7 +109,7 @@
                             <td>${user.role.typeRole}</td>
                             <td>${user.person.typePerson}</td>
                             <td>
-                                <form method="post" action="/controller/Controler" role="form" role="form">
+                                <form method="get" action="/controller/Controler" role="form" role="form">
                                     <input type="hidden" name="command" value="cn.admin.to.user.settings.page">
                                     <input type="hidden" name="username" value="${user.username}">
                                     <button type="submit" class="btn btn-primary">${editText}</button>
@@ -112,6 +117,24 @@
                             </td>
                             <td>                            	
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal" data-usernamedel="${user.username}">${deleteText}</button>
+                            </td>
+                            <td>        
+                            	<c:if test="${user.role.typeRole=='user' && user.person.typePerson=='customer'}">
+                                	<form method="get" action="/controller/Controler" role="form" role="form">
+                                   		<input type="hidden" name="command" value="cn.admin.show.orders.user.page">
+                                   		<input type="hidden" name="username" value="${user.username}">
+                                   		<c:remove var="selecteduser" scope="session" />
+                                   		<button type="submit" class="btn btn-primary">${orderText}</button>
+                                	</form>
+                            	</c:if>
+                            	<c:if test="${user.role.typeRole=='user' && user.person.typePerson=='performer'}">
+                                	<form method="get" action="/controller/Controler" role="form" role="form">
+                                   		<input type="hidden" name="command" value="cn.admin.show.offering.user.page">
+                                   		<input type="hidden" name="username" value="${user.username}">
+                                   		<c:remove var="selecteduser" scope="session" />
+                                   		<button type="submit" class="btn btn-primary">${offerText}</button>
+                                	</form>
+                            	</c:if>
                             </td>
                         </tr>
                     </c:forEach>
@@ -243,6 +266,7 @@
     		var $modal = $(this),
     			usernamedel = e.relatedTarget.dataset.usernamedel;
     		document.getElementById('login-username').value = usernamedel;
+    		document.getElementById('user-label').innerHTML = usernamedel;
     	})
  	</script>
 </body>

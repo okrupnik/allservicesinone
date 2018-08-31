@@ -613,12 +613,15 @@ public class SQLUserDAO implements UserDAO {
 					name = resultSet.getString(DAOConstant.NAME_PARAM_NAME);
 					surname = resultSet.getString(DAOConstant.SURNAME_PARAM_NAME);
 				}
-				user = new User.Builder().setUsername(username).setIsDelete(isDelete).setEmail(email)
-						.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
-						.setRole(new Role.Builder().setTypeRole(role).build())
-						.setPerson(new Person.Builder().setTypePerson(typePerson).build())
-						.setServiceStaffInfo(new ServiceStaffInfo.Builder().setName(name).setSurname(surname).build())
+
+				Role roleService = new Role.Builder().setTypeRole(role).build();
+				Person person = new Person.Builder().setTypePerson(typePerson).build();
+				ServiceStaffInfo serviceStaffInfo = new ServiceStaffInfo.Builder().setName(name).setSurname(surname)
 						.build();
+
+				user = new User.Builder().setUsername(username).setIsDelete(isDelete).setEmail(email)
+						.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo).setRole(roleService)
+						.setPerson(person).setServiceStaffInfo(serviceStaffInfo).build();
 			} else {
 				if (typePerson.equals(DAOConstant.CUSTOMER_PARAM_NAME)) {
 					preparedStatement = connection.prepareStatement(SQLRequest.SELECT_CUSTOMER);
@@ -636,15 +639,18 @@ public class SQLUserDAO implements UserDAO {
 							name = resultSet.getString(DAOConstant.NAME_PARAM_NAME);
 							surname = resultSet.getString(DAOConstant.SURNAME_PARAM_NAME);
 						}
+
+						Role roleCustomerNatural = new Role.Builder().setTypeRole(role).build();
+						Person personNatural = new Person.Builder().setTypePerson(typePerson).build();
+						Ownership ownershipNatural = new Ownership.Builder().setFormOwnership(formOwnership).build();
+						NaturalCustomerInfo naturalCustomerInfo = new NaturalCustomerInfo.Builder().setName(name)
+								.setSurname(surname).build();
+						Customer customerNatural = new Customer.Builder().setOwnership(ownershipNatural)
+								.setNaturalCustomerInfo(naturalCustomerInfo).build();
+
 						user = new User.Builder().setUsername(username).setIsDelete(isDelete).setEmail(email)
 								.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
-								.setRole(new Role.Builder().setTypeRole(role).build())
-								.setPerson(new Person.Builder().setTypePerson(typePerson).build())
-								.setCustomer(new Customer.Builder()
-										.setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build())
-										.setNaturalCustomerInfo(new NaturalCustomerInfo.Builder().setName(name)
-												.setSurname(surname).build())
-										.build())
+								.setRole(roleCustomerNatural).setPerson(personNatural).setCustomer(customerNatural)
 								.build();
 						break;
 					case DAOConstant.CUSTOMER_LEGAL_PARAM_NAME:
@@ -657,17 +663,19 @@ public class SQLUserDAO implements UserDAO {
 							requisites = resultSet.getString(DAOConstant.REQUISITES_PARAM_NAME);
 							copyRegistration = resultSet.getString(DAOConstant.COPY_REGISTTRATION_PARAM_NAME);
 						}
+
+						Role roleCustomerLegal = new Role.Builder().setTypeRole(role).build();
+						Person personLegal = new Person.Builder().setTypePerson(typePerson).build();
+						Ownership ownershipLegal = new Ownership.Builder().setFormOwnership(formOwnership).build();
+						LegalCustomerInfo legalCustomerInfo = new LegalCustomerInfo.Builder().setName(name)
+								.setSurname(surname).setRequisites(requisites).setCopyRegistration(copyRegistration)
+								.build();
+						Customer customerLegal = new Customer.Builder().setOwnership(ownershipLegal)
+								.setLegalCustomerInfo(legalCustomerInfo).build();
+
 						user = new User.Builder().setUsername(username).setIsDelete(isDelete).setEmail(email)
 								.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
-								.setRole(new Role.Builder().setTypeRole(role).build())
-								.setPerson(new Person.Builder().setTypePerson(typePerson).build())
-								.setCustomer(new Customer.Builder()
-										.setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build())
-										.setLegalCustomerInfo(new LegalCustomerInfo.Builder().setName(name)
-												.setSurname(surname).setRequisites(requisites)
-												.setCopyRegistration(copyRegistration).build())
-										.build())
-								.build();
+								.setRole(roleCustomerLegal).setPerson(personLegal).setCustomer(customerLegal).build();
 						break;
 					case DAOConstant.CUSTOMER_COMPANY_PARAM_NAME:
 						preparedStatement = connection.prepareStatement(SQLRequest.SELECT_CUSTOMER_COMPANY);
@@ -680,16 +688,19 @@ public class SQLUserDAO implements UserDAO {
 							requisites = resultSet.getString(DAOConstant.REQUISITES_PARAM_NAME);
 							description = resultSet.getString(DAOConstant.DESCRIPTION_PARAM_NAME);
 						}
+
+						Role roleCustomerCompany = new Role.Builder().setTypeRole(role).build();
+						Person personCompany = new Person.Builder().setTypePerson(typePerson).build();
+						CompanyCustomerInfo companyCustomerInfo = new CompanyCustomerInfo.Builder()
+								.setNameCompany(companyName).setNameAgent(name).setSurnameAgent(surname)
+								.setRequisites(requisites).setDescription(description).build();
+						Ownership ownershipCompany = new Ownership.Builder().setFormOwnership(formOwnership).build();
+						Customer customerCompany = new Customer.Builder().setOwnership(ownershipCompany)
+								.setCompanyCustomerInfo(companyCustomerInfo).build();
+
 						user = user = new User.Builder().setUsername(username).setIsDelete(isDelete).setEmail(email)
 								.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
-								.setRole(new Role.Builder().setTypeRole(role).build())
-								.setPerson(new Person.Builder().setTypePerson(typePerson).build())
-								.setCustomer(new Customer.Builder()
-										.setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build())
-										.setCompanyCustomerInfo(new CompanyCustomerInfo.Builder()
-												.setNameCompany(companyName).setNameAgent(name).setSurnameAgent(surname)
-												.setRequisites(requisites).setDescription(description).build())
-										.build())
+								.setRole(roleCustomerCompany).setPerson(personCompany).setCustomer(customerCompany)
 								.build();
 						break;
 					}
@@ -713,16 +724,18 @@ public class SQLUserDAO implements UserDAO {
 								surname = resultSet.getString(DAOConstant.SURNAME_PARAM_NAME);
 								copyRegistration = resultSet.getString(DAOConstant.COPY_REGISTTRATION_PARAM_NAME);
 							}
+
+							Role rolePerformerLegal = new Role.Builder().setTypeRole(role).build();
+							Person personLegal = new Person.Builder().setTypePerson(typePerson).build();
+							Ownership ownershipLegal = new Ownership.Builder().setFormOwnership(formOwnership).build();
+							LegalPerformerInfo legalPerformerInfo = new LegalPerformerInfo.Builder().setName(name)
+									.setSurname(surname).setCopyRegistration(copyRegistration).build();
+							Performer performerLegal = new Performer.Builder().setRequisites(requisites)
+									.setOwnership(ownershipLegal).setLegalPerformerInfo(legalPerformerInfo).build();
+
 							user = new User.Builder().setUsername(username).setIsDelete(isDelete).setEmail(email)
 									.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
-									.setRole(new Role.Builder().setTypeRole(role).build())
-									.setPerson(new Person.Builder().setTypePerson(typePerson).build())
-									.setPerformer(new Performer.Builder().setRequisites(requisites)
-											.setOwnership(
-													new Ownership.Builder().setFormOwnership(formOwnership).build())
-											.setLegalPerformerInfo(new LegalPerformerInfo.Builder().setName(name)
-													.setSurname(surname).setCopyRegistration(copyRegistration).build())
-											.build())
+									.setRole(rolePerformerLegal).setPerson(personLegal).setPerformer(performerLegal)
 									.build();
 							break;
 						case DAOConstant.PERFORMER_COMPANY_PARAM_NAME:
@@ -735,18 +748,22 @@ public class SQLUserDAO implements UserDAO {
 								surname = resultSet.getString(DAOConstant.SURNAME_AGENT_PARAM_NAME);
 								description = resultSet.getString(DAOConstant.DESCRIPTION_PARAM_NAME);
 							}
+
+							Role rolePerformerCompany = new Role.Builder().setTypeRole(role).build();
+							Person personCompany = new Person.Builder().setTypePerson(typePerson).build();
+							Ownership ownershipCompany = new Ownership.Builder().setFormOwnership(formOwnership)
+									.build();
+							CompanyPerformerInfo companyPerformerInfo = new CompanyPerformerInfo.Builder()
+									.setNameCompany(companyName).setNameAgent(name).setSurnameAgent(surname)
+									.setDescription(description).build();
+							Performer performerCompany = new Performer.Builder().setRequisites(requisites)
+									.setOwnership(ownershipCompany).setCompanyPerformerInfo(companyPerformerInfo)
+									.build();
+
 							user = new User.Builder().setUsername(username).setIsDelete(isDelete).setEmail(email)
 									.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
-									.setRole(new Role.Builder().setTypeRole(role).build())
-									.setPerson(new Person.Builder().setTypePerson(typePerson).build())
-									.setPerformer(new Performer.Builder().setRequisites(requisites)
-											.setOwnership(
-													new Ownership.Builder().setFormOwnership(formOwnership).build())
-											.setCompanyPerformerInfo(new CompanyPerformerInfo.Builder()
-													.setNameCompany(companyName).setNameAgent(name)
-													.setSurnameAgent(surname).setDescription(description).build())
-											.build())
-									.build();
+									.setRole(rolePerformerCompany).setPerson(personCompany)
+									.setPerformer(performerCompany).build();
 							break;
 						}
 					}
@@ -1223,10 +1240,13 @@ public class SQLUserDAO implements UserDAO {
 				photo = resultSet.getString(DAOConstant.PHOTO_PARAM_NAME);
 				role = resultSet.getString(DAOConstant.ROLE_PARAM_NAME);
 				typePerson = resultSet.getString(DAOConstant.TYPE_PERSON_PARAM_NAME);
+
+				Role roleUser = new Role.Builder().setTypeRole(role).build();
+				Person person = new Person.Builder().setTypePerson(typePerson).build();
+
 				user = new User.Builder().setUsername(userName).setIsDelete(isDelete).setEmail(email)
-						.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
-						.setRole(new Role.Builder().setTypeRole(role).build())
-						.setPerson(new Person.Builder().setTypePerson(typePerson).build()).build();
+						.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo).setRole(roleUser)
+						.setPerson(person).build();
 				userList.add(user);
 
 			}
@@ -1317,12 +1337,15 @@ public class SQLUserDAO implements UserDAO {
 					name = resultSet.getString(DAOConstant.NAME_PARAM_NAME);
 					surname = resultSet.getString(DAOConstant.SURNAME_PARAM_NAME);
 				}
-				user = new User.Builder().setUsername(username).setIsDelete(isDelete).setEmail(email)
-						.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
-						.setRole(new Role.Builder().setTypeRole(role).build())
-						.setPerson(new Person.Builder().setTypePerson(typePerson).build())
-						.setServiceStaffInfo(new ServiceStaffInfo.Builder().setName(name).setSurname(surname).build())
+
+				Role roleService = new Role.Builder().setTypeRole(role).build();
+				Person person = new Person.Builder().setTypePerson(typePerson).build();
+				ServiceStaffInfo serviceStaffInfo = new ServiceStaffInfo.Builder().setName(name).setSurname(surname)
 						.build();
+
+				user = new User.Builder().setUsername(username).setIsDelete(isDelete).setEmail(email)
+						.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo).setRole(roleService)
+						.setPerson(person).setServiceStaffInfo(serviceStaffInfo).build();
 			} else {
 				if (typePerson.equals(DAOConstant.CUSTOMER_PARAM_NAME)) {
 					preparedStatement = connection.prepareStatement(SQLRequest.SELECT_CUSTOMER);
@@ -1340,15 +1363,18 @@ public class SQLUserDAO implements UserDAO {
 							name = resultSet.getString(DAOConstant.NAME_PARAM_NAME);
 							surname = resultSet.getString(DAOConstant.SURNAME_PARAM_NAME);
 						}
+
+						Role roleCustomerNatural = new Role.Builder().setTypeRole(role).build();
+						Person personNatural = new Person.Builder().setTypePerson(typePerson).build();
+						Ownership ownershipNatural = new Ownership.Builder().setFormOwnership(formOwnership).build();
+						NaturalCustomerInfo naturalCustomerInfo = new NaturalCustomerInfo.Builder().setName(name)
+								.setSurname(surname).build();
+						Customer customerNatural = new Customer.Builder().setOwnership(ownershipNatural)
+								.setNaturalCustomerInfo(naturalCustomerInfo).build();
+
 						user = new User.Builder().setUsername(username).setIsDelete(isDelete).setEmail(email)
 								.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
-								.setRole(new Role.Builder().setTypeRole(role).build())
-								.setPerson(new Person.Builder().setTypePerson(typePerson).build())
-								.setCustomer(new Customer.Builder()
-										.setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build())
-										.setNaturalCustomerInfo(new NaturalCustomerInfo.Builder().setName(name)
-												.setSurname(surname).build())
-										.build())
+								.setRole(roleCustomerNatural).setPerson(personNatural).setCustomer(customerNatural)
 								.build();
 						break;
 					case DAOConstant.CUSTOMER_LEGAL_PARAM_NAME:
@@ -1361,17 +1387,19 @@ public class SQLUserDAO implements UserDAO {
 							requisites = resultSet.getString(DAOConstant.REQUISITES_PARAM_NAME);
 							copyRegistration = resultSet.getString(DAOConstant.COPY_REGISTTRATION_PARAM_NAME);
 						}
+
+						Role roleCustomerLegal = new Role.Builder().setTypeRole(role).build();
+						Person personLegal = new Person.Builder().setTypePerson(typePerson).build();
+						Ownership ownershipLegal = new Ownership.Builder().setFormOwnership(formOwnership).build();
+						LegalCustomerInfo legalCustomerInfo = new LegalCustomerInfo.Builder().setName(name)
+								.setSurname(surname).setRequisites(requisites).setCopyRegistration(copyRegistration)
+								.build();
+						Customer customerLegal = new Customer.Builder().setOwnership(ownershipLegal)
+								.setLegalCustomerInfo(legalCustomerInfo).build();
+
 						user = new User.Builder().setUsername(username).setIsDelete(isDelete).setEmail(email)
 								.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
-								.setRole(new Role.Builder().setTypeRole(role).build())
-								.setPerson(new Person.Builder().setTypePerson(typePerson).build())
-								.setCustomer(new Customer.Builder()
-										.setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build())
-										.setLegalCustomerInfo(new LegalCustomerInfo.Builder().setName(name)
-												.setSurname(surname).setRequisites(requisites)
-												.setCopyRegistration(copyRegistration).build())
-										.build())
-								.build();
+								.setRole(roleCustomerLegal).setPerson(personLegal).setCustomer(customerLegal).build();
 						break;
 					case DAOConstant.CUSTOMER_COMPANY_PARAM_NAME:
 						preparedStatement = connection.prepareStatement(SQLRequest.SELECT_CUSTOMER_COMPANY);
@@ -1384,16 +1412,19 @@ public class SQLUserDAO implements UserDAO {
 							requisites = resultSet.getString(DAOConstant.REQUISITES_PARAM_NAME);
 							description = resultSet.getString(DAOConstant.DESCRIPTION_PARAM_NAME);
 						}
+
+						Role roleCustomerCompany = new Role.Builder().setTypeRole(role).build();
+						Person personCompany = new Person.Builder().setTypePerson(typePerson).build();
+						CompanyCustomerInfo companyCustomerInfo = new CompanyCustomerInfo.Builder()
+								.setNameCompany(companyName).setNameAgent(name).setSurnameAgent(surname)
+								.setRequisites(requisites).setDescription(description).build();
+						Ownership ownershipCompany = new Ownership.Builder().setFormOwnership(formOwnership).build();
+						Customer customerCompany = new Customer.Builder().setOwnership(ownershipCompany)
+								.setCompanyCustomerInfo(companyCustomerInfo).build();
+
 						user = user = new User.Builder().setUsername(username).setIsDelete(isDelete).setEmail(email)
 								.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
-								.setRole(new Role.Builder().setTypeRole(role).build())
-								.setPerson(new Person.Builder().setTypePerson(typePerson).build())
-								.setCustomer(new Customer.Builder()
-										.setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build())
-										.setCompanyCustomerInfo(new CompanyCustomerInfo.Builder()
-												.setNameCompany(companyName).setNameAgent(name).setSurnameAgent(surname)
-												.setRequisites(requisites).setDescription(description).build())
-										.build())
+								.setRole(roleCustomerCompany).setPerson(personCompany).setCustomer(customerCompany)
 								.build();
 						break;
 					}
@@ -1417,16 +1448,18 @@ public class SQLUserDAO implements UserDAO {
 								surname = resultSet.getString(DAOConstant.SURNAME_PARAM_NAME);
 								copyRegistration = resultSet.getString(DAOConstant.COPY_REGISTTRATION_PARAM_NAME);
 							}
+
+							Role rolePerformerLegal = new Role.Builder().setTypeRole(role).build();
+							Person personLegal = new Person.Builder().setTypePerson(typePerson).build();
+							Ownership ownershipLegal = new Ownership.Builder().setFormOwnership(formOwnership).build();
+							LegalPerformerInfo legalPerformerInfo = new LegalPerformerInfo.Builder().setName(name)
+									.setSurname(surname).setCopyRegistration(copyRegistration).build();
+							Performer performerLegal = new Performer.Builder().setRequisites(requisites)
+									.setOwnership(ownershipLegal).setLegalPerformerInfo(legalPerformerInfo).build();
+
 							user = new User.Builder().setUsername(username).setIsDelete(isDelete).setEmail(email)
 									.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
-									.setRole(new Role.Builder().setTypeRole(role).build())
-									.setPerson(new Person.Builder().setTypePerson(typePerson).build())
-									.setPerformer(new Performer.Builder().setRequisites(requisites)
-											.setOwnership(
-													new Ownership.Builder().setFormOwnership(formOwnership).build())
-											.setLegalPerformerInfo(new LegalPerformerInfo.Builder().setName(name)
-													.setSurname(surname).setCopyRegistration(copyRegistration).build())
-											.build())
+									.setRole(rolePerformerLegal).setPerson(personLegal).setPerformer(performerLegal)
 									.build();
 							break;
 						case DAOConstant.PERFORMER_COMPANY_PARAM_NAME:
@@ -1439,18 +1472,22 @@ public class SQLUserDAO implements UserDAO {
 								surname = resultSet.getString(DAOConstant.SURNAME_AGENT_PARAM_NAME);
 								description = resultSet.getString(DAOConstant.DESCRIPTION_PARAM_NAME);
 							}
+
+							Role rolePerformerCompany = new Role.Builder().setTypeRole(role).build();
+							Person personCompany = new Person.Builder().setTypePerson(typePerson).build();
+							Ownership ownershipCompany = new Ownership.Builder().setFormOwnership(formOwnership)
+									.build();
+							CompanyPerformerInfo companyPerformerInfo = new CompanyPerformerInfo.Builder()
+									.setNameCompany(companyName).setNameAgent(name).setSurnameAgent(surname)
+									.setDescription(description).build();
+							Performer performerCompany = new Performer.Builder().setRequisites(requisites)
+									.setOwnership(ownershipCompany).setCompanyPerformerInfo(companyPerformerInfo)
+									.build();
+
 							user = new User.Builder().setUsername(username).setIsDelete(isDelete).setEmail(email)
 									.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
-									.setRole(new Role.Builder().setTypeRole(role).build())
-									.setPerson(new Person.Builder().setTypePerson(typePerson).build())
-									.setPerformer(new Performer.Builder().setRequisites(requisites)
-											.setOwnership(
-													new Ownership.Builder().setFormOwnership(formOwnership).build())
-											.setCompanyPerformerInfo(new CompanyPerformerInfo.Builder()
-													.setNameCompany(companyName).setNameAgent(name)
-													.setSurnameAgent(surname).setDescription(description).build())
-											.build())
-									.build();
+									.setRole(rolePerformerCompany).setPerson(personCompany)
+									.setPerformer(performerCompany).build();
 							break;
 						}
 					}
@@ -1535,13 +1572,15 @@ public class SQLUserDAO implements UserDAO {
 				typePerson = resultSet.getString(DAOConstant.TYPE_PERSON_PARAM_NAME);
 				requisites = resultSet.getString(DAOConstant.REQUISITES_PARAM_NAME);
 				formOwnership = resultSet.getString(DAOConstant.FORM_OWNERSHIP_PARAM_NAME);
+
+				Role roleUser = new Role.Builder().setTypeRole(role).build();
+				Person person = new Person.Builder().setTypePerson(typePerson).build();
+				Ownership ownership = new Ownership.Builder().setFormOwnership(formOwnership).build();
+				performer = new Performer.Builder().setRequisites(requisites).setOwnership(ownership).build();
+
 				user = new User.Builder().setUsername(userName).setIsDelete(isDelete).setEmail(email)
-						.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
-						.setRole(new Role.Builder().setTypeRole(role).build())
-						.setPerson(new Person.Builder().setTypePerson(typePerson).build())
-						.setPerformer(new Performer.Builder().setRequisites(requisites)
-								.setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build()).build())
-						.build();
+						.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo).setRole(roleUser)
+						.setPerson(person).setPerformer(performer).build();
 				userList.add(user);
 			}
 			resultSet = preparedStatement.executeQuery(SQLRequest.SELECT_COUNT_USER);
@@ -1574,11 +1613,12 @@ public class SQLUserDAO implements UserDAO {
 						nameCompany = resultSet.getString(DAOConstant.COMPANY_PARAM_NAME);
 						name = resultSet.getString(DAOConstant.NAME_AGENT_PARAM_NAME);
 						surname = resultSet.getString(DAOConstant.SURNAME_AGENT_PARAM_NAME);
-						description = resultSet.getString(DAOConstant.SURNAME_AGENT_PARAM_NAME);
+						description = resultSet.getString(DAOConstant.DESCRIPTION_PARAM_NAME);
 						performer = new Performer.Builder().setRequisites(tempUser.getPerformer().getRequisites())
 								.setOwnership(tempUser.getPerformer().getOwnership())
-								.setCompanyPerformerInfo(
-										new CompanyPerformerInfo.Builder().setNameCompany(nameCompany).setNameAgent(name).setSurnameAgent(surname).setDescription(description).build())
+								.setCompanyPerformerInfo(new CompanyPerformerInfo.Builder().setNameCompany(nameCompany)
+										.setNameAgent(name).setSurnameAgent(surname).setDescription(description)
+										.build())
 								.build();
 						tempUser.setPerformer(performer);
 					}

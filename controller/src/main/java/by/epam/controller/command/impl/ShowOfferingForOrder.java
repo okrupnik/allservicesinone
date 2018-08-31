@@ -23,13 +23,12 @@ public class ShowOfferingForOrder implements Command{
 	private static final Logger log = LoggerFactory.getLogger(ShowOfferingForOrder.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		
 		List<Offering> offeringList = null;
 		String idOrder = null;
 		String orderTitle = null;
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		OfferingService offeringService = serviceFactory.getOfferingService();
+		OfferingService offeringService = ServiceFactory.getInstatnce().getOfferingService();
 			
 		idOrder = request.getParameter(ParamAndAttribute.ORDER_ID_PARAM_NAME);
 		HttpSession session = request.getSession();

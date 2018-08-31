@@ -23,11 +23,12 @@ import by.epam.service.ServiceFactory;
 import by.epam.service.UserService;
 import by.epam.service.exception.ServiceException;
 
-public class ChangingPerformerCompanySettingByAdmin implements Command{
+public class ChangingPerformerCompanySettingByAdmin implements Command {
 	private static final Logger log = LoggerFactory.getLogger(ChangingPerformerCompanySettingByAdmin.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String photo = null;
 		String typePerson = null;
@@ -40,7 +41,7 @@ public class ChangingPerformerCompanySettingByAdmin implements Command{
 		String requisites = null;
 		String companyName = null;
 		String description = null;
-		
+
 		User selectedUser = (User) request.getSession(true).getAttribute(ParamAndAttribute.SELECTED_USER_ATTRIBUTE);
 		typePerson = request.getParameter(ParamAndAttribute.TYPE_PERSON_PARAM_NAME);
 		formOwnership = request.getParameter(ParamAndAttribute.FORM_OWNERSHIP_PARAM_NAME);
@@ -56,22 +57,21 @@ public class ChangingPerformerCompanySettingByAdmin implements Command{
 		surname = request.getParameter(ParamAndAttribute.SURNAME_AGENT_PARAM_NAME);
 		requisites = request.getParameter(ParamAndAttribute.REQUISITES_PARAM_NAME);
 		description = request.getParameter(ParamAndAttribute.DESCRIPTION_PARAM_NAME);
-		
+
+		Role role = new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build();
+		Person person = new Person.Builder().setTypePerson(typePerson).build();
+		Ownership ownership = new Ownership.Builder().setFormOwnership(formOwnership).build();
+		CompanyPerformerInfo companyPerformerInfo = new CompanyPerformerInfo.Builder().setNameCompany(companyName)
+				.setNameAgent(name).setSurnameAgent(surname).setDescription(description).build();
+		Performer performerCompany = new Performer.Builder().setRequisites(requisites).setOwnership(ownership)
+				.setCompanyPerformerInfo(companyPerformerInfo).build();
+
 		selectedUser = new User.Builder().setUsername(selectedUser.getUsername())
-				.setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email)
-				.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
-				.setRole(new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build())
-				.setPerson(new Person.Builder().setTypePerson(typePerson).build())
-				.setPerformer(new Performer.Builder().setRequisites(requisites)
-						.setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build())
-						.setCompanyPerformerInfo(new CompanyPerformerInfo.Builder()
-								.setNameCompany(companyName).setNameAgent(name).setSurnameAgent(surname)
-								.setDescription(description).build())
-						.build())
+				.setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email).setPhoneNumber(phoneNumber)
+				.setAddress(address).setPhoto(photo).setRole(role).setPerson(person).setPerformer(performerCompany)
 				.build();
-		
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		UserService userService = serviceFactory.getUserService();
+
+		UserService userService = ServiceFactory.getInstatnce().getUserService();
 		HttpSession session = request.getSession();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 
@@ -102,7 +102,7 @@ public class ChangingPerformerCompanySettingByAdmin implements Command{
 			for (StackTraceElement stackTraceElement : e.getStackTrace()) {
 				log.error(stackTraceElement.toString());
 			}
-		}						
+		}
 	}
 
 }

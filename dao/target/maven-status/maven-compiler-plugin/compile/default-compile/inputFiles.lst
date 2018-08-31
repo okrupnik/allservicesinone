@@ -10,6 +10,7 @@ D:\Programming\Java\Epam\Project\allservicesinone\dao\src\main\java\by\epam\dao\
 D:\Programming\Java\Epam\Project\allservicesinone\dao\src\main\java\by\epam\dao\impl\SQLUserDAO.java
 D:\Programming\Java\Epam\Project\allservicesinone\dao\src\main\java\by\epam\dao\OfferingDAO.java
 D:\Programming\Java\Epam\Project\allservicesinone\dao\src\main\java\by\epam\dao\UserDAO.java
+D:\Programming\Java\Epam\Project\allservicesinone\dao\src\main\java\by\epam\dao\impl\SQLOfferingDAO.java
 D:\Programming\Java\Epam\Project\allservicesinone\dao\src\main\java\by\epam\dao\PerformerDAO.java
 D:\Programming\Java\Epam\Project\allservicesinone\dao\src\main\java\by\epam\dao\SpecializationDAO.java
 D:\Programming\Java\Epam\Project\allservicesinone\dao\src\main\java\by\epam\dao\connectionpool\DBResourceManager.java

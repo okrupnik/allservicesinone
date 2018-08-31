@@ -22,6 +22,9 @@ public class UserServiceImpl implements UserService {
 	DAOFactory daoFactory = DAOFactory.getInstance();
 	UserDAO userDAO = daoFactory.getUserDAO();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User createCustomerNatural(User user, final String locale) throws ServiceException {
 
@@ -57,6 +60,9 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User createCustomerLegal(User user, final String locale) throws ServiceException {
 
@@ -92,6 +98,9 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User createCustomerCompany(User user, final String locale) throws ServiceException {
 
@@ -127,6 +136,9 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User createPerformerLegal(User user, final String locale) throws ServiceException {
 
@@ -162,6 +174,9 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User createPerformerCompany(User user, final String locale) throws ServiceException {
 
@@ -197,6 +212,9 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User logination(final String username, final String password, final String locale) throws ServiceException {
 		User user = null;
@@ -249,6 +267,9 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<User> getAllUser(final User user, final String page, final String locale) throws ServiceException {
 		List<User> users = null;
@@ -294,6 +315,9 @@ public class UserServiceImpl implements UserService {
 		return users;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean editAdministration(final User user, final String locale) throws ServiceException {
 
@@ -328,6 +352,9 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean editCustomerNatural(final User user, final String locale) throws ServiceException {
 
@@ -362,6 +389,9 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean editCustomerLegal(final User user, final String locale) throws ServiceException {
 
@@ -396,6 +426,9 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean editCustomerCompany(final User user, final String locale) throws ServiceException {
 
@@ -430,6 +463,9 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean editPerformerLegal(final User user, final String locale) throws ServiceException {
 
@@ -464,6 +500,9 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean editPerformerCompany(final User user, final String locale) throws ServiceException {
 
@@ -498,6 +537,9 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean changePassword(final User user, final String oldPassword, final String newPassword,
 			final String confirmPassword, final String locale) throws ServiceException {
@@ -586,6 +628,9 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean delete(final String username, final String locale) throws ServiceException {
 
@@ -617,6 +662,9 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User getUser(final String username, final String locale) throws ServiceException {
 		User user = null;
@@ -642,6 +690,9 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void validateParamUser(final User user, final String locale) throws ServiceException {
 		errorOfCreating.replaceAll((k, v) -> null);
@@ -658,25 +709,35 @@ public class UserServiceImpl implements UserService {
 				errorOfCreating.put(ServiceConstant.USERNAME_PARAM_NAME, "Username is empty");
 			}
 		} else {
-			try {
-				userName = userDAO.checkUsername(user.getUsername());
-			} catch (DAOException e) {
-				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
-					throw new ServiceException("Ошибка проверки пользователя");
-				} else {
-					throw new ServiceException("The error of checking user");
-				}
-			}
-			if (userName != null) {
+			if (!Validator.validateUsername(user.getUsername())) {
 				if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
 					errorOfCreating.put(ServiceConstant.USERNAME_PARAM_NAME,
-							"Пользователь с таким именем уже существует");
+							"Ваше имя пользователя должно состоять минимум из 3 символов, максимум до 25 символов, таже может содержать только цифры, дефис и знак нижнего подчеркивния");
 				} else {
 					errorOfCreating.put(ServiceConstant.USERNAME_PARAM_NAME,
-							"The user with such name has already existed");
+							"Your username must be at least 3 characters long, up to 25 characters in length, and can contain only numbers, hyphens and underscores");
 				}
 			} else {
-				tempDataForError.put(ServiceConstant.USERNAME_PARAM_NAME, user.getUsername());
+				try {
+					userName = userDAO.checkUsername(user.getUsername());
+				} catch (DAOException e) {
+					if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+						throw new ServiceException("Ошибка проверки пользователя");
+					} else {
+						throw new ServiceException("The error of checking user");
+					}
+				}
+				if (userName != null) {
+					if (locale.equals(ServiceConstant.LOCALE_RU_PARAM_NAME)) {
+						errorOfCreating.put(ServiceConstant.USERNAME_PARAM_NAME,
+								"Пользователь с таким именем уже существует");
+					} else {
+						errorOfCreating.put(ServiceConstant.USERNAME_PARAM_NAME,
+								"The user with such name has already existed");
+					}
+				} else {
+					tempDataForError.put(ServiceConstant.USERNAME_PARAM_NAME, user.getUsername());
+				}
 			}
 		}
 
@@ -769,9 +830,13 @@ public class UserServiceImpl implements UserService {
 		if (user.getPerson().getTypePerson().equals(ServiceConstant.PERFORMER_PARAM_NAME) && user.getPerformer()
 				.getOwnership().getFormOwnership().equals(ServiceConstant.PERFORMER_LEGAL_PARAM_NAME)) {
 			tempDataForError.put(ServiceConstant.REQUISITES_PARAM_NAME, user.getPerformer().getRequisites());
+			tempDataForError.put(ServiceConstant.NAME_PARAM_NAME, user.getPerformer().getLegalPerformerInfo().getName());
+			tempDataForError.put(ServiceConstant.SURNAME_PARAM_NAME,
+					user.getPerformer().getLegalPerformerInfo().getSurname());
 		}
 		if (user.getPerson().getTypePerson().equals(ServiceConstant.PERFORMER_PARAM_NAME) && user.getPerformer()
 				.getOwnership().getFormOwnership().equals(ServiceConstant.PERFORMER_COMPANY_PARAM_NAME)) {
+			tempDataForError.put(ServiceConstant.REQUISITES_PARAM_NAME, user.getPerformer().getRequisites());
 			tempDataForError.put(ServiceConstant.COMPANY_PARAM_NAME,
 					user.getPerformer().getCompanyPerformerInfo().getNameCompany());
 			tempDataForError.put(ServiceConstant.NAME_AGENT_PARAM_NAME,
@@ -783,6 +848,9 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void validateParamUserChanging(final User user, final String locale) throws ServiceException {
 
@@ -860,9 +928,13 @@ public class UserServiceImpl implements UserService {
 		if (user.getPerson().getTypePerson().equals(ServiceConstant.PERFORMER_PARAM_NAME) && user.getPerformer()
 				.getOwnership().getFormOwnership().equals(ServiceConstant.PERFORMER_LEGAL_PARAM_NAME)) {
 			tempDataForError.put(ServiceConstant.REQUISITES_PARAM_NAME, user.getPerformer().getRequisites());
+			tempDataForError.put(ServiceConstant.NAME_PARAM_NAME, user.getPerformer().getLegalPerformerInfo().getName());
+			tempDataForError.put(ServiceConstant.SURNAME_PARAM_NAME,
+					user.getPerformer().getLegalPerformerInfo().getSurname());
 		}
 		if (user.getPerson().getTypePerson().equals(ServiceConstant.PERFORMER_PARAM_NAME) && user.getPerformer()
 				.getOwnership().getFormOwnership().equals(ServiceConstant.PERFORMER_COMPANY_PARAM_NAME)) {
+			tempDataForError.put(ServiceConstant.REQUISITES_PARAM_NAME, user.getPerformer().getRequisites());
 			tempDataForError.put(ServiceConstant.COMPANY_PARAM_NAME,
 					user.getPerformer().getCompanyPerformerInfo().getNameCompany());
 			tempDataForError.put(ServiceConstant.NAME_AGENT_PARAM_NAME,
@@ -875,6 +947,9 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<User> getAllPerformer(final String page, final String locale) throws ServiceException {
 

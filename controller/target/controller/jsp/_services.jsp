@@ -49,11 +49,12 @@
                     <img src="img/service-icon/trucks.png" alt="Service 1">
                     <h3>${truckingTitle}</h3>
                     <p>${truckingText}</p>
-                    <form method="post" action="/controller/Controler" role="form" role="form">
+                    <a href="#" class="btn">${readMoreText}</a>
+                    <!--  <form method="post" action="/controller/Controler" role="form" role="form">
                     	<input type="hidden" name="command" value="cn.choose.specialization.page">
                     	<input type="hidden" name="specialization" value="trucking">
                     	<button type="submit" class="btn">${readMoreText}</button>                    
-                    </form>
+                    </form>	-->
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
@@ -73,11 +74,12 @@
                     <img src="img/service-icon/courier.png" alt="Service 3">
                     <h3>${courierTitle}</h3>
                     <p>${courierText}</p>
-                    <form method="post" action="/controller/Controler" role="form" role="form">
+                    <a href="#" class="btn">${readMoreText}</a>
+                    <!-- <form method="post" action="/controller/Controler" role="form" role="form">
                     	<input type="hidden" name="command" value="cn.choose.specialization.page">
                     	<input type="hidden" name="specialization" value="courier">
                     	<button type="submit" class="btn">${readMoreText}</button>                    
-                    </form>
+                    </form> -->
                 </div>
             </div>
         </div>
@@ -87,11 +89,12 @@
                     <img src="img/service-icon/vacuum-cleaner.png" alt="Service 4">
                     <h3>${cleaningTitle}</h3>
                     <p>${cleaningText}</p>
-                    <form method="post" action="/controller/Controler" role="form" role="form">
+                    <a href="#" class="btn">${readMoreText}</a>
+                    <!-- <form method="post" action="/controller/Controler" role="form" role="form">
                     	<input type="hidden" name="command" value="cn.choose.specialization.page">
                     	<input type="hidden" name="specialization" value="cleaning">
                     	<button type="submit" class="btn">${readMoreText}</button>                    
-                    </form>
+                    </form> -->
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
@@ -99,11 +102,12 @@
                     <img src="img/service-icon/computer.png" alt="Service 5">
                     <h3>${computerTitle}</h3>
                     <p>${computerText}</p>
-                    <form method="post" action="/controller/Controler" role="form" role="form">
+                    <a href="#" class="btn">${readMoreText}</a>
+                    <!-- <form method="post" action="/controller/Controler" role="form" role="form">
                     	<input type="hidden" name="command" value="cn.choose.specialization.page">
                     	<input type="hidden" name="specialization" value="computer">
                     	<button type="submit" class="btn">${readMoreText}</button>                    
-                    </form>
+                    </form> -->
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
@@ -111,11 +115,12 @@
                     <img src="img/service-icon/balloon.png" alt="Service 6">
                     <h3>${eventsTitle}</h3>
                     <p>${eventsText}</p>
-                    <form method="post" action="/controller/Controler" role="form" role="form">
+                    <a href="#" class="btn">${readMoreText}</a>
+                    <!-- <form method="post" action="/controller/Controler" role="form" role="form">
                     	<input type="hidden" name="command" value="cn.choose.specialization.page">
                     	<input type="hidden" name="specialization" value="events">
                     	<button type="submit" class="btn">${readMoreText}</button>                    
-                    </form>
+                    </form> -->
                 </div>
             </div>
         </div>
@@ -125,11 +130,12 @@
                     <img src="img/service-icon/paint-palette.png" alt="Service 7">
                     <h3>${designTitle}</h3>
                     <p>${designText}</p>
-                    <form method="post" action="/controller/Controler" role="form" role="form">
+                    <a href="#" class="btn">${readMoreText}</a>
+                    <!-- <form method="post" action="/controller/Controler" role="form" role="form">
                     	<input type="hidden" name="command" value="cn.choose.specialization.page">
                     	<input type="hidden" name="specialization" value="design">
                     	<button type="submit" class="btn">${readMoreText}</button>                    
-                    </form>
+                    </form> -->
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
@@ -137,11 +143,12 @@
                     <img src="img/service-icon/photo-camera.png" alt="Service 8">
                     <h3>${photoTitle}</h3>
                     <p>${photoText}</p>
-                    <form method="post" action="/controller/Controler" role="form" role="form">
+                    <a href="#" class="btn">${readMoreText}</a>
+                    <!-- <form method="post" action="/controller/Controler" role="form" role="form">
                     	<input type="hidden" name="command" value="cn.choose.specialization.page">
                     	<input type="hidden" name="specialization" value="photo">
                     	<button type="submit" class="btn">${readMoreText}</button>                    
-                    </form>
+                    </form> -->
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
@@ -149,11 +156,12 @@
                     <img src="img/service-icon/programming.png" alt="Service 9">
                     <h3>${webTitle}</h3>
                     <p>${webText}</p>
-                    <form method="post" action="/controller/Controler" role="form" role="form">
+                    <a href="#" class="btn">${readMoreText}</a>
+                    <!-- <form method="post" action="/controller/Controler" role="form" role="form">
                     	<input type="hidden" name="command" value="cn.choose.specialization.page">
                     	<input type="hidden" name="specialization" value="web">
                     	<button type="submit" class="btn">${readMoreText}</button>                    
-                    </form>
+                    </form> -->
                 </div>
             </div>
         </div>
@@ -163,11 +171,12 @@
                     <img src="img/service-icon/plug.png" alt="Service 10">
                     <h3>${installTitle}</h3>
                     <p>${installText}</p>
-                    <form method="post" action="/controller/Controler" role="form" role="form">
+                    <a href="#" class="btn">${readMoreText}</a>
+                    <!-- <form method="post" action="/controller/Controler" role="form" role="form">
                     	<input type="hidden" name="command" value="cn.choose.specialization.page">
                     	<input type="hidden" name="specialization" value="install">
                     	<button type="submit" class="btn">${readMoreText}</button>                    
-                    </form>
+                    </form> -->
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
@@ -175,11 +184,12 @@
                     <img src="img/service-icon/hairdresser.png" alt="Service 11">
                     <h3>${beautyTitle}</h3>
                     <p>${beautyText}</p>
-                    <form method="post" action="/controller/Controler" role="form" role="form">
+                    <a href="#" class="btn">${readMoreText}</a>
+                    <!-- <form method="post" action="/controller/Controler" role="form" role="form">
                     	<input type="hidden" name="command" value="cn.choose.specialization.page">
                     	<input type="hidden" name="specialization" value="beauty">
                     	<button type="submit" class="btn">${readMoreText}</button>                    
-                    </form>
+                    </form> -->
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
@@ -187,11 +197,12 @@
                     <img src="img/service-icon/balance.png" alt="Service 12">
                     <h3>${legalTitle}</h3>
                     <p>${legalText}</p>
-                    <form method="post" action="/controller/Controler" role="form" role="form">
+                    <a href="#" class="btn">${readMoreText}</a>
+                    <!-- <form method="post" action="/controller/Controler" role="form" role="form">
                     	<input type="hidden" name="command" value="cn.choose.specialization.page">
                     	<input type="hidden" name="specialization" value="legal">
                     	<button type="submit" class="btn">${readMoreText}</button>                    
-                    </form>
+                    </form> -->
                 </div>
             </div>
         </div>
@@ -201,11 +212,12 @@
                     <img src="img/service-icon/library.png" alt="Service 13">
                     <h3>${educationTitle}</h3>
                     <p>${educationText}</p>
-                    <form method="post" action="/controller/Controler" role="form" role="form">
+                    <a href="#" class="btn">${readMoreText}</a>
+                    <!-- <form method="post" action="/controller/Controler" role="form" role="form">
                     	<input type="hidden" name="command" value="cn.choose.specialization.page">
                     	<input type="hidden" name="specialization" value="education">
                     	<button type="submit" class="btn">${readMoreText}</button>                    
-                    </form>
+                    </form> -->
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
@@ -213,11 +225,12 @@
                     <img src="img/service-icon/car-repair.png" alt="Service 14">
                     <h3>${repairCarTitle}</h3>
                     <p>${repairCarText}</p>
-                    <form method="post" action="/controller/Controler" role="form" role="form">
+                    <a href="#" class="btn">${readMoreText}</a>
+                    <!-- <form method="post" action="/controller/Controler" role="form" role="form">
                     	<input type="hidden" name="command" value="cn.choose.specialization.page">
                     	<input type="hidden" name="specialization" value="repairtransport">
                     	<button type="submit" class="btn">${readMoreText}</button>                    
-                    </form>
+                    </form> -->
                 </div>
             </div>            
         </div>

@@ -23,6 +23,9 @@ public class OrderServiceImpl implements OrderService {
 	DAOFactory daoFactory = DAOFactory.getInstance();
 	OrderDAO orderDAO = daoFactory.getOrderDAO();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Order create(final User user, Order order, final String locale) throws ServiceException {
 		errorOfCreating.replaceAll((k, v) -> null);
@@ -76,6 +79,9 @@ public class OrderServiceImpl implements OrderService {
 		return order;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Order> getAllOrderOfUser(final User user, final String page, final String locale) throws ServiceException {
 		List<Order> orderList = null;
@@ -112,6 +118,9 @@ public class OrderServiceImpl implements OrderService {
 		return orderList;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Order getOrder(final String orderId, final String locale) throws ServiceException {		
 		Order order = null;
@@ -137,6 +146,9 @@ public class OrderServiceImpl implements OrderService {
 		return order;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean editOrder(final Order order, final String locale) throws ServiceException {
 		errorOfCreating.replaceAll((k, v) -> null);
@@ -190,6 +202,9 @@ public class OrderServiceImpl implements OrderService {
 		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean delete(final String idOrder, final String locale) throws ServiceException {
 		
@@ -220,6 +235,9 @@ public class OrderServiceImpl implements OrderService {
 		}		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Order> getAllOrdersOfUsers(final String page, final String locale) throws ServiceException {
 		
@@ -257,6 +275,9 @@ public class OrderServiceImpl implements OrderService {
 		return orderList;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean changeStatusOrder(String idOrder, String locale) throws ServiceException {
 		if (!idOrder.isEmpty() || idOrder != null) {

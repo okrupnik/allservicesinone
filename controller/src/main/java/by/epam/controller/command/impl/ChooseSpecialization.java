@@ -21,12 +21,11 @@ public class ChooseSpecialization implements Command {
 	private static final Logger log = LoggerFactory.getLogger(ChooseSpecialization.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) {
 
 		String activitie = request.getParameter(ParamAndAttribute.SPECIALIZATION_PARAM_NAME);
 		
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		SpecializationService specializationService = serviceFactory.getSpecializationService();
+		SpecializationService specializationService = ServiceFactory.getInstatnce().getSpecializationService();
 		Specialization specialization = null;
 		HttpSession session = request.getSession();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);

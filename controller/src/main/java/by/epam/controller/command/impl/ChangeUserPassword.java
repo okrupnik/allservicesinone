@@ -22,7 +22,7 @@ public class ChangeUserPassword implements Command {
 	private static final Logger log = LoggerFactory.getLogger(ChangeUserPassword.class.getName());
 	
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) {
 
 		String oldPassword;
 		String newPassword;
@@ -33,8 +33,7 @@ public class ChangeUserPassword implements Command {
 		newPassword = request.getParameter(ParamAndAttribute.NEW_PASSWORD_PARAM_NAME);
 		confirmPassword = request.getParameter(ParamAndAttribute.CONFIRM_PASSWORD_PARAM_NAME);
 		
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		UserService userService = serviceFactory.getUserService();
+		UserService userService = ServiceFactory.getInstatnce().getUserService();
 		HttpSession session = request.getSession();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 

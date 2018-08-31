@@ -12,11 +12,11 @@ import by.epam.domain.command.CommandXML;
 
 public class CommandProvider {
 	private static final Logger log = LoggerFactory.getLogger(CommandProvider.class.getName());
-
-	private ArrayList<CommandXML> commandXML = CommandNameXMLParser.getInstance().getCommandClass();
+	 
 	private Map<String, Command> commands = new HashMap<>();
 
 	public CommandProvider() {
+		ArrayList<CommandXML> commandXML = CommandNameXMLParser.getInstance().getCommandClass();
 		for (CommandXML commandXMLtmp : commandXML) {
 			try {
 				commands.put(commandXMLtmp.getCommandName(),

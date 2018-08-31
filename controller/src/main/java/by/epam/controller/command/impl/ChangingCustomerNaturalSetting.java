@@ -27,7 +27,8 @@ public class ChangingCustomerNaturalSetting implements Command {
 	private static final Logger log = LoggerFactory.getLogger(ChangingCustomerNaturalSetting.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String photo = null;
 		String typePerson = null;
@@ -48,19 +49,19 @@ public class ChangingCustomerNaturalSetting implements Command {
 		name = request.getParameter(ParamAndAttribute.NAME_PARAM_NAME);
 		surname = request.getParameter(ParamAndAttribute.SURNAME_PARAM_NAME);
 
-		user = new User.Builder().setUsername(user.getUsername()).setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME)
-				.setEmail(email).setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
-				.setRole(new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build())
-				.setPerson(new Person.Builder().setTypePerson(typePerson).build())
-				.setCustomer(new Customer.Builder()
-						.setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build())
-						.setNaturalCustomerInfo(
-								new NaturalCustomerInfo.Builder().setName(name).setSurname(surname).build())
-						.build())
+		Role role = new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build();
+		Person person = new Person.Builder().setTypePerson(typePerson).build();
+		Ownership ownership = new Ownership.Builder().setFormOwnership(formOwnership).build();
+		NaturalCustomerInfo naturalCustomerInfo = new NaturalCustomerInfo.Builder().setName(name).setSurname(surname)
 				.build();
+		Customer customerNatural = new Customer.Builder().setOwnership(ownership)
+				.setNaturalCustomerInfo(naturalCustomerInfo).build();
 
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		UserService userService = serviceFactory.getUserService();
+		user = new User.Builder().setUsername(user.getUsername()).setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME)
+				.setEmail(email).setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo).setRole(role)
+				.setPerson(person).setCustomer(customerNatural).build();
+
+		UserService userService = ServiceFactory.getInstatnce().getUserService();
 		HttpSession session = request.getSession();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 

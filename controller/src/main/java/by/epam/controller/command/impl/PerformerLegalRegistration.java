@@ -23,11 +23,12 @@ import by.epam.service.ServiceFactory;
 import by.epam.service.UserService;
 import by.epam.service.exception.ServiceException;
 
-public class PerformerLegalRegistration implements Command{
+public class PerformerLegalRegistration implements Command {
 	private static final Logger log = LoggerFactory.getLogger(PerformerLegalRegistration.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String username = null;
 		String password = null;
@@ -42,7 +43,7 @@ public class PerformerLegalRegistration implements Command{
 		String requisites = null;
 		String copyRegistration = null;
 		String activeTab = null;
-		
+
 		username = request.getParameter(ParamAndAttribute.USERNAME_PARAM_NAME);
 		password = request.getParameter(ParamAndAttribute.PASSWORD_PARAM_NAME);
 		typePerson = request.getParameter(ParamAndAttribute.TYPE_PERSON_PARAM_NAME);
@@ -57,22 +58,28 @@ public class PerformerLegalRegistration implements Command{
 		requisites = request.getParameter(ParamAndAttribute.REQUISITES_PARAM_NAME);
 		copyRegistration = request.getParameter(ParamAndAttribute.COPY_REGISTTRATION_PARAM_NAME);
 
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		UserService userService = serviceFactory.getUserService();
+		UserService userService = ServiceFactory.getInstatnce().getUserService();
 		User user = null;
 		HttpSession session = request.getSession();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
-		
-		user = new User.Builder().setUsername(username).setPassword(password).setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email).
-				setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo).setRole(new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build()).
-				setPerson(new Person.Builder().setTypePerson(typePerson).build()).
-				setPerformer(new Performer.Builder().setRequisites(requisites).setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build()).
-				setLegalPerformerInfo(new LegalPerformerInfo.Builder().setName(name).setSurname(surname).setCopyRegistration(copyRegistration).build()).build()).build();
-		
+
+		Role role = new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build();
+		Person person = new Person.Builder().setTypePerson(typePerson).build();
+		Ownership ownership = new Ownership.Builder().setFormOwnership(formOwnership).build();
+		LegalPerformerInfo legalPerformerInfo = new LegalPerformerInfo.Builder().setName(name).setSurname(surname)
+				.setCopyRegistration(copyRegistration).build();
+		Performer performerLegal = new Performer.Builder().setRequisites(requisites).setOwnership(ownership)
+				.setLegalPerformerInfo(legalPerformerInfo).build();
+
+		user = new User.Builder().setUsername(username).setPassword(password)
+				.setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email).setPhoneNumber(phoneNumber)
+				.setAddress(address).setPhoto(photo).setRole(role).setPerson(person).setPerformer(performerLegal)
+				.build();
+
 		try {
-			user = userService.createPerformerLegal(user, locale);			
+			user = userService.createPerformerLegal(user, locale);
 			session.setAttribute(ParamAndAttribute.USER_ATTRIBUTE, user);
-			response.sendRedirect("Controler?command=cn.main.page");			
+			response.sendRedirect("Controler?command=cn.main.page");
 		} catch (ServiceException e) {
 			String errorMessage = e.getMessage();
 			session.setAttribute(ParamAndAttribute.ERROR_MESSAGE_ATTRIBUTE, errorMessage);

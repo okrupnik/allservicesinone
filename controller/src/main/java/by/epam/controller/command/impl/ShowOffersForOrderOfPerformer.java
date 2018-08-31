@@ -24,11 +24,10 @@ public class ShowOffersForOrderOfPerformer implements Command{
 	private static final Logger log = LoggerFactory.getLogger(ShowOffersForOrderOfPerformer.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 
 		List<Offering> offeringList = null;
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		OfferingService offeringService = serviceFactory.getOfferingService();
+		OfferingService offeringService = ServiceFactory.getInstatnce().getOfferingService();
 		
 		User user = (User) request.getSession().getAttribute(ParamAndAttribute.USER_ATTRIBUTE); 
 		HttpSession session = request.getSession();

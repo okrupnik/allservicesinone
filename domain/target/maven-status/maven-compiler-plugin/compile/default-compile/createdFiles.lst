@@ -19,6 +19,7 @@ by\epam\domain\performer\LegalPerformerInfo$Builder.class
 by\epam\domain\specialization\Specialization$Builder.class
 by\epam\domain\performer\LegalPerformerInfo$1.class
 by\epam\domain\command\CommandXML.class
+by\epam\domain\order\Order$1.class
 by\epam\domain\performer\CompanyPerformerInfo.class
 by\epam\domain\customer\NaturalCustomerInfo$1.class
 by\epam\domain\subtypespecialization\WebDeveloping$1.class
@@ -44,13 +45,16 @@ by\epam\domain\performer\LegalPerformerInfo.class
 by\epam\domain\subtypespecialization\TruckingIndustry$1.class
 by\epam\domain\user\User$1.class
 by\epam\domain\user\Person$1.class
+by\epam\domain\order\Order$Builder.class
 by\epam\domain\subtypespecialization\Education$Builder.class
 by\epam\domain\customer\Customer.class
 by\epam\domain\subtypespecialization\PhotoAndVideoService.class
 by\epam\domain\subtypespecialization\RepairAndConstruction$Builder.class
 by\epam\domain\subtypespecialization\WebDeveloping$Builder.class
 by\epam\domain\subtypespecialization\BeautyAndHealth.class
+by\epam\domain\order\Offering$Builder.class
 by\epam\domain\subtypespecialization\LegalAssistance$1.class
+by\epam\domain\order\Offering$1.class
 by\epam\domain\user\Person.class
 by\epam\domain\subtypespecialization\ComputerHelp$Builder.class
 by\epam\domain\customer\NaturalCustomerInfo$Builder.class

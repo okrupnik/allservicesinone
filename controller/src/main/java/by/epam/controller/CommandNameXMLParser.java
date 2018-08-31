@@ -37,7 +37,7 @@ public class CommandNameXMLParser {
 	private static class XMLHandler extends DefaultHandler {
 
 		@Override
-		public void startElement(String uri, String localName, String qName, Attributes attributes)
+		public void startElement(final String uri, final String localName, final String qName, final Attributes attributes)
 				throws SAXException {
 			if (qName.equals(COMMAND_PARAM_NAME)) {
 				String commandName = attributes.getValue(COMMAND_NAME);

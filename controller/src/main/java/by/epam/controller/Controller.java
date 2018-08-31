@@ -19,7 +19,6 @@ public final class Controller extends HttpServlet {
 	private final CommandProvider commandProvider = new CommandProvider();
 
 	public Controller() {
-		super();
 	}
 
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response)

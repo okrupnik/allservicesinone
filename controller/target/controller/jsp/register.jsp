@@ -105,7 +105,7 @@
                             		</c:otherwise>
                             	</c:choose>           	
                                     <form method="post" action="/controller/Controler" role="form" role="form">
-                                        <input type="hidden" name="command" value="cn.registration.page">
+                                        <input type="hidden" name="command" value="cn.registration.customer.natural.page">
                                         <input type="hidden" name="typePerson" value="customer">
                                         <input type="hidden" name="formOwnership" value="natural">
                                         <input type="hidden" name="active" value="1">
@@ -205,7 +205,7 @@
                             		</c:otherwise>
                             	</c:choose>
                                     <form method="post" action="/controller/Controler" role="form" role="form">
-                                        <input type="hidden" name="command" value="cn.registration.page">
+                                        <input type="hidden" name="command" value="cn.registration.customer.legal.page">
                                         <input type="hidden" name="typePerson" value="customer">
                                         <input type="hidden" name="formOwnership" value="legal">
                                         <input type="hidden" name="active" value="2">
@@ -320,7 +320,7 @@
                             		</c:otherwise>
                             	</c:choose>
                                     <form method="post" action="/controller/Controler" role="form" role="form">
-                                        <input type="hidden" name="command" value="cn.registration.page">
+                                        <input type="hidden" name="command" value="cn.registration.customer.company.page">
                                         <input type="hidden" name="typePerson" value="customer">
                                         <input type="hidden" name="formOwnership" value="company">
                                         <input type="hidden" name="active" value="3">
@@ -446,7 +446,7 @@
                             		</c:otherwise>
                             	</c:choose>
                                     <form method="post" action="/controller/Controler" role="form" role="form">
-                                        <input type="hidden" name="command" value="cn.registration.page">
+                                        <input type="hidden" name="command" value="cn.registration.performer.legal.page">
                                         <input type="hidden" name="typePerson" value="performer">
                                         <input type="hidden" name="formOwnership" value="legal">
                                         <input type="hidden" name="active" value="4">
@@ -561,7 +561,7 @@
                             		</c:otherwise>
                             	</c:choose>
                                     <form method="post" action="/controller/Controler" role="form" role="form">
-                                        <input type="hidden" name="command" value="cn.registration.page">
+                                        <input type="hidden" name="command" value="cn.registration.performer.company.page">
                                         <input type="hidden" name="typePerson" value="performer">
                                         <input type="hidden" name="formOwnership" value="company">
                                         <input type="hidden" name="active" value="5">

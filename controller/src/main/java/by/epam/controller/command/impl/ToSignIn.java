@@ -16,7 +16,7 @@ public class ToSignIn implements Command{
 	private static final Logger log = LoggerFactory.getLogger(ToSignIn.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {		
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) {		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(JSPPagePath.USER_SIGNIN_PAGE);
 		try {

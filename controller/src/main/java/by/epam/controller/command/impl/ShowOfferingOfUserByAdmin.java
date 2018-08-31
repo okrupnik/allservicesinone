@@ -25,7 +25,7 @@ public class ShowOfferingOfUserByAdmin implements Command{
 	private static final Logger log = LoggerFactory.getLogger(ShowOfferingOfUserByAdmin.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 
 		String locale = null;
 		User selectedUser = null;
@@ -42,9 +42,8 @@ public class ShowOfferingOfUserByAdmin implements Command{
 		}
 		locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 		
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		UserService userService = serviceFactory.getUserService();
-		OfferingService offeringService = serviceFactory.getOfferingService();
+		UserService userService = ServiceFactory.getInstatnce().getUserService();
+		OfferingService offeringService = ServiceFactory.getInstatnce().getOfferingService();
 		HttpSession session = request.getSession();
 		
 		try {

@@ -25,7 +25,7 @@ public class ShowOrderOfUserByAdmin implements Command{
 	private static final Logger log = LoggerFactory.getLogger(ShowOrderOfUserByAdmin.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		
 		String locale = null;
 		User selectedUser = null;
@@ -42,9 +42,8 @@ public class ShowOrderOfUserByAdmin implements Command{
 		}
 		locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 		
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		UserService userService = serviceFactory.getUserService();
-		OrderService orderService = serviceFactory.getOrderService();
+		UserService userService = ServiceFactory.getInstatnce().getUserService();
+		OrderService orderService = ServiceFactory.getInstatnce().getOrderService();
 		HttpSession session = request.getSession();
 		
 		try {

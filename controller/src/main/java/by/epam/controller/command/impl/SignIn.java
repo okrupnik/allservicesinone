@@ -21,13 +21,12 @@ public class SignIn implements Command {
 	private static final Logger log = LoggerFactory.getLogger(SignIn.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) {
 
 		String login = request.getParameter(ParamAndAttribute.USERNAME_PARAM_NAME);
 		String password = request.getParameter(ParamAndAttribute.PASSWORD_PARAM_NAME);
 
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		UserService userService = serviceFactory.getUserService();
+		UserService userService = ServiceFactory.getInstatnce().getUserService();
 		User user = null;
 		HttpSession session = request.getSession();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);

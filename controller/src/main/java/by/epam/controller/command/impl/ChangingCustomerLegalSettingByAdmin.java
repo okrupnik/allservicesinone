@@ -23,11 +23,12 @@ import by.epam.service.ServiceFactory;
 import by.epam.service.UserService;
 import by.epam.service.exception.ServiceException;
 
-public class ChangingCustomerLegalSettingByAdmin implements Command{
+public class ChangingCustomerLegalSettingByAdmin implements Command {
 	private static final Logger log = LoggerFactory.getLogger(ChangingCustomerNaturalSettingByAdmin.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String photo = null;
 		String typePerson = null;
@@ -51,21 +52,20 @@ public class ChangingCustomerLegalSettingByAdmin implements Command{
 		surname = request.getParameter(ParamAndAttribute.SURNAME_PARAM_NAME);
 		requisites = request.getParameter(ParamAndAttribute.REQUISITES_PARAM_NAME);
 		copyRegistration = request.getParameter(ParamAndAttribute.COPY_REGISTTRATION_PARAM_NAME);
-		
-		selectedUser = new User.Builder().setUsername(selectedUser.getUsername())
-				.setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email)
-				.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
-				.setRole(new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build())
-				.setPerson(new Person.Builder().setTypePerson(typePerson).build())
-				.setCustomer(new Customer.Builder()
-						.setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build())
-						.setLegalCustomerInfo(new LegalCustomerInfo.Builder().setName(name).setSurname(surname)
-								.setRequisites(requisites).setCopyRegistration(copyRegistration).build())
-						.build())
+
+		Role role = new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build();
+		Person person = new Person.Builder().setTypePerson(typePerson).build();
+		Ownership ownership = new Ownership.Builder().setFormOwnership(formOwnership).build();
+		LegalCustomerInfo legalCustomerInfo = new LegalCustomerInfo.Builder().setName(name).setSurname(surname)
+				.setRequisites(requisites).setCopyRegistration(copyRegistration).build();
+		Customer customerLegal = new Customer.Builder().setOwnership(ownership).setLegalCustomerInfo(legalCustomerInfo)
 				.build();
-		
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		UserService userService = serviceFactory.getUserService();
+
+		selectedUser = new User.Builder().setUsername(selectedUser.getUsername())
+				.setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email).setPhoneNumber(phoneNumber)
+				.setAddress(address).setPhoto(photo).setRole(role).setPerson(person).setCustomer(customerLegal).build();
+
+		UserService userService = ServiceFactory.getInstatnce().getUserService();
 		HttpSession session = request.getSession();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 
@@ -96,7 +96,7 @@ public class ChangingCustomerLegalSettingByAdmin implements Command{
 			for (StackTraceElement stackTraceElement : e.getStackTrace()) {
 				log.error(stackTraceElement.toString());
 			}
-		}				
+		}
 	}
 
 }

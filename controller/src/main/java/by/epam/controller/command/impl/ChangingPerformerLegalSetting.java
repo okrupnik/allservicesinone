@@ -23,11 +23,12 @@ import by.epam.service.ServiceFactory;
 import by.epam.service.UserService;
 import by.epam.service.exception.ServiceException;
 
-public class ChangingPerformerLegalSetting implements Command{
+public class ChangingPerformerLegalSetting implements Command {
 	private static final Logger log = LoggerFactory.getLogger(ChangingPerformerLegalSetting.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String photo = null;
 		String typePerson = null;
@@ -39,7 +40,7 @@ public class ChangingPerformerLegalSetting implements Command{
 		String address = null;
 		String requisites = null;
 		String copyRegistration = null;
-		
+
 		User user = (User) request.getSession(true).getAttribute(ParamAndAttribute.USER_ATTRIBUTE);
 		typePerson = request.getParameter(ParamAndAttribute.TYPE_PERSON_PARAM_NAME);
 		formOwnership = request.getParameter(ParamAndAttribute.FORM_OWNERSHIP_PARAM_NAME);
@@ -51,21 +52,20 @@ public class ChangingPerformerLegalSetting implements Command{
 		surname = request.getParameter(ParamAndAttribute.SURNAME_PARAM_NAME);
 		requisites = request.getParameter(ParamAndAttribute.REQUISITES_PARAM_NAME);
 		copyRegistration = request.getParameter(ParamAndAttribute.COPY_REGISTTRATION_PARAM_NAME);
-		
-		user = new User.Builder().setUsername(user.getUsername())
-				.setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME).setEmail(email)
-				.setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo)
-				.setRole(new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build())
-				.setPerson(new Person.Builder().setTypePerson(typePerson).build())
-				.setPerformer(new Performer.Builder().setRequisites(requisites)
-						.setOwnership(new Ownership.Builder().setFormOwnership(formOwnership).build())
-						.setLegalPerformerInfo(new LegalPerformerInfo.Builder().setName(name)
-								.setSurname(surname).setCopyRegistration(copyRegistration).build())
-						.build())
-				.build();
-		
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		UserService userService = serviceFactory.getUserService();
+
+		Role role = new Role.Builder().setTypeRole(ControllerConstant.ROLE_USER_PARAM_NAME).build();
+		Person person = new Person.Builder().setTypePerson(typePerson).build();
+		Ownership ownership = new Ownership.Builder().setFormOwnership(formOwnership).build();
+		LegalPerformerInfo legalPerformerInfo = new LegalPerformerInfo.Builder().setName(name).setSurname(surname)
+				.setCopyRegistration(copyRegistration).build();
+		Performer performerLegal = new Performer.Builder().setRequisites(requisites).setOwnership(ownership)
+				.setLegalPerformerInfo(legalPerformerInfo).build();
+
+		user = new User.Builder().setUsername(user.getUsername()).setIsDelete(ControllerConstant.USER_FALSE_PARAM_NAME)
+				.setEmail(email).setPhoneNumber(phoneNumber).setAddress(address).setPhoto(photo).setRole(role)
+				.setPerson(person).setPerformer(performerLegal).build();
+
+		UserService userService = ServiceFactory.getInstatnce().getUserService();
 		HttpSession session = request.getSession();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 
@@ -96,7 +96,7 @@ public class ChangingPerformerLegalSetting implements Command{
 			for (StackTraceElement stackTraceElement : e.getStackTrace()) {
 				log.error(stackTraceElement.toString());
 			}
-		}				
+		}
 	}
 
 }

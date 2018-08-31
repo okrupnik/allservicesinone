@@ -14,13 +14,7 @@ public class Localization implements Command {
 	private static final Logger log = LoggerFactory.getLogger(Localization.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
-//		String local = request.getParameter(ParamAndAttribute.LOCALE_PARAM_NAME);
-//		request.getSession(true).setAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE, local);
-//
-//		String referer = request.getHeader("Referer");
-//		response.sendRedirect(referer);
-		
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) {
 			
 		String goToPage = null;
 		String local = request.getParameter(ParamAndAttribute.LOCALE_PARAM_NAME);

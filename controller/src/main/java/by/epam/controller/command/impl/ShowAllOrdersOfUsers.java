@@ -23,11 +23,10 @@ public class ShowAllOrdersOfUsers implements Command{
 	private static final Logger log = LoggerFactory.getLogger(ShowAllOrdersOfUsers.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 
 		List<Order> ordersList = null;
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		OrderService orderService = serviceFactory.getOrderService();
+		OrderService orderService = ServiceFactory.getInstatnce().getOrderService();
 		
 		HttpSession session = request.getSession();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);

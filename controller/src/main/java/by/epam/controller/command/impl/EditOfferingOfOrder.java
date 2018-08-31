@@ -20,15 +20,14 @@ public class EditOfferingOfOrder implements Command{
 	private static final Logger log = LoggerFactory.getLogger(EditOfferingOfOrder.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 
 		String idOffering = request.getParameter(ParamAndAttribute.OFFERING_ID_PARAM_NAME);
 		String description = request.getParameter(ParamAndAttribute.DESCRIPTION_PARAM_NAME); 		
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 		HttpSession session = request.getSession();
 		
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		OfferingService offeringService = serviceFactory.getOfferingService();
+		OfferingService offeringService = ServiceFactory.getInstatnce().getOfferingService();
 		
 		try {
 			offeringService.edit(idOffering, description, locale);

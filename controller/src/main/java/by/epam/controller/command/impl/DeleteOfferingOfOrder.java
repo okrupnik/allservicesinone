@@ -20,14 +20,13 @@ public class DeleteOfferingOfOrder implements Command{
 	private static final Logger log = LoggerFactory.getLogger(DeleteOfferingOfOrder.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 
 		String idOffering = request.getParameter(ParamAndAttribute.OFFERING_ID_PARAM_NAME); 		
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 		HttpSession session = request.getSession();
 		
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		OfferingService offeringService = serviceFactory.getOfferingService();
+		OfferingService offeringService = ServiceFactory.getInstatnce().getOfferingService();
 		
 		try {
 			offeringService.delete(idOffering, locale);

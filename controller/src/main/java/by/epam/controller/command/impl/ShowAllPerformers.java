@@ -23,11 +23,10 @@ public class ShowAllPerformers implements Command{
 	private static final Logger log = LoggerFactory.getLogger(ShowAllPerformers.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 
 		List<User> usersList = null;
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		UserService userService = serviceFactory.getUserService();
+		UserService userService = ServiceFactory.getInstatnce().getUserService();
 		HttpSession session = request.getSession();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 		String page = request.getParameter(ParamAndAttribute.PAGE_ATTRIBUTE);				

@@ -20,12 +20,11 @@ public class CompletedOrderByPerformer implements Command{
 	private static final Logger log = LoggerFactory.getLogger(CompletedOrderByPerformer.class.getName());
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		
 		String idOrder = request.getParameter(ParamAndAttribute.ORDER_ID_PARAM_NAME);
 
-		ServiceFactory serviceFactory = ServiceFactory.getInstatnce();
-		OrderService orderService = serviceFactory.getOrderService();
+		OrderService orderService = ServiceFactory.getInstatnce().getOrderService();
 		HttpSession session = request.getSession();
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 		
