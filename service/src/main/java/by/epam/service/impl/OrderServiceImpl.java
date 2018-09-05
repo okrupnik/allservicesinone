@@ -23,6 +23,13 @@ public class OrderServiceImpl implements OrderService {
 	DAOFactory daoFactory = DAOFactory.getInstance();
 	OrderDAO orderDAO = daoFactory.getOrderDAO();
 
+	public OrderServiceImpl() {
+	}
+
+	public OrderServiceImpl(OrderDAO orderDAO) {
+		this.orderDAO = orderDAO;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -41,11 +48,11 @@ public class OrderServiceImpl implements OrderService {
 			}
 		}
 		
-		if (!order.getDescription().isEmpty()) {
+		if (order.getDescription() != null && !order.getDescription().isEmpty()) {
 			tempDataForError.put(ServiceConstant.DESCRIPTION_ORDER_PARAM_NAME, order.getDescription());
 		}
 		
-		if (!order.getAddress().isEmpty()) {
+		if (order.getAddress() != null && !order.getAddress().isEmpty()) {
 			tempDataForError.put(ServiceConstant.ADDRESS_ORDER_PARAM_NAME, order.getAddress());
 		}
 				
@@ -125,7 +132,7 @@ public class OrderServiceImpl implements OrderService {
 	public Order getOrder(final String orderId, final String locale) throws ServiceException {		
 		Order order = null;
 		
-		if(!orderId.isEmpty() || orderId != null) {
+		if(orderId != null && !orderId.isEmpty()) {
 			try {
 				order = orderDAO.getOrder(Integer.parseInt(orderId));
 			} catch (NumberFormatException | DAOException e) {
@@ -164,11 +171,11 @@ public class OrderServiceImpl implements OrderService {
 			}
 		}
 		
-		if (!order.getDescription().isEmpty()) {
+		if (order.getDescription() != null && !order.getDescription().isEmpty()) {
 			tempDataForError.put(ServiceConstant.DESCRIPTION_ORDER_PARAM_NAME, order.getDescription());
 		}
 		
-		if (!order.getAddress().isEmpty()) {
+		if (order.getAddress() != null && !order.getAddress().isEmpty()) {
 			tempDataForError.put(ServiceConstant.ADDRESS_ORDER_PARAM_NAME, order.getAddress());
 		}
 				
@@ -208,7 +215,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public boolean delete(final String idOrder, final String locale) throws ServiceException {
 		
-		if (!idOrder.isEmpty() || idOrder != null) {
+		if (idOrder != null && !idOrder.isEmpty()) {
 			try {				
 				if (orderDAO.delete(idOrder)) {
 					return true;
@@ -280,7 +287,7 @@ public class OrderServiceImpl implements OrderService {
 	 */
 	@Override
 	public boolean changeStatusOrder(String idOrder, String locale) throws ServiceException {
-		if (!idOrder.isEmpty() || idOrder != null) {
+		if (idOrder != null && !idOrder.isEmpty()) {
 			try {				
 				if (orderDAO.changeStatusOrder(Integer.parseInt(idOrder))) {
 					return true;

@@ -90,7 +90,7 @@ public interface UserService {
 	 * @return A specific user according to the username and password
 	 * @throws ServiceException If there are errors during the logination of the user
 	 */
-	User logination(String username, String password, String locale) throws ServiceException;
+	User login(String username, String password, String locale) throws ServiceException;
 
 	/**
 	 * Getting user by username

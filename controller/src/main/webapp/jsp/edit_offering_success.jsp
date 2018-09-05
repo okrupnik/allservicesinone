@@ -41,7 +41,7 @@
 		<div class="form-group">
 			<h1 style="color: #0000ff">
 				<c:out value="${sessionScope.successEdit}"></c:out>
-				<% session.setAttribute("successEdit", ""); %>
+				<c:set var="successEdit" value="" scope="session"/>
 			</h1>
 		</div>
 	</c:if>

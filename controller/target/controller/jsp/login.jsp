@@ -76,7 +76,7 @@
                 	<c:if test="${not empty sessionScope.errorMessage}">
 						<h1 style="color: #ff0000">
 							<c:out value="${sessionScope.errorMessage}"></c:out>
-							<% session.setAttribute("errorMessage", ""); %>
+							<c:set var="errorMessage" value="" scope="session"/>
 						</h1>
 					</c:if>
                     <p>${choiceLoginText}</p>

@@ -65,7 +65,7 @@
                     </div>
                     <div class="testimonial-bubble">
                         <blockquote>
-                        	<c:if test="${sessionScope.selectedselecteduser.person.typePerson=='servicePerson'}">
+                        	<c:if test="${sessionScope.selecteduser.person.typePerson=='servicePerson'}">
                                 ${sessionScope.selecteduser.serviceStaffInfo.name} ${sessionScope.selecteduser.serviceStaffInfo.surname}
                             </c:if>
                         	<c:if test="${sessionScope.selecteduser.person.typePerson=='customer' && sessionScope.selecteduser.customer.ownership.formOwnership=='natural'}">
@@ -99,7 +99,7 @@
                                             <div class="form-group">
                                                 <h3 style="color: #ff0000">
 													<c:out value="${sessionScope.errorMessage}"></c:out>
-													<% session.setAttribute("errorMessage", ""); %>
+													<c:set var="errorMessage" value="" scope="session"/>
 												</h3>
                                             </div>
                                         </c:if>
@@ -175,7 +175,7 @@
                                             <div class="form-group">
                                                 <h3 style="color: #ff0000">
 													<c:out value="${sessionScope.errorMessage}"></c:out>
-													<% session.setAttribute("errorMessage", ""); %>
+													<c:set var="errorMessage" value="" scope="session"/>
 												</h3>
                                             </div>
                                         </c:if>
@@ -251,7 +251,7 @@
                                             <div class="form-group">
                                                 <h3 style="color: #ff0000">
 													<c:out value="${sessionScope.errorMessage}"></c:out>
-													<% session.setAttribute("errorMessage", ""); %>
+													<c:set var="errorMessage" value="" scope="session"/>
 												</h3>
                                             </div>
                                         </c:if>
@@ -342,7 +342,7 @@
                                             <div class="form-group">
                                                 <h3 style="color: #ff0000">
 													<c:out value="${sessionScope.errorMessage}"></c:out>
-													<% session.setAttribute("errorMessage", ""); %>
+													<c:set var="errorMessage" value="" scope="session"/>
 												</h3>
                                             </div>
                                         </c:if>
@@ -356,6 +356,7 @@
                                                     <input class="form-control" id="setting-nameagent" name="nameagent" type="text" value="${sessionScope.selecteduser.customer.companyCustomerInfo.nameAgent}" placeholder="">
                                                 </c:otherwise>
                                             </c:choose>
+                                        </div>
                                         <div class="form-group">
                                             <label for="setting-surnameagent"><i class="icon-user"></i> <b>${surnameagentText}*</b></label>
                                             <c:choose>
@@ -443,7 +444,7 @@
                                             <div class="form-group">
                                                 <h3 style="color: #ff0000">
 													<c:out value="${sessionScope.errorMessage}"></c:out>
-													<% session.setAttribute("errorMessage", ""); %>
+													<c:set var="errorMessage" value="" scope="session"/>
 												</h3>
                                             </div>
                                         </c:if>
@@ -534,7 +535,7 @@
                                             <div class="form-group">
                                                 <h3 style="color: #ff0000">
 													<c:out value="${sessionScope.errorMessage}"></c:out>
-													<% session.setAttribute("errorMessage", ""); %>
+													<c:set var="errorMessage" value="" scope="session"/>
 												</h3>
                                             </div>
                                         </c:if>

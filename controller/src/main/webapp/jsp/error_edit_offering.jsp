@@ -41,7 +41,7 @@
 		<div class="form-group">
 			<h1 style="color: #ff0000">
 				<c:out value="${sessionScope.errorMessage}"></c:out>
-				<% session.setAttribute("errorMessage", ""); %>
+				<c:set var="errorMessage" value="" scope="session"/>
 			</h1>
 		</div>
 	</c:if>

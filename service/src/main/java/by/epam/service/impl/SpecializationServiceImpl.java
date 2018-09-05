@@ -16,7 +16,7 @@ public class SpecializationServiceImpl implements SpecializationService {
 	public Specialization showSpecialization(final String activitie, final String locale) throws ServiceException {
 		Specialization specialization = null;
 
-		if (!activitie.isEmpty()) {
+		if (activitie != null && !activitie.isEmpty()) {
 			switch (activitie) {
 			case ServiceConstant.TRUCKING_PARAM_NAME:
 				if (locale.equals(ServiceConstant.LOCALE_EN_PARAM_NAME)) {

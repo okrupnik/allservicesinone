@@ -68,7 +68,7 @@ public class OfferingServiceImpl implements OfferingService {
 	@Override
 	public boolean selectPerformerForOrder(final String username, final String idOrder, final String locale)
 			throws ServiceException {
-		if (!username.isEmpty() || username != null) {
+		if (username != null && !username.isEmpty()) {
 			try {
 				if (offeringDAO.selectPerformerForOrder(username, Integer.parseInt(idOrder))) {
 					return true;
@@ -101,7 +101,7 @@ public class OfferingServiceImpl implements OfferingService {
 	@Override
 	public boolean addOfferfingToOrder(final User user, final String idOrder, final String description,
 			final String locale) throws ServiceException {
-		if (!user.getUsername().isEmpty() || user.getUsername() != null) {
+		if (user.getUsername() != null && !user.getUsername().isEmpty()) {
 			try {
 				if (offeringDAO.addOfferfingToOrder(user, Integer.parseInt(idOrder), description)) {
 					return true;
@@ -174,7 +174,7 @@ public class OfferingServiceImpl implements OfferingService {
 	@Override
 	public boolean edit(final String idOffering, final String description, final String locale) throws ServiceException {
 
-		if (!idOffering.isEmpty() || idOffering != null) {
+		if (idOffering != null && !idOffering.isEmpty()) {
 			try {				
 				if (offeringDAO.edit(Integer.parseInt(idOffering), description)) {
 					return true;
@@ -207,7 +207,7 @@ public class OfferingServiceImpl implements OfferingService {
 	@Override
 	public boolean delete(final String idOffering, final String locale) throws ServiceException {
 
-		if (!idOffering.isEmpty() || idOffering != null) {
+		if (idOffering != null && !idOffering.isEmpty()) {
 			try {				
 				if (offeringDAO.delete(Integer.parseInt(idOffering))) {
 					return true;

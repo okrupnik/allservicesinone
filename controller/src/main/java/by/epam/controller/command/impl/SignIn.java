@@ -32,7 +32,7 @@ public class SignIn implements Command {
 		String locale = (String) request.getSession().getAttribute(ParamAndAttribute.LOCALE_ATTRIBUTE);
 
 		try {
-			user = userService.logination(login, password, locale);
+			user = userService.login(login, password, locale);
 			session.setAttribute(ParamAndAttribute.USER_ATTRIBUTE, user);
 			response.sendRedirect("Controler?command=cn.main.page");
 		} catch (ServiceException e) {

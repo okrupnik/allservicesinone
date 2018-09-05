@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
 		validateParamUser(user, locale);
 
-		if (errorOfCreating.isEmpty() || errorOfCreating == null) {
+		if (errorOfCreating == null || errorOfCreating.isEmpty()) {
 			try {
 				user = userDAO.createCustomerNatural(user);
 				if (user == null) {
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
 
 		validateParamUser(user, locale);
 
-		if (errorOfCreating.isEmpty() || errorOfCreating == null) {
+		if (errorOfCreating == null || errorOfCreating.isEmpty()) {
 			try {
 				user = userDAO.createCustomerLegal(user);
 				if (user == null) {
@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
 
 		validateParamUser(user, locale);
 
-		if (errorOfCreating.isEmpty() || errorOfCreating == null) {
+		if (errorOfCreating == null || errorOfCreating.isEmpty()) {
 			try {
 				user = userDAO.createCustomerCompany(user);
 				if (user == null) {
@@ -144,7 +144,7 @@ public class UserServiceImpl implements UserService {
 
 		validateParamUser(user, locale);
 
-		if (errorOfCreating.isEmpty() || errorOfCreating == null) {
+		if (errorOfCreating == null || errorOfCreating.isEmpty()) {
 			try {
 				user = userDAO.createPerformerLegal(user);
 				if (user == null) {
@@ -182,7 +182,7 @@ public class UserServiceImpl implements UserService {
 
 		validateParamUser(user, locale);
 
-		if (errorOfCreating.isEmpty() || errorOfCreating == null) {
+		if (errorOfCreating == null || errorOfCreating.isEmpty()) {
 			try {
 				user = userDAO.createPerformerCompany(user);
 				if (user == null) {
@@ -216,7 +216,7 @@ public class UserServiceImpl implements UserService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public User logination(final String username, final String password, final String locale) throws ServiceException {
+	public User login(final String username, final String password, final String locale) throws ServiceException {
 		User user = null;
 
 		if (!username.isEmpty()) {
@@ -323,7 +323,7 @@ public class UserServiceImpl implements UserService {
 
 		validateParamUserChanging(user, locale);
 
-		if (errorOfCreating.isEmpty() || errorOfCreating == null) {
+		if (errorOfCreating == null || errorOfCreating.isEmpty()) {
 			try {
 				if (userDAO.editAdministration(user)) {
 					return true;
@@ -360,7 +360,7 @@ public class UserServiceImpl implements UserService {
 
 		validateParamUserChanging(user, locale);
 
-		if (errorOfCreating.isEmpty() || errorOfCreating == null) {
+		if (errorOfCreating == null || errorOfCreating.isEmpty()) {
 			try {
 				if (userDAO.editCustomerNatural(user)) {
 					return true;
@@ -397,7 +397,7 @@ public class UserServiceImpl implements UserService {
 
 		validateParamUserChanging(user, locale);
 
-		if (errorOfCreating.isEmpty() || errorOfCreating == null) {
+		if (errorOfCreating == null || errorOfCreating.isEmpty()) {
 			try {
 				if (userDAO.editCustomerLegal(user)) {
 					return true;
@@ -434,7 +434,7 @@ public class UserServiceImpl implements UserService {
 
 		validateParamUserChanging(user, locale);
 
-		if (errorOfCreating.isEmpty() || errorOfCreating == null) {
+		if (errorOfCreating == null || errorOfCreating.isEmpty()) {
 			try {
 				if (userDAO.editCustomerCompany(user)) {
 					return true;
@@ -471,7 +471,7 @@ public class UserServiceImpl implements UserService {
 
 		validateParamUserChanging(user, locale);
 
-		if (errorOfCreating.isEmpty() || errorOfCreating == null) {
+		if (errorOfCreating == null || errorOfCreating.isEmpty()) {
 			try {
 				if (userDAO.editPerformerLegal(user)) {
 					return true;
@@ -508,7 +508,7 @@ public class UserServiceImpl implements UserService {
 
 		validateParamUserChanging(user, locale);
 
-		if (errorOfCreating.isEmpty() || errorOfCreating == null) {
+		if (errorOfCreating == null || errorOfCreating.isEmpty()) {
 			try {
 				if (userDAO.editPerformerCompany(user)) {
 					return true;
@@ -599,7 +599,7 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 
-		if (errorOfCreating.isEmpty() || errorOfCreating == null) {
+		if (errorOfCreating == null || errorOfCreating.isEmpty()) {
 			try {
 				if (userDAO.editPassword(user, newPassword)) {
 					return true;
@@ -634,7 +634,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean delete(final String username, final String locale) throws ServiceException {
 
-		if (!username.isEmpty() || username != null) {
+		if (username != null && !username.isEmpty()) {
 			try {
 				if (userDAO.delete(username)) {
 					return true;
@@ -669,7 +669,7 @@ public class UserServiceImpl implements UserService {
 	public User getUser(final String username, final String locale) throws ServiceException {
 		User user = null;
 
-		if (!username.isEmpty() || username != null) {
+		if (username != null && !username.isEmpty()) {
 			try {
 				user = userDAO.getUser(username);
 			} catch (DAOException e) {

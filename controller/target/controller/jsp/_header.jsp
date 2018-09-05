@@ -142,25 +142,25 @@
                     <div class="mainmenu-submenu">
                         <div class="mainmenu-submenu-inner">
                             <div>
-                                <a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=trucking"><h4>${truckingTitle}</h4></a>
-                                <a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=repair"><h4>${repairTitle}</h4></a>
-                                <a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=courier"><h4>${courierTitle}</h4></a>                                	
+                                <h4><a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=trucking">${truckingTitle}</a></h4>
+                                <h4><a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=repair">${repairTitle}</a></h4>
+                                <h4><a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=courier">${courierTitle}</a></h4>                           	
                             </div>
                             <div>
-                                <a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=cleaning"><h4>${cleaningTitle}</h4></a>
-                                <a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=computer"><h4>${computerTitle}</h4></a>
-                                <a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=events"><h4>${eventsTitle}</h4></a>                                	
+                                <h4><a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=cleaning">${cleaningTitle}</a></h4>
+                                <h4><a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=computer">${computerTitle}</a></h4>
+                                <h4><a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=events">${eventsTitle}</a></h4>                                	
                             </div>
                             <div>    
-                                <a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=photo"><h4>${photoTitle}</h4></a>
-                                <a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=web"><h4>${webTitle}</h4></a>
-                                <a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=install"><h4>${installTitle}</h4></a>
+                                <h4><a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=photo">${photoTitle}</a></h4>
+                                <h4><a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=web">${webTitle}</a></h4>
+                                <h4><a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=install">${installTitle}</a></h4>
                             </div>    
                             <div>    
-                                <a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=beauty"><h4>${beautyTitle}</h4></a>
-                                <a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=legal"><h4>${legalTitle}</h4></a>
-                                <a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=education"><h4>${educationTitle}</h4></a>
-                                <a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=repairtransport"><h4>${repairCarTitle}</h4></a>
+                                <h4><a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=beauty">${beautyTitle}</a></h4>
+                                <h4><a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=legal">${legalTitle}</a></h4>
+                                <h4><a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=education">${educationTitle}</a></h4>
+                                <h4><a href="${pageContext.request.contextPath}/Controler?command=cn.choose.specialization.page&specialization=repairtransport">${repairCarTitle}</a></h4>
                             </div>                            
                         </div>
                         <!-- /mainmenu-submenu-inner -->

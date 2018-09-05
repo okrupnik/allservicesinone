@@ -9,9 +9,7 @@ by\epam\dao\connectionpool\DBParameter.class
 by\epam\dao\impl\SQLSpecializationDAO.class
 by\epam\dao\exception\DAOException.class
 by\epam\dao\impl\SQLOfferingDAO.class
-by\epam\dao\CustomerDAO.class
 by\epam\dao\DAOFactory.class
-by\epam\dao\PerformerDAO.class
 by\epam\dao\connectionpool\ConnectionPool$PooledConnection.class
 by\epam\dao\impl\EncryptPassword.class
 by\epam\dao\connectionpool\ConnectionPool$1.class

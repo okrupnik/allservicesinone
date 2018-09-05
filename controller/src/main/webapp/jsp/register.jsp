@@ -28,7 +28,7 @@
 <fmt:message bundle="${loc}" key="locale.register.ref.description.text" var="descriptionText" />
 <fmt:message bundle="${loc}" key="locale.register.ref.button.text" var="buttonText" />
 
- <html>
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -113,7 +113,7 @@
                                             <div class="form-group">
                                                 <h3 style="color: #ff0000">
 													<c:out value="${sessionScope.errorMessage}"></c:out>
-													<% session.setAttribute("errorMessage", ""); %>
+													<c:set var="errorMessage" value="" scope="session"/>
 												</h3>
                                             </div>
                                         </c:if>
@@ -213,7 +213,7 @@
                                             <div class="form-group">
                                                 <h3 style="color: #ff0000">
 													<c:out value="${sessionScope.errorMessage}"></c:out>
-													<% session.setAttribute("errorMessage", ""); %>
+													<c:set var="errorMessage" value="" scope="session"/>
 												</h3>
                                             </div>
                                         </c:if>
@@ -328,7 +328,7 @@
                                             <div class="form-group">
                                                 <h3 style="color: #ff0000">
 													<c:out value="${sessionScope.errorMessage}"></c:out>
-													<% session.setAttribute("errorMessage", ""); %>
+													<c:set var="errorMessage" value="" scope="session"/>
 												</h3>
                                             </div>
                                         </c:if>
@@ -454,7 +454,7 @@
                                             <div class="form-group">
                                                 <h3 style="color: #ff0000">
 													<c:out value="${sessionScope.errorMessage}"></c:out>
-													<% session.setAttribute("errorMessage", ""); %>
+													<c:set var="errorMessage" value="" scope="session"/>
 												</h3>
                                             </div>
                                         </c:if>
@@ -569,7 +569,7 @@
                                             <div class="form-group">
                                                 <h3 style="color: #ff0000">
 													<c:out value="${sessionScope.errorMessage}"></c:out>
-													<% session.setAttribute("errorMessage", ""); %>
+													<c:set var="errorMessage" value="" scope="session"/>
 												</h3>
                                             </div>
                                         </c:if>
@@ -677,15 +677,15 @@
                                         <div class="clearfix"></div>
                                     </form>
                                 </div>
-                                <% session.setAttribute("errorInput", null); %>
-                                <% session.setAttribute("errorTempData", null); %>
+                                	<% session.setAttribute("errorInput", null); %>
+									<% session.setAttribute("errorTempData", null); %>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+	</div>
 
     <jsp:include page="_footer.jsp"></jsp:include>
 
